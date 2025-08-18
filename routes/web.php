@@ -89,3 +89,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::patch('/comments/{id}/activate', [CommentsController::class, 'activate'])->name('comments.activate');
     });
 });
+
+
+
+Route::get('/dbcheck', fn() => DB::select("SELECT DATABASE() db, @@hostname host, @@port prt, @@version ver"));
+
+Route::get('/dbcheck', fn() => DB::select("SELECT DATABASE() db, @@hostname host, @@port prt, @@version ver"));

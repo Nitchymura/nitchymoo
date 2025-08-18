@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
+{{-- @section('title', 'Admin') --}}
+
 @section('content')
 
+{{-- @if(request()->is('admin/*')) --}}
 <main>
     <div class="row justify-content-center mt-5">
         <div class="col-2 my-5">
@@ -26,4 +29,6 @@
         </div>
     </div>
 </main>
+{{-- @endif --}}
+
 @endsection

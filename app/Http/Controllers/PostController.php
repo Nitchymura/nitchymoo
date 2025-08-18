@@ -339,3 +339,116 @@ class PostController extends Controller
         return redirect()->route('home');
     }
 }
+// public function update(Request $request, $id){
+    //     $request->validate([
+    //         'categories' => 'required|array|between:1,3',
+    //         'title' => 'required',
+    //         'description' => 'required|max:1000',
+    //         'image' => 'max:1048|mimes:jpg,jpeg,png,gif'
+    //     ]);
+    //     $post_a = $this->post->findOrFail($id);
+
+    //     $post_a->description = $request->description;
+    //     $post_a->title = $request->title;
+    //     $post_a->term_start = $request->term_start;
+    //     $post_a->term_end = $request->term_end;
+    //     if($request->image)
+    //         $post_a->image = "data:image/".$request->image->extension().";base64,".base64_encode(file_get_contents($request->image));
+    //     $post_a->save();
+
+    //     $post_a->categoryPosts()->delete();
+
+    //     foreach($request->categories as $category_id){
+    //         CategoryPost::create([
+    //             'category_id' => $category_id,
+    //             'post_id' => $post_a->id
+    //         ]);
+    //     }
+
+    //     if ($request->hasFile('photos')) {
+    //     foreach ($request->file('photos') as $i => $photo) {
+    //         if ($photo) {
+    //             // 画像ファイルの内容を読み込む
+    //             $fileContent = file_get_contents($photo->getRealPath());
+
+    //             // MIMEタイプを取得（例：image/jpeg）
+    //             $mimeType = $photo->getMimeType();
+
+    //             // Base64エンコードしてデータURLを作成
+    //             $base64Image = 'data:' . $mimeType . ';base64,' . base64_encode($fileContent);
+
+    //             // 優先度の設定
+    //             $priority = $request->input("priorities.$i") ?? ($i + 1);
+
+    //             // データベースに保存
+    //             PostBody::create([
+    //                 'post_id' => $post_a->id,
+    //                 'photo' => $base64Image,  // Base64形式で保存
+    //                 'priority' => $priority,
+    //             ]);
+    //         }
+    //     }
+    // }
+    //     return redirect()->route('home');
+    // }
+
+    //     public function store(Request $request)
+// {
+//     $request->validate([
+//         'categories' => 'required|array|between:1,3',
+//         'title' => 'required',
+//         'description' => 'required|max:1000',
+//         'image' => 'required|max:1048|mimes:jpg,jpeg,png,gif',
+//         'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
+//     ]);
+
+//     // Postの作成
+//     $post = new Post();
+//     $post->description = $request->description;
+//     $post->title = $request->title;
+//     $post->term_start = $request->term_start;
+//     $post->term_end = $request->term_end;
+//     $post->user_id = Auth::user()->id;
+//     $post->image = "data:image/".$request->image->extension().";base64,".base64_encode(file_get_contents($request->image));
+//     $post->save();
+
+//     // カテゴリの保存
+//     foreach ($request->categories as $category_id) {
+//         CategoryPost::create([
+//             'category_id' => $category_id,
+//             'post_id' => $post->id
+//         ]);
+//     }
+
+//     // 画像がアップロードされている場合、PostBodyController にリダイレクト
+//     // if ($request->hasFile('photo')) {
+//     //     return redirect()->route('post.body.store', ['post_id' => $post->id])->with('photo', $request->file('photo'));
+//     // }
+
+//     if ($request->hasFile('photos')) {
+//         foreach ($request->file('photos') as $i => $photo) {
+//             if ($photo) {
+//                 // 画像ファイルの内容を読み込む
+//                 $fileContent = file_get_contents($photo->getRealPath());
+
+//                 // MIMEタイプを取得（例：image/jpeg）
+//                 $mimeType = $photo->getMimeType();
+
+//                 // Base64エンコードしてデータURLを作成
+//                 $base64Image = 'data:' . $mimeType . ';base64,' . base64_encode($fileContent);
+
+//                 // 優先度の設定
+//                 $priority = $request->input("priorities.$i") ?? ($i + 1);
+
+//                 // データベースに保存
+//                 PostBody::create([
+//                     'post_id' => $post->id,
+//                     'photo' => $base64Image,  // Base64形式で保存
+//                     'priority' => $priority,
+//                 ]);
+//             }
+//         }
+//     }
+
+//     return redirect()->route('home');
+// }

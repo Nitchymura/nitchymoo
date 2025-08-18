@@ -97,5 +97,8 @@
 <p class="fw-light {{ $noClamp ?? false ? '' : 'description' }}">
     {{ $post->description }}
 </p>
-
+{{-- 
+@pushOnce('scripts')
+<script src="{{ asset('js/post-like.js') }}"></script>
+@endPushOnce --}}
 

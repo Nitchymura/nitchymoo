@@ -27,7 +27,26 @@
                             <a href="{{ route('post.show', $comment->post->id) }}"><img src="{{ $comment->post->image }}" alt="" class="img-md d-block mx-auto"></a>
                         @endif
                     </td>
-                    <td>{{ $comment->body }}</td>                  
+                    <td>{{ $comment->body }}</td>
+                    {{-- <td>
+                        @if($comment->categorycomments)
+                            @foreach($comment->categorycomments as $category_comment)
+                                @if($category_comment->category_id == 1)
+                                    <div class="badge bg-success bg-opacity-30">
+                                @elseif($category_comment->category_id == 2)
+                                    <div class="badge bg-primary bg-opacity-30">
+                                @elseif($category_comment->category_id == 3)
+                                    <div class="badge bg-warning bg-opacity-30">                
+                                @elseif($category_comment->category_id == 4)
+                                    <div class="badge bg-danger bg-opacity-30">
+                                @endif    
+                                        <a href="{{ route('category.show', $category_comment->category_id) }}" class="text-decoration-none text-white " >{{ $category_comment->category->name }}</a>                
+                                    </div>
+                            @endforeach
+                        @else
+                            <div class="badge bg-dark">Uncategorized</div>
+                        @endif
+                    </td> --}}
                     <td><a href="{{ route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a></td>
                     <td>
                         {{date('M d, Y H:m:s', strtotime($comment->created_at))}}
