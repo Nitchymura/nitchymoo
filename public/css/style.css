@@ -1,0 +1,140 @@
+table.text-secondary td,
+table.text-secondary th {
+    color:inherit;
+}
+
+.icon-sm{
+    font-size:2rem;
+}
+
+.avatar-sm{
+    height:2rem;
+    width:2rem;
+    object-fit:cover;
+}
+
+.icon-md{
+    font-size:3.5rem;
+}
+
+.avatar-md{
+    height:3.5rem;
+    width:3.5rem;
+    object-fit:cover;
+
+}
+
+.fa-heart,
+.fa-comment {
+    font-size:1.2rem
+}
+
+.xsmall{
+    font-size:0.7rem
+}
+
+.img-lg{
+    height:9rem;
+    width:9rem;
+    object-fit:cover;
+}
+.img-md{
+    width: 5rem;
+    width:5rem;
+    object-fit:cover;
+}
+.icon-lg{
+    font-size:9rem;
+}
+
+.image-lg{
+    position: relative;
+    width: auto;
+    height: 9rem;
+    object-fit:cover;
+}
+/* 画像に対する削除ボタンの位置調整 */
+.delete-photo-btn {
+    position: absolute;
+    bottom: 5px;
+    left: -5px;
+    padding: 5px;
+    z-index: 10; /* ボタンが他の要素の背後に隠れないように */
+}
+
+.image-xl{
+    width: auto;
+    height: 15rem;
+    object-fit:cover;
+}
+
+.grid-img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+}
+
+.nishimoo{
+    width: 200px;
+}
+
+.description{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.body-container .description{
+
+    overflow: hidden;
+
+}
+
+.mobile-center {
+    margin-left: 1rem;
+}
+
+.post-photo{
+    height: 600px;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 1200px) {
+    .post-photo{
+    height: 500px;
+    object-fit: cover;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .nishimoo{
+        width: 150px;
+    }
+
+    .mobile-center {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center;
+    width: 100%;
+    }
+    .delete-photo-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 140px;
+    padding: 5px;
+    z-index: 10; /* ボタンが他の要素の背後に隠れないように */
+    }
+    .post-body{
+        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+    .post-photo{
+        height: 260px;
+        object-fit: cover;
+    }
+    .nav-link {
+        margin: 0 50px 0 50px;
+}
+}
