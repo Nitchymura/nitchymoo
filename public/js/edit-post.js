@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const id = window.location.pathname.split('/')[2]; // URLの2番目のパラメータ（ID）
         // ローカル開発環境の場合はlocalhostにする
         // fetch('http://127.0.0.1:8000/image/${id}/delete', {
-        fetch('https://nishimoo-5dd72865c800.herokuapp.com/image/${id}/delete', {   
+        fetch('https://nitchymoo-d0fdfc674f5d.herokuapp.com/image/${id}/delete', {   
         method: "DELETE",
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),

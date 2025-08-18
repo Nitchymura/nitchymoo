@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteBtn.addEventListener('click', function () {
         // ローカル開発環境の場合はlocalhostにする
         // fetch("http://127.0.0.1:8000/profile/avatar", {
-        fetch("https://nishimoo-5dd72865c800.herokuapp.com/profile/avatar", {    
+        fetch("https://nitchymoo-d0fdfc674f5d.herokuapp.com/profile/avatar", {    
         method: "DELETE",
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
