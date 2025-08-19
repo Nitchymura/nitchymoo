@@ -29,7 +29,7 @@
             <div class="container">
                 {{-- @guest --}}
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <img src="{{ asset('images/NISHIMOO.png') }}" alt="" class="nishimoo">
+                    <img src="{{ asset('images/NITCHYMOO.png') }}" alt="" class="nishimoo">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                 </a>
                 {{-- @endguest --}}

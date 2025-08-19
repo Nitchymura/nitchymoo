@@ -28,8 +28,8 @@
         // null安全にコレクション化
         $bodies = collect($all_bodies ?? []);
     @endphp
-
-    <div class="row border shadow mt-5 pt-3">
+<div class="row" style="height: 40px"></div>
+    <div class="row border shadow mt-5">
         <div class="col-12 col-md-8 p-0 border-end">
             @if ($bodies->isNotEmpty())
                 {{-- 本文画像 + Body画像をスライドで表示 --}}

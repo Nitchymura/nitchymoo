@@ -41,11 +41,11 @@ class PostController extends Controller
         'description'  => ['required','string','max:1000'],
         'term_start'   => ['nullable','date'],
         'term_end'     => ['nullable','date','after_or_equal:term_start'],
-        'image'        => ['required','image','mimes:jpg,jpeg,png,gif','max:1500'],     // メイン必須のまま
-        'photos.*.*'   => ['nullable','image','mimes:jpg,jpeg,png,gif','max:2048'],    // ← 2段配列対応（photos[new][i]）
+        'image'        => ['required','image','mimes:jpg,jpeg,png,gif','max:1500'],
+        'photos.*.*'   => ['nullable','image','mimes:jpg,jpeg,png,gif','max:2048'],
     ]);
 
-    DB::transaction(function () use ($request) {
+    $post = DB::transaction(function () use ($request) {
 
         // ---- Post 作成 ----
         $post = new Post();
@@ -55,7 +55,6 @@ class PostController extends Controller
         $post->term_end    = $request->term_end ?: null;
         $post->user_id     = Auth::id();
 
-        // メイン画像（GDで圧縮→Base64）
         if ($request->hasFile('image')) {
             $post->image = $this->gdCompressToDataUrl($request->file('image'));
         }
@@ -69,25 +68,17 @@ class PostController extends Controller
             ]);
         }
 
-        // ---- サブ画像 (最大3枠) ----
-        // create 画面は photos[new][i] / priorities[new][i] で飛んでくる想定
-        $photosAll        = $request->file('photos') ?? [];                 // ['new' => [1=>UploadedFile,...]] あるいは [1=>UploadedFile,...]
-        $photosNew        = $photosAll['new'] ?? $photosAll;                // 'new' キーがあればそれを、無ければフラット配列を使う
-        $prioritiesAll    = $request->input('priorities', []);              // ['new'=>[1=>1,...]] or [1=>1,...]
-        $prioritiesNew    = $prioritiesAll['new'] ?? $prioritiesAll;
+        // ---- サブ画像 ----
+        $photosAll     = $request->file('photos') ?? [];
+        $photosNew     = $photosAll['new'] ?? $photosAll;
+        $prioritiesAll = $request->input('priorities', []);
+        $prioritiesNew = $prioritiesAll['new'] ?? $prioritiesAll;
 
         for ($slot = 1; $slot <= 6; $slot++) {
-            /** @var \Illuminate\Http\UploadedFile|null $uploaded */
-            $uploaded = $photosNew[$slot] ?? null;
-            // 万一 0 始まりで入ってくるフォームにも対応
-            if (!$uploaded && isset($photosNew[$slot - 1])) {
-                $uploaded = $photosNew[$slot - 1];
-            }
-
+            $uploaded = $photosNew[$slot] ?? $photosNew[$slot - 1] ?? null;
             if ($uploaded) {
                 $dataUrl  = $this->gdCompressToDataUrl($uploaded);
                 $priority = $prioritiesNew[$slot] ?? $slot;
-
                 PostBody::create([
                     'post_id'  => $post->id,
                     'photo'    => $dataUrl,
@@ -95,10 +86,15 @@ class PostController extends Controller
                 ]);
             }
         }
+
+        return $post; // ← クロージャから返す
     });
 
-    return redirect()->route('home')->with('status', 'Post created successfully.');
+    // ここで $post が使える
+    return redirect()->route('post.show', $post->id)
+                     ->with('status', 'Post created successfully.');
 }
+
 
 
 
