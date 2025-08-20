@@ -21,7 +21,11 @@ table.text-secondary th {
     height:3.5rem;
     width:3.5rem;
     object-fit:cover;
-
+}
+.avatar-lg{
+    height:9rem;
+    width:9rem;
+    object-fit:cover;
 }
 
 .fa-heart,

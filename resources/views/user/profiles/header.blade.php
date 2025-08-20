@@ -3,7 +3,7 @@
         {{-- avatar/icon --}}       
         {{-- <div type="button" data-bs-toggle="modal" data-bs-target="#comment-list{{ $user->id }}"> --}}
             @if($user->avatar)
-                <img src="{{ $user->avatar }}" alt="" class="rounded-circle img-lg d-block mx-auto">
+                <img src="{{ $user->avatar }}" alt="" class="rounded-circle avatar-lg d-block mx-auto">
             @else
                 <i class="fa-solid fa-circle-user text-secondary icon-lg d-block text-center"></i>
             @endif
