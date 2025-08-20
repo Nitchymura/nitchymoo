@@ -41,8 +41,8 @@ class PostController extends Controller
         'description'  => ['required','string','max:1000'],
         'term_start'   => ['nullable','date'],
         'term_end'     => ['nullable','date','after_or_equal:term_start'],
-        'image'        => ['required','image','mimes:jpg,jpeg,png,gif','max:1500'],
-        'photos.*.*'   => ['nullable','image','mimes:jpg,jpeg,png,gif','max:2048'],
+        'image'        => ['required','image','mimes:jpg,jpeg,png,gif'],
+        'photos.*.*'   => ['nullable','image','mimes:jpg,jpeg,png,gif'],
     ]);
 
     $post = DB::transaction(function () use ($request) {
@@ -55,9 +55,18 @@ class PostController extends Controller
         $post->term_end    = $request->term_end ?: null;
         $post->user_id     = Auth::id();
 
-        if ($request->hasFile('image')) {
-            $post->image = $this->gdCompressToDataUrl($request->file('image'));
-        }
+if ($request->hasFile('image')) {
+    $dataUrl = $this->compressToMax200Kb($request->file('image'));
+
+    $binaryData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $dataUrl));
+    $sizeKB = strlen($binaryData) / 1024;
+    if ($sizeKB > 1500) {
+        return back()->withErrors(['image' => "画像サイズが 1500 KB を超えています。"]);
+    }
+
+    $post->image = $dataUrl;
+}
+
         $post->save();
 
         // ---- カテゴリ保存 ----
@@ -75,26 +84,27 @@ class PostController extends Controller
         $prioritiesNew = $prioritiesAll['new'] ?? $prioritiesAll;
 
         for ($slot = 1; $slot <= 6; $slot++) {
-            $uploaded = $photosNew[$slot] ?? $photosNew[$slot] ?? null;
-            if ($uploaded) {
-                $dataUrl  = $this->gdCompressToDataUrl($uploaded);
-                $priority = $prioritiesNew[$slot] ?? $slot;
+    $uploaded = $photosNew[$slot] ?? null;
+    if ($uploaded) {
+        $dataUrl  = $this->compressToMax200Kb($uploaded);
 
-                // 重複登録防止：既に同じ post_id + priority がある場合は更新
-                $existing = PostBody::where('post_id', $post->id)
-                                    ->where('priority', $priority)
-                                    ->first();
-                if ($existing) {
-                    $existing->update(['photo' => $dataUrl]);
-                } else {
-                    PostBody::create([
-                        'post_id'  => $post->id,
-                        'photo'    => $dataUrl,
-                        'priority' => $priority,
-                    ]);
-                }
-            }
+        // サイズチェック
+        $binaryData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $dataUrl));
+        $sizeKB = strlen($binaryData) / 1024;
+        if ($sizeKB > 1500) {
+            return back()->withErrors(['photos' => "サブ画像のサイズが大きすぎます。"]);
         }
+
+        $priority = $prioritiesNew[$slot] ?? $slot;
+
+        PostBody::create([
+            'post_id'  => $post->id,
+            'photo'    => $dataUrl,
+            'priority' => $priority,
+        ]);
+    }
+}
+
 
 
         return $post; // ← クロージャから返す
@@ -142,8 +152,8 @@ class PostController extends Controller
         'description'  => ['required','string','max:1000'],
         'term_start'   => ['nullable','date'],
         'term_end'     => ['nullable','date','after_or_equal:term_start'],
-        'image'        => ['nullable','image','mimes:jpg,jpeg,png,gif','max:1500'],
-        'photos.*.*'   => ['nullable','image','mimes:jpg,jpeg,png,gif','max:2048'],
+        'image'        => ['nullable','image','mimes:jpg,jpeg,png,gif'],
+        'photos.*.*'   => ['nullable','image','mimes:jpg,jpeg,png,gif'],
     ]);
 
     $post = Post::findOrFail($id);
@@ -156,10 +166,21 @@ class PostController extends Controller
         $post->term_start  = $request->term_start ?: null;
         $post->term_end    = $request->term_end ?: null;
 
-        if ($request->hasFile('image')) {
-            $post->image = $this->gdCompressToDataUrl($request->file('image')); // ←ここだけ差し替え
-            // $post->image = "data:image/".$request->image->extension().";base64,".base64_encode(file_get_contents($request->image));
-        }
+if ($request->hasFile('image')) {
+    $dataUrl = $this->compressToMax200Kb($request->file('image'));
+
+    // base64をバイナリに戻してサイズをチェック
+    $binaryData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $dataUrl));
+    $sizeKB = strlen($binaryData) / 1024;
+    $maxKB  = 1500;
+
+    if ($sizeKB > $maxKB) {
+        return back()->withErrors(['image' => "画像サイズが {$maxKB} KB を超えています。"]);
+    }
+
+    $post->image = $dataUrl;
+}
+
         $post->save();
 
         // ---- カテゴリ ----
@@ -190,14 +211,22 @@ class PostController extends Controller
 
             // 新規＝作成/置換
             if ($uploaded) {
-                $dataUrl = $this->gdCompressToDataUrl($uploaded); // ←ここも差し替え
+                $dataUrl = $this->compressToMax200Kb($uploaded);
+
+                // サイズチェック
+                $binaryData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $dataUrl));
+                $sizeKB = strlen($binaryData) / 1024;
+                if ($sizeKB > 1500) {
+                    return back()->withErrors(['photos' => "サブ画像のサイズが大きすぎます。"]);
+                }
+
                 if ($existing) {
                     $existing->update(['photo' => $dataUrl, 'priority' => $priority]);
                 } else {
                     PostBody::create(['post_id' => $post->id, 'photo' => $dataUrl, 'priority' => $priority]);
                 }
-                continue;
             }
+
 
             // 削除
             if ($deleteFlag === '1' && $existing) {
@@ -215,7 +244,7 @@ class PostController extends Controller
     return redirect()->route('post.show', $post->id)->with('status', 'Post updated successfully.');
     }
 
-    private function gdCompressToDataUrl(\Illuminate\Http\UploadedFile $file, int $maxWidth = 1600, int $quality = 78): string
+    private function gdCompressToDataUrl(\Illuminate\Http\UploadedFile $file, int $maxWidth = 1200, int $quality = 78): string
 {
     // GDが無ければフォールバック
     if (!extension_loaded('gd')) {
@@ -281,6 +310,74 @@ class PostController extends Controller
 
     return 'data:image/jpeg;base64,' . base64_encode($jpegData);
 }
+
+    private function compressToMax200Kb(\Illuminate\Http\UploadedFile $file, int $maxWidth = 1600, int $maxBytes = 200 * 1024): string
+{
+    // GDがなければ素で返す
+    if (!extension_loaded('gd')) {
+        $binary = file_get_contents($file->getRealPath());
+        $mime = $file->getMimeType() ?: 'application/octet-stream';
+        return 'data:' . $mime . ';base64,' . base64_encode($binary);
+    }
+
+    $path = $file->getRealPath();
+    $info = @getimagesize($path);
+    if ($info === false) {
+        $binary = file_get_contents($path);
+        $mime = $file->getMimeType() ?: 'application/octet-stream';
+        return 'data:' . $mime . ';base64,' . base64_encode($binary);
+    }
+
+    [$width, $height, $type] = $info;
+
+    // GDで読み込み
+    switch ($type) {
+        case IMAGETYPE_JPEG: $src = @imagecreatefromjpeg($path); break;
+        case IMAGETYPE_PNG:  $src = @imagecreatefrompng($path); break;
+        case IMAGETYPE_GIF:  $src = @imagecreatefromgif($path); break;
+        default:
+            $binary = file_get_contents($path);
+            $mime = $file->getMimeType() ?: 'application/octet-stream';
+            return 'data:' . $mime . ';base64,' . base64_encode($binary);
+    }
+
+    if (!$src) {
+        $binary = file_get_contents($path);
+        $mime = $file->getMimeType() ?: 'application/octet-stream';
+        return 'data:' . $mime . ';base64,' . base64_encode($binary);
+    }
+
+    // 幅が大きい場合のみ縮小
+    if ($width > $maxWidth) {
+        $newW = $maxWidth;
+        $newH = (int)round($height * ($newW / $width));
+    } else {
+        $newW = $width;
+        $newH = $height;
+    }
+
+    // 出力キャンバス（白背景）
+    $dst = imagecreatetruecolor($newW, $newH);
+    $white = imagecolorallocate($dst, 255, 255, 255);
+    imagefill($dst, 0, 0, $white);
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $newW, $newH, $width, $height);
+
+    // JPEG圧縮ループ（200KB以下になるまで品質を下げる）
+    $quality = 90; // 初期品質
+    do {
+        ob_start();
+        imagejpeg($dst, null, $quality);
+        $jpegData = ob_get_clean();
+        $size = strlen($jpegData);
+        $quality -= 5;
+    } while ($size > $maxBytes && $quality > 10);
+
+    imagedestroy($src);
+    imagedestroy($dst);
+
+    return 'data:image/jpeg;base64,' . base64_encode($jpegData);
+}
+
 
     public function deleteImage(Request $request, $id){
         $post_a = $this->post->findOrFail($id);

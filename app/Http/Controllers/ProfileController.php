@@ -30,27 +30,98 @@ class ProfileController extends Controller
         return view('user.profiles.edit');
     }
 
-    public function update(Request $request){
-        $request->validate([
-            'avatar' => 'max:2048|mimes:jpeg,jpg,png,gif',
-            'name' => 'required|max:50',
-            'email' => 'required|max:50|email|unique:users,email,'.Auth::user()->id,
-            'introduction' => 'max:1500'
-        ]);
+    // 
+    
+    public function update(Request $request)
+{
+    $request->validate([
+        'avatar' => 'nullable|image|mimes:jpeg,jpg,png,gif', // maxは削除
+        'name' => 'required|max:50',
+        'email' => 'required|max:50|email|unique:users,email,' . Auth::user()->id,
+        'introduction' => 'max:1500'
+    ]);
 
-        $user_a = $this->user->findOrFail(Auth::user()->id);
+    $user = $this->user->findOrFail(Auth::user()->id);
 
-        $user_a->name = $request->name;
-        $user_a->email = $request->email;
-        $user_a->introduction = $request->introduction;
-        if($request->avatar){
-            $user_a->avatar = "data:image/".$request->avatar->extension().";base64,".base64_encode(file_get_contents($request->avatar));
-        }
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->introduction = $request->introduction;
 
-        $user_a->save();
-
-        return redirect()->route('profile.show',Auth::user()->id);
+    if ($request->hasFile('avatar')) {
+        $user->avatar = $this->gdCompressToDataUrl($request->file('avatar'), 400, 78);
     }
+
+    $user->save();
+
+    return redirect()->route('profile.show', Auth::user()->id);
+}
+    private function gdCompressToDataUrl(\Illuminate\Http\UploadedFile $file, int $maxWidth = 1200, int $quality = 78): string
+{
+    // GDが無ければフォールバック
+    if (!extension_loaded('gd')) {
+        $binary = file_get_contents($file->getRealPath());
+        $mime = $file->getMimeType() ?: 'application/octet-stream';
+        return 'data:' . $mime . ';base64,' . base64_encode($binary);
+    }
+
+    // 画像情報
+    $path = $file->getRealPath();
+    $info = @getimagesize($path);
+    if ($info === false) {
+        // 画像判定NGなら素で返す
+        $binary = file_get_contents($path);
+        $mime = $file->getMimeType() ?: 'application/octet-stream';
+        return 'data:' . $mime . ';base64,' . base64_encode($binary);
+    }
+
+    [$width, $height, $type] = $info;
+
+    // 入力をGDで読み込み
+    switch ($type) {
+        case IMAGETYPE_JPEG: $src = @imagecreatefromjpeg($path); break;
+        case IMAGETYPE_PNG:  $src = @imagecreatefrompng($path);  break;
+        case IMAGETYPE_GIF:  $src = @imagecreatefromgif($path);  break;
+        default:
+            // JPEG/PNG/GIF以外は素で返す（mimesで弾いてる想定）
+            $binary = file_get_contents($path);
+            $mime = $file->getMimeType() ?: 'application/octet-stream';
+            return 'data:' . $mime . ';base64,' . base64_encode($binary);
+    }
+    if (!$src) {
+        $binary = file_get_contents($path);
+        $mime = $file->getMimeType() ?: 'application/octet-stream';
+        return 'data:' . $mime . ';base64,' . base64_encode($binary);
+    }
+
+    // リサイズ幅を決定（幅が大きい時のみ縮小）
+    if ($width > $maxWidth) {
+        $newW = $maxWidth;
+        $newH = (int)round($height * ($newW / $width));
+    } else {
+        $newW = $width;
+        $newH = $height;
+    }
+
+    // 出力キャンバス（JPEG想定：真っ白背景）
+    $dst = imagecreatetruecolor($newW, $newH);
+    // PNG/GIFの透明は白背景に合成（サイズ優先でJPEGに統一するため）
+    $white = imagecolorallocate($dst, 255, 255, 255);
+    imagefill($dst, 0, 0, $white);
+
+    // 高品質リサンプル
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $newW, $newH, $width, $height);
+
+    // バッファにJPEG出力
+    ob_start();
+    imagejpeg($dst, null, max(1, min(100, $quality))); // 1〜100にクリップ
+    $jpegData = ob_get_clean();
+
+    imagedestroy($src);
+    imagedestroy($dst);
+
+    return 'data:image/jpeg;base64,' . base64_encode($jpegData);
+}
+
 
     public function updateRoleID(Request $request, $user_id){
         $user_a = $this->user->findOrFail($user_id);

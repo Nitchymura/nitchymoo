@@ -37,6 +37,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/post/{id}/deactivate', [PostController::class, 'deactivate'])->name('posts.deactivate');
     Route::patch('/post/{id}/activate', [PostController::class, 'activate'])->name('posts.activate');
     Route::post('/post/{id}/toggle-like', [PostController::class, 'toggleLike'])->name('post.toggleLike');
+    Route::get('/posts/{post}/translate', [PostController::class, 'translate'])
+     ->name('posts.translate'); 
 
     Route::post('/comment/{post_id}/store', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('comment/{id}/delete', [CommentController::class, 'delete'])->name('comment.delete');

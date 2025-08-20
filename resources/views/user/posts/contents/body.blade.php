@@ -97,8 +97,31 @@
 <p class="fw-light {{ $noClamp ?? false ? '' : 'description' }}">
     {{ $post->description }}
 </p>
-{{-- 
-@pushOnce('scripts')
-<script src="{{ asset('js/post-like.js') }}"></script>
-@endPushOnce --}}
+
+{{-- <button class="btn btn-sm btn-outline-primary mt-2 translate-btn" 
+        data-id="{{ $post->id }}">
+   翻訳する
+</button>
+
+<div id="translation-result-{{ $post->id }}" class="mt-2 text-muted"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.translate-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      try {
+        const res = await fetch(`/posts/${id}/translate`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        document.getElementById(`translation-result-${id}`).innerText = data.translation;
+      } catch (e) {
+        console.error(e);
+        document.getElementById(`translation-result-${id}`).innerText = '翻訳取得に失敗しました。';
+      }
+    });
+  });
+});
+</script> --}}
+
 
