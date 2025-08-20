@@ -42,7 +42,9 @@
                                 @elseif($category_post->category_id == 5)
                                     <div class="badge bg-info bg-opacity-30">
                                 @endif    
-                                        <a href="{{ route('category.show', $category_post->category_id) }}" class="text-decoration-none text-white " >{{ $category_post->category->name }}</a>                
+                                    <a href="{{ route('admin.posts', ['category' => $category_post->category_id]) }}" class="text-decoration-none text-white">
+                                        {{ $category_post->category->name }}
+                                    </a>             
                                     </div>
                             @endforeach
                         @else

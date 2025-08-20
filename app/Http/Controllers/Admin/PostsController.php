@@ -19,6 +19,13 @@ class PostsController extends Controller
             //search results
             $all_posts = $this->post->latest()->where('description', 'LIKE', '%'.$request->search.'%')->paginate(10);
             //SELECT * FROM posts WHERE description LIKE '%searchword%'
+        }elseif($request->category){
+            // カテゴリ絞り込み
+            $all_posts = Post::whereHas('categoryPosts', function($q) use ($request) {
+                    $q->where('category_id', $request->category);
+                })
+                ->latest()
+                ->paginate(10);
         }else{
             $all_posts = $this->post->withTrashed()->latest()->paginate(10);
         }
