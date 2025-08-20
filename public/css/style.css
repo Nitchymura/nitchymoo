@@ -175,3 +175,18 @@ table.text-secondary th {
     text-overflow: ellipsis;
     }
 }
+.top-badge {
+    font-size: 10px; /* デフォルトの小さい画面用 */
+}
+
+@media (min-width: 768px) {
+    .top-badge {
+        font-size: 16px; /* md以上の画面で大きく */
+    }
+}
+
+@media (min-width: 1200px) {
+    .top-badge {
+        font-size: 18px; /* lg以上の画面でさらに大きく */
+    }
+}
