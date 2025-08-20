@@ -311,7 +311,7 @@ if ($request->hasFile('image')) {
     return 'data:image/jpeg;base64,' . base64_encode($jpegData);
 }
 
-    private function compressToMax200Kb(\Illuminate\Http\UploadedFile $file, int $maxWidth = 1600, int $maxBytes = 200 * 1024): string
+    private function compressToMax200Kb(\Illuminate\Http\UploadedFile $file, int $maxWidth = 500, int $maxBytes = 200 * 1024): string
 {
     // GDがなければ素で返す
     if (!extension_loaded('gd')) {

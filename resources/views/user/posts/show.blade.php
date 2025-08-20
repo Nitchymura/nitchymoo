@@ -6,8 +6,12 @@
 @section('content')
 
     <style>
+        /* .col-4.side{
+            overflow-y: scroll;
+        } */
         .side{
             overflow-y: scroll;
+            height: 600px
         }
         .card-body{
             position: absolute;
@@ -51,37 +55,37 @@
                     @endforeach 
                 </div> 
             <script>
-                (function () {
-                const carousel = document.getElementById('postCarousel-{{ $post->id }}');
-                if (!carousel) return;
+            (function () {
+            const carousel = document.getElementById('postCarousel-{{ $post->id }}');
+            if (!carousel) return;
 
-                const center = (container) => {
-                    if (!container) return;
-                    container.scrollTop = (container.scrollHeight - container.clientHeight) / 2;
-                };
+            const center = (container) => {
+                if (!container) return;
+                container.scrollTop = (container.scrollHeight - container.clientHeight) / 2;
+            };
 
-                // 1) 画像が読み込まれたら、そのスライドを中央に
-                carousel.querySelectorAll('.post-photo').forEach(img => {
-                    const container = img.closest('.post-photo-container');
-                    if (img.complete) {
-                    center(container);
-                    } else {
-                    img.addEventListener('load', () => center(container));
-                    }
-                });
+            // 1) 画像が読み込まれたら、そのスライドを中央に
+            carousel.querySelectorAll('.post-photo').forEach(img => {
+                const container = img.closest('.post-photo-container');
+                if (img.complete) {
+                center(container);
+                } else {
+                img.addEventListener('load', () => center(container));
+                }
+            });
 
-                // 2) 初期表示の active スライドも一応再センタリング（描画後）
-                const activeContainer = carousel.querySelector('.carousel-item.active .post-photo-container');
-                setTimeout(() => center(activeContainer), 0);
+            // 2) 初期表示の active スライドも一応再センタリング（描画後）
+            const activeContainer = carousel.querySelector('.carousel-item.active .post-photo-container');
+            setTimeout(() => center(activeContainer), 0);
 
-                // 3) スライド切替後にも中央へ
-                carousel.addEventListener('slid.bs.carousel', (e) => {
-                    const shownItem = e.relatedTarget; // 今表示された .carousel-item
-                    const container = shownItem.querySelector('.post-photo-container');
-                    // 画像の高さが確定していない可能性があるので少し後で
-                    setTimeout(() => center(container), 0);
-                });
-                })();
+            // 3) スライド切替後にも中央へ
+            carousel.addEventListener('slid.bs.carousel', (e) => {
+                const shownItem = e.relatedTarget; // 今表示された .carousel-item
+                const container = shownItem.querySelector('.post-photo-container');
+                // 画像の高さが確定していない可能性があるので少し後で
+                setTimeout(() => center(container), 0);
+            });
+            })();
             </script>
 
 
