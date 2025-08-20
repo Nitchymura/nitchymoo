@@ -1,13 +1,15 @@
-<div class="mt-2">
+<div class="mt-2 d-flex align-items-center">
+    {{-- ユーザーのアバター画像が設定されている場合は表示 --}}
     @if($comment->user->avatar)
         <img src="{{ $comment->user->avatar }}" alt="" class="rounded-circle avatar-mini">
     @else
-        <i class="fa-solid fa-circle-user text-secondary icon-mini"></i>
+        <i class="fa-solid fa-circle-user text-secondary icon-mini align-items-center"></i>
     @endif
-    <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
+    <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold ms-2">{{ $comment->user->name }}</a>
     &nbsp;
     <span class="fw-light">{{ $comment->body }}</span>
-
+</div>
+<div class="mt-1">
     <div class="xsmall text-secondary">
         <span>{{ date('D, M d Y', strtotime($comment->created_at)) }}</span>
 

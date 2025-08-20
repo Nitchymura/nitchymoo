@@ -16,7 +16,7 @@
                         <img src="{{ Auth::user()->avatar ?? '' }}" 
                             alt="" 
                             id="avatar-preview" 
-                            class="rounded-circle img-lg"
+                            class="rounded-circle avatar-lg"
                             style="{{ Auth::user()->avatar ? '' : 'display:none;' }}">
                         <!-- ユーザーアイコンを代わりに表示 -->
                         <i class="fa-solid fa-circle-user text-secondary icon-lg d-block text-center" 

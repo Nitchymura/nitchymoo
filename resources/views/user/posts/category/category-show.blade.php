@@ -32,7 +32,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12 px-2">
             <div class="card mb-4">
                 <!-- title -->
-                @include('user.posts.category.contents.title')
+                @include('user.posts.contents.title')
                 <!-- image -->
                 <div class="container p-0">
                     <a href="{{route('post.show', $post->id)}}">
@@ -45,7 +45,7 @@
                 </div>
                 <!-- body -->
                 <div class="card-body">
-                    @include('user.posts.category.contents.body')
+                    @include('user.posts.contents.body')
                     <!-- COMMENTS -->
                     {{-- @if($post->comments->isNotEmpty())
                         <hr class="mt-3 mb-1">
