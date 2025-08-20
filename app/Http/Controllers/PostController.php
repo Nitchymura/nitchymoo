@@ -122,9 +122,9 @@ if ($request->hasFile('image')) {
     public function show($id){
         $post_a = $this->post->findOrFail($id);
         $all_bodies = $this->post_body->where('post_id', $id)->get();
-        
+        $tab = request()->query('tab', 'default'); 
 
-        return view('user.posts.show', compact('all_bodies'))->with('post', $post_a);
+        return view('user.posts.show', compact('all_bodies'))->with('post', $post_a)->with('tab', $tab);
     }
 
     public function edit($id){
