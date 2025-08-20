@@ -1,5 +1,5 @@
 <div class="row align-items-center">
-    <div class="col-auto">
+    <div class="col-1 px-0 ms-auto">
         {{-- like/heart button --}}
         @auth
             {{-- @if($post->isLiked())
@@ -29,7 +29,8 @@
                 @csrf
                 <button type="button" class="btn btn-sm shadow-none post-like-btn">
                     <i class="{{ $post->likes->where('user_id', Auth::id())->isNotEmpty() ? 'fa-solid text-danger' : 'fa-regular' }} fa-heart"></i>
-                    &nbsp;<span class="post-like-count" data-post-id="{{ $post->id }}">{{ $post->likes->count() }}</span>
+                    
+                    {{-- &nbsp;<span class="post-like-count" data-post-id="{{ $post->id }}">{{ $post->likes->count() }}</span> --}}
                 </button>
             </form>
 
@@ -39,6 +40,18 @@
             </button> 
             @include('user.posts.contents.modals.heart-icon')  
         @endauth
+    </div>
+    <div class="col-auto px-0 ms-0">
+        @if($post->likes->count()>=1)
+            <button class="btn btn-white border-0" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
+                {{ $post->likes->count() }}
+            </button>   
+        @else
+            <div class="mx-2">
+                {{ $post->likes->count() }}
+            </div>
+        @endif
+        @include('user.posts.contents.modals.like-list')
     </div>
 
     <div class="col-auto">
