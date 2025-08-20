@@ -3,6 +3,7 @@
 @section('title', 'Edit Profile')
 
 @section('content')
+<div class="row" style="height: 40px"></div>
     <div class="row justify-content-center mt-5">
         <div class="col-md-8 col-sm-11">
             <form action="{{ route('profile.update') }}" method="post" class="shadow rounded-3 bg-white p-5 mb-5" enctype="multipart/form-data">
@@ -13,7 +14,7 @@
                     <div class="col-4">
                         <!-- プレビュー用の img は常に用意する -->
                         <img src="{{ Auth::user()->avatar ?? '' }}" 
-                            alt="Avatar Preview" 
+                            alt="" 
                             id="avatar-preview" 
                             class="rounded-circle img-lg"
                             style="{{ Auth::user()->avatar ? '' : 'display:none;' }}">

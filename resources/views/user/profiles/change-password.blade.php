@@ -3,6 +3,7 @@
 @section('title', 'Edit Profile')
 
 @section('content')
+<div class="row" style="height: 40px"></div>
     <div class="row justify-content-center mt-5">
         <div class="col-md-8 col-sm-11">
             {{-- UPDATE PASSWORD --}}
