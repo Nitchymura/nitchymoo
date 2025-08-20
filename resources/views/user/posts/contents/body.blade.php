@@ -40,9 +40,9 @@
 
     @if($post->postBodies->count() > 0)
     <div class="col-auto">
-        <a href="{{ route('post.show', ['id' => $post->id, 'tab' => 'photo']) }}" class="text-decoration-none text-dark">
-            <i class="fa-solid fa-photo-film text-secondary"></i>&nbsp; {{ $post->postBodies->count() }}
-        </a>
+        <div class="col-auto"> 
+        <i class="fa-solid fa-photo-film text-secondary"></i>&nbsp; {{ $post->postBodies->count() }}
+        </div>
     </div>        
     @endif
     
