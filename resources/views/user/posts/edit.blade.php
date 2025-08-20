@@ -64,18 +64,22 @@
         <div class="row">
             <div class="col">
                 <label for="image" class="form-label fw-bold mt-3">Main Image</label>
-                @if($post->image)
-                    <img src="{{ $post->image }}" alt="" id="main-image-preview" class="d-block w-100 img-thumbnail mb-2">
+                @if(isset($post) && $post->image)
+                    <img src="{{ $post->image }}" alt="Main Image" id="main-image-preview"
+                        class="d-block w-50 img-thumbnail mb-2"
+                        data-existing="{{ $post->image }}">
                 @else
                     <i class="fa-solid fa-image text-secondary icon-lg d-block text-center" id="image-icon"></i>
                 @endif
+                <input type="file" id="image" name="image" class="form-control mt-2" accept="image/*">
             </div>
-        </div>    
+        </div>
+
 
         <div class="row">
             <div class="col">
                 <!-- 画像ファイル選択 -->
-                <input type="file" name="image" id="image" class="form-control" onchange="previewImage(event)">
+                {{-- <input type="file" name="image" id="image" class="form-control" onchange="previewImage(event)"> --}}
                 <p class="mb-0 form-text">
                     Acceptable formats: jpeg, jpg, png, gif <br>
                     Max size is 1048 KB
@@ -88,29 +92,7 @@
         @enderror
 
         @include('user.posts.contents.photos.photos')
-        {{-- <div class="row mx-0 px-0 text-center">
-            <div class="text-start pb-3 px-0">
-                <label for="photo" class="form-label mt-3">Other Photos</label>
-                <div class="col-12 px-0">
-                    @foreach($all_bodies as $body)
-                        <img src="{{ $body->photo }}" alt="" class="img-thumbnail img-lg">
-                    @endforeach
-                    <input type="file" id="photo" class="custom-file-input form-control input-box w-100" multiple>
-                    <p id="image-error" class="text-danger small d-none">Please upload at leaset one image.</p>
-                    @error('photo')
-                        <p class="mb-0 text-danger small">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="col-3">
-                    <button type="button" class="btn btn-green custom-file-label w-100 me-0 d-none" id="upload-btn">
-                        <i class="fa-solid fa-plus icon-xs d-inline"></i>Photo
-                    </button>
-                </div>
-            </div>
-                <p class="mt-0 xsmall text-start">
-                    Acceptable formats: jpeg, jpg, png, gif only.<br>Max size is 1048 KB
-                </p>
-        </div> --}}
+        
 
         <button type="submit" class="btn btn-warning mt-4 px-4 w-25">Save</button>
     </div>
