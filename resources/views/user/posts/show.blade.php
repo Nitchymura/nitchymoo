@@ -6,7 +6,7 @@
 @section('content')
 
     <style>
-        .col-4.side{
+        .side{
             overflow-y: scroll;
         }
         .card-body{

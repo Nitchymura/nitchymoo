@@ -11,7 +11,7 @@
                     @csrf
                     <div class="modal-body border-info">
                         <div>
-                            @forelse($post->comments as $comment)
+                            @forelse($post->comments->sortByDesc('created_at')->take(5)->sortBy('created_at') as $comment)
                                 <div class="mb-2">
                                     @if($comment->user->avatar)
                                         <img src="{{ $comment->user->avatar }}" alt="" class="rounded-circle avatar-mini">
