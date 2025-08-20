@@ -8,10 +8,11 @@
                     @csrf
                     @method('PATCH')
             <div class="modal-body">
-                <p>You can change <span class="fw-bold">{{ $user->name }}</span> 's role ID.</p>
+                <p>You can change <span class="fw-bold">{{ $user->name }}</span>'s role ID.</p>
                 <select name="role_id" id="role_id" class="form-control w-50">
-                    <option value="2" >{{ old('role_id') == '2' ? 'selected' : '' }}2: User</option>
-                    <option value="3" >{{ old('role_id') == '3' ? 'selected' : '' }}3: Guest</option>
+                    <option value="1" {{ old('role_id', $user->role_id) == 1 ? 'selected' : '' }}>1: Admin</option>
+                    <option value="2" {{ old('role_id', $user->role_id) == 2 ? 'selected' : '' }}>2: User</option>
+                    <option value="3" {{ old('role_id', $user->role_id) == 3 ? 'selected' : '' }}>3: Guest</option>
                 </select>
             </div>
             <div class="modal-footer border-0">                    
