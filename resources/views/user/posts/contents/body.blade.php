@@ -21,25 +21,18 @@
             @include('user.posts.contents.modals.heart-icon')  
         @endauth
     </div>
-    {{-- <div class="col-auto px-0 ms-0">
-        @if($post->likes->count()>=1)
-            <button class="btn btn-white border-0" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
-                {{ $post->likes->count() }}
-            </button>   
-        @else
-            <div class="mx-2">
-                {{ $post->likes->count() }}
-            </div>
-        @endif
-        @include('user.posts.contents.modals.like-list')
-    </div> --}}
 
     <div class="col-auto">
         @if($post->comments->count() >= 1)
-            <i class="fa-solid fa-comment text-info"></i>&nbsp;  {{ $post->comments->count() }}
+            <button type="button" class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#commentModal{{ $post->id }}">
+                <i class="fa-solid fa-comment text-info"></i>&nbsp; {{ $post->comments->count() }}
+            </button>
         @else
-            <i class="fa-regular fa-comment text-dark"></i>&nbsp;  {{ $post->comments->count() }}
+            <button type="button" class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#commentModal{{ $post->id }}">
+                <i class="fa-regular fa-comment text-dark"></i>&nbsp; {{ $post->comments->count() }}
+            </button>
         @endif
+        @include('user.posts.contents.modals.comment')  
     </div>
     {{-- <div class="col-auto px-0 me-1">
         {{ $post->comments->count() }}

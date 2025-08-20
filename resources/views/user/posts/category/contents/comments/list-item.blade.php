@@ -1,5 +1,5 @@
 <div class="mt-2">
-    <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
+    <a href="{{ route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
     &nbsp;
     <span class="fw-light">{{ $comment->body }}</span>
 

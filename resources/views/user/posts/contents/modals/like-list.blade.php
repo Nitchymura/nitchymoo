@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content border-0">
             <div class="modal-header border-0">
-                <button type="button" class="btn btn-sm ms-auto text-primary" data-bs-dismiss="modal">X</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-5">
                 <div class="w-75 mx-auto">

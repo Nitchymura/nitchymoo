@@ -5,7 +5,7 @@
     @else
         <i class="fa-solid fa-circle-user text-secondary icon-mini align-items-center"></i>
     @endif
-    <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold ms-2">{{ $comment->user->name }}</a>
+    <a href="{{ route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark fw-bold ms-2">{{ $comment->user->name }}</a>
     &nbsp;
     <span class="fw-light">{{ $comment->body }}</span>
 </div>
