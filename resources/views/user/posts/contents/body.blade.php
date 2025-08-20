@@ -1,5 +1,5 @@
 <div class="row align-items-center">
-    <div class="col-auto px-0 ms-auto">
+    <div class="col-auto ">
         {{-- like/heart button --}}
         @auth
             <form action="{{ route('post.toggleLike', $post->id) }}"
