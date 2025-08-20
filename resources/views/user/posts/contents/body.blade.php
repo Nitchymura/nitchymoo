@@ -29,8 +29,21 @@
                 @csrf
                 <button type="button" class="btn btn-sm shadow-none post-like-btn">
                     <i class="{{ $post->likes->where('user_id', Auth::id())->isNotEmpty() ? 'fa-solid text-danger' : 'fa-regular' }} fa-heart"></i>
-                    &nbsp;<span class="post-like-count" data-post-id="{{ $post->id }}">{{ $post->likes->count() }}</span>
+                    &nbsp;
                 </button>
+                    
+                @if($post->likes->count() >= 1)
+                <button type="button" class="btn btn-white border-0 ms-0 px-0" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
+                    {{ $post->likes->count() }}
+                </button>
+                @else
+                0
+                @endif
+        @include('user.posts.contents.modals.like-list')
+                {{-- <button class="border-0 bg-white ms-0 p-0 post-like-count" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
+                    {{ $post->likes->count() }}
+                </button>
+                @include('user.posts.contents.modals.like-list') --}}
             </form>
 
         @else

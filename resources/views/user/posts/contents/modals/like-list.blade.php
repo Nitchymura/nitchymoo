@@ -1,27 +1,26 @@
-<div class="modal fade" id="like-list{{ $post->id }}">
+<div class="modal fade" id="like-list{{ $post->id }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content border-0">
-            <div class="modal-header border-0 ">
-                <button data-bs-dismiss="modal" class="btn btn-sm ms-auto text-primary">X</button>
+            <div class="modal-header border-0">
+                <button type="button" class="btn btn-sm ms-auto text-primary" data-bs-dismiss="modal">X</button>
             </div>
             <div class="modal-body px-5">
                 <div class="w-75 mx-auto">
                     @foreach($post->likes as $like)
                     <div class="row align-items-center mb-3">
                         <div class="col-auto">
-                            @if($like->user->avatar)
+                            @if($like->user && $like->user->avatar)
                                 <img src="{{ $like->user->avatar }}" alt="" class="rounded-circle avatar-sm">
                             @else
                                 <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
                             @endif
                         </div>
                         <div class="col">
-                            <span class="text-secondary">{{ $like->user->name }}</span>
+                            <span class="text-secondary">{{ $like->user ? $like->user->name : 'Deleted User' }}</span>
                         </div>
                         <div class="col-auto">
-                            {{-- follow --}}
-                            @if($like->user->id != Auth::user()->id)
-                                @if($like->user->isFollowed() )
+                            @if($like->user && $like->user->id != Auth::id())
+                                @if($like->user->isFollowed())
                                     <form action="{{ route('follow.delete', $like->user->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
