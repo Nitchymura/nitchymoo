@@ -117,14 +117,13 @@ table.text-secondary th {
 }
 
 .post-photo-container {
-    height: 650px;          /* 固定の高さ */
-    overflow-y: auto;       /* 縦スクロールを有効化 */
+  height: 600px;     /* 任意 */
+  overflow-y: auto;  /* 縦スクロール可 */
 }
-
 .post-photo {
-    width: 100%;
-    height: auto;           /* 高さは自動にして縦長画像を収める */
-    
+  display: block;
+  width: 100%;
+  height: auto;      /* 画像の縦長をそのまま */
 }
 
 @media screen and (max-width: 1200px) {
