@@ -3,18 +3,16 @@ table.text-secondary th {
     color:inherit;
 }
 
-.icon-sm{
-    font-size:2rem;
+.avatar-mini{
+    height:1.5rem;
+    width:1.5rem;
+    object-fit:cover;
 }
 
 .avatar-sm{
     height:2rem;
     width:2rem;
     object-fit:cover;
-}
-
-.icon-md{
-    font-size:3.5rem;
 }
 
 .avatar-md{
@@ -26,6 +24,21 @@ table.text-secondary th {
     height:9rem;
     width:9rem;
     object-fit:cover;
+}
+
+.icon-mini{
+    font-size:1rem;
+}
+
+.icon-sm{
+    font-size:2rem;
+}
+
+.icon-md{
+    font-size:3.5rem;
+}
+.icon-lg{
+    font-size:9rem;
 }
 
 .fa-heart,
@@ -47,9 +60,7 @@ table.text-secondary th {
     width:5rem;
     object-fit:cover;
 }
-.icon-lg{
-    font-size:9rem;
-}
+
 
 .image-lg{
     position: relative;

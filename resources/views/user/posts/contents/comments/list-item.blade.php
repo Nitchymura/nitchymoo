@@ -1,4 +1,9 @@
 <div class="mt-2">
+    @if($post->user->avatar)
+        <img src="{{ $post->user->avatar }}" alt="" class="rounded-circle avatar-mini">
+    @else
+        <i class="fa-solid fa-circle-user text-secondary icon-mini"></i>
+    @endif
     <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
     &nbsp;
     <span class="fw-light">{{ $comment->body }}</span>
