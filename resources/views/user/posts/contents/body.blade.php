@@ -23,15 +23,22 @@
     </div>
 
     <div class="col-auto">
-        @if($post->comments->count() >= 1)
-            <button type="button" class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#commentModal{{ $post->id }}">
-                <i class="fa-solid fa-comment text-info"></i>&nbsp; {{ $post->comments->count() }}
-            </button>
-        @else
-            <button type="button" class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#commentModal{{ $post->id }}">
+        @auth
+            @if($post->comments->count() >= 1)
+                <button type="button" class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#commentModal{{ $post->id }}">
+                    <i class="fa-solid fa-comment text-info"></i>&nbsp; {{ $post->comments->count() }}
+                </button>
+            @else
+                <button type="button" class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#commentModal{{ $post->id }}">
+                    <i class="fa-regular fa-comment text-dark"></i>&nbsp; {{ $post->comments->count() }}
+                </button>
+            @endif
+        @else       
+            <button class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#comment-icon">
                 <i class="fa-regular fa-comment text-dark"></i>&nbsp; {{ $post->comments->count() }}
             </button>
-        @endif
+            @include('user.posts.contents.modals.comment-icon') 
+        @endauth
         @include('user.posts.contents.modals.comment')  
     </div>
     {{-- <div class="col-auto px-0 me-1">
@@ -75,10 +82,15 @@
 {{-- <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $post->user->name}}</a> --}}
 <br>
 @auth
-
-    <h3 type="button" class="fs-3" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
-        {{ $post->title }}
-    </h3> 
+    @if($post->likes->where('user_id', Auth::id())->isNotEmpty())
+        <h3 type="button" class="fs-3" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
+            {{ $post->title }}
+        </h3> 
+    @else
+        <h3 class="fs-3">
+            {{ $post->title }}
+        </h3>
+    @endif
     @include('user.posts.contents.modals.like-list')
 @else
     <h3 class="fs-3">
