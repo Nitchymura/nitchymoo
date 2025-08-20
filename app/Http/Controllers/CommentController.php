@@ -27,7 +27,7 @@ class CommentController extends Controller
 
         $this->comment->save();
 
-        return redirect()->back();
+        return redirect()->route('post.show', $post_id)->with('success', 'Comment posted successfully');
     }
 
     public function delete($id){
