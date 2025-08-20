@@ -1,27 +1,7 @@
 <div class="row align-items-center">
-    <div class="col-1 px-0 ms-auto">
+    <div class="col-auto px-0 ms-auto">
         {{-- like/heart button --}}
         @auth
-            {{-- @if($post->isLiked())
-                <!-- red heart/unlike -->
-                <form action="{{route('like.delete', $post->id)}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn p-0">
-                        <i class="fa-solid fa-heart text-danger"></i>&nbsp; {{ $post->likes->count() }}
-                    </button>
-                </form>
-            @else
-                @auth
-                <form action="{{route('like.store', $post->id)}}" method="post">
-                    @csrf
-                    <button type="sumbit" class="btn p-0">
-                        <i class="fa-regular fa-heart"></i>&nbsp;  {{ $post->likes->count() }}
-                    </button>
-                </form>
-                @endauth
-            @endif --}}
-
             <form action="{{ route('post.toggleLike', $post->id) }}"
                 method="POST"
                 data-post-id="{{ $post->id }}"
@@ -30,7 +10,7 @@
                 <button type="button" class="btn btn-sm shadow-none post-like-btn">
                     <i class="{{ $post->likes->where('user_id', Auth::id())->isNotEmpty() ? 'fa-solid text-danger' : 'fa-regular' }} fa-heart"></i>
                     
-                    {{-- &nbsp;<span class="post-like-count" data-post-id="{{ $post->id }}">{{ $post->likes->count() }}</span> --}}
+                    &nbsp;<span class="post-like-count" data-post-id="{{ $post->id }}">{{ $post->likes->count() }}</span>
                 </button>
             </form>
 
@@ -41,7 +21,7 @@
             @include('user.posts.contents.modals.heart-icon')  
         @endauth
     </div>
-    <div class="col-auto px-0 ms-0">
+    {{-- <div class="col-auto px-0 ms-0">
         @if($post->likes->count()>=1)
             <button class="btn btn-white border-0" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
                 {{ $post->likes->count() }}
@@ -52,7 +32,7 @@
             </div>
         @endif
         @include('user.posts.contents.modals.like-list')
-    </div>
+    </div> --}}
 
     <div class="col-auto">
         @if($post->comments->count() >= 1)
@@ -99,7 +79,11 @@
 <!-- owner and description -->
 {{-- <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $post->user->name}}</a> --}}
 <br>
-<h3>{{ $post->title }}</h3>
+<h3 type="button" class="fs-3" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
+            {{ $post->title }}
+</h3> 
+@include('user.posts.contents.modals.like-list')
+
 @if($post->term_start && $post->term_end && $post->term_start != $post->term_end)
     <p class="text-muted text-uppercase xsmall">{{ date('M d, Y', strtotime($post->term_start))}} ~ {{ date('M d, Y', strtotime($post->term_end))}}</p>
 @elseif($post->term_start)
