@@ -35,11 +35,11 @@ table.text-secondary th {
 
 .img-lg{
     height:9rem;
-    width:9rem;
+    width:13rem;
     object-fit:cover;
 }
 .img-md{
-    width: 5rem;
+    height: 5rem;
     width:5rem;
     object-fit:cover;
 }
@@ -96,9 +96,15 @@ table.text-secondary th {
     margin-left: 1rem;
 }
 
-.post-photo{
-    height: 600px;
-    object-fit: cover;
+.post-photo-container {
+    height: 650px;          /* 固定の高さ */
+    overflow-y: auto;       /* 縦スクロールを有効化 */
+}
+
+.post-photo {
+    width: 100%;
+    height: auto;           /* 高さは自動にして縦長画像を収める */
+    
 }
 
 @media screen and (max-width: 1200px) {
@@ -130,9 +136,14 @@ table.text-secondary th {
     .post-body{
         box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
-    .post-photo{
-        height: 260px;
-        object-fit: cover;
+    .post-photo-container {
+        height: 300px;          /* 固定の高さ */
+        overflow-y: auto;       /* 縦スクロールを有効化 */
+    }
+
+    .post-photo {
+        width: 100%;
+        height: auto;           /* 高さは自動にして縦長画像を収める */
     }
     .nav-link {
         margin: 0 50px 0 50px;
