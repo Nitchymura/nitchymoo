@@ -10,7 +10,7 @@
                 <video autoplay muted loop playsinline class="header_video px-0 w-100">
                     <source src="{{ asset('videos/intro.mp4') }}" type="video/mp4">
                 </video>
-                <p class="mt-3 mb-3 h5">{{ $user_intro }}</p>
+                <p class="mt-3 mb-5 h5">{{ $user_intro }}</p>
             @endif
 
         <div class="col">
