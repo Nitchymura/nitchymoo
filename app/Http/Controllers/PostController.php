@@ -68,24 +68,34 @@ class PostController extends Controller
             ]);
         }
 
-        // ---- サブ画像 ----
+        // ---- サブ画像保存（最大6枚） ----
         $photosAll     = $request->file('photos') ?? [];
         $photosNew     = $photosAll['new'] ?? $photosAll;
         $prioritiesAll = $request->input('priorities', []);
         $prioritiesNew = $prioritiesAll['new'] ?? $prioritiesAll;
 
         for ($slot = 1; $slot <= 6; $slot++) {
-            $uploaded = $photosNew[$slot] ?? $photosNew[$slot - 1] ?? null;
+            $uploaded = $photosNew[$slot] ?? $photosNew[$slot] ?? null;
             if ($uploaded) {
                 $dataUrl  = $this->gdCompressToDataUrl($uploaded);
                 $priority = $prioritiesNew[$slot] ?? $slot;
-                PostBody::create([
-                    'post_id'  => $post->id,
-                    'photo'    => $dataUrl,
-                    'priority' => $priority,
-                ]);
+
+                // 重複登録防止：既に同じ post_id + priority がある場合は更新
+                $existing = PostBody::where('post_id', $post->id)
+                                    ->where('priority', $priority)
+                                    ->first();
+                if ($existing) {
+                    $existing->update(['photo' => $dataUrl]);
+                } else {
+                    PostBody::create([
+                        'post_id'  => $post->id,
+                        'photo'    => $dataUrl,
+                        'priority' => $priority,
+                    ]);
+                }
             }
         }
+
 
         return $post; // ← クロージャから返す
     });
