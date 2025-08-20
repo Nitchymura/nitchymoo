@@ -79,9 +79,16 @@
 <!-- owner and description -->
 {{-- <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $post->user->name}}</a> --}}
 <br>
-<h3 type="button" class="fs-3" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
-            {{ $post->title }}
-</h3> 
+@if($post->likes->count() >= 1)
+    <h3 type="button" class="fs-3" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
+        {{ $post->title }}
+    </h3> 
+@else
+    <h3 class="fs-3">
+        {{ $post->title }}
+    </h3> 
+@endif
+
 @include('user.posts.contents.modals.like-list')
 
 @if($post->term_start && $post->term_end && $post->term_start != $post->term_end)
