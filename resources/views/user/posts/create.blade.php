@@ -59,7 +59,7 @@
                 <label for="image" class="form-label fw-bold mt-3">Main Image</label>
                 <div class="col" id="main-image-preview">
                     @if(!empty($post->image)) {{-- 編集時の既存画像 --}}
-                        <img src="{{ $post->image }}" alt="Main Image"  class="d-block w-25 img-thumbnail mb-2" >
+                        <img src="{{ $post->image }}" alt="Main Image"  class="d-block w-50 img-thumbnail mb-2" >
                     @endif
                 </div>
             </div>

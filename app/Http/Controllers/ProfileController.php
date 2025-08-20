@@ -21,8 +21,8 @@ class ProfileController extends Controller
     public function show($id){
         $user_a = $this->user->findOrFail($id);
         $all_comments = $this->comment->where('user_id', $user_a->id)->latest()->take(5)->get();
-
-        return view('user.profiles.show')->with('user', $user_a)->with('all_comments',$all_comments);
+        $suggested_users = $this->getSuggestedUsers();
+        return view('user.profiles.show')->with('user', $user_a)->with('all_comments',$all_comments)->with('suggested_users', $suggested_users);
     }
 
     public function edit(){
@@ -112,5 +112,26 @@ class ProfileController extends Controller
 
         return response()->json(['message' => 'No avatar found'], 404);
     }
+
+    private function getSuggestedUsers(){
+        //get a list of all users
+        $all_users = $this->user->all()->except(Auth::user()->id);
+
+        $suggested_users = []; //empty array
+        $count = 0;
+        foreach($all_users as $user){
+            //if user is not followed yet...
+            if(!$user->isFollowed() && $count<10){
+                $suggested_users []= $user;
+                $count++;
+            }
+        }
+        return $suggested_users;
+    }
+
+    public function allSuggested(){
+        return view('user.profiles.suggested')->with('suggested_users', $this->getSuggestedUsers());
+    }
+
 
 }

@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
     Route::patch('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('avatar.delete');
+    Route::get('/header-all-suggested-users', [ProfileController::class, 'allSuggested'])->name('all.suggested');
     
     //Categories
     Route::get('/show/{id}/category', [CategoryController::class, 'show'])->name('category.show');

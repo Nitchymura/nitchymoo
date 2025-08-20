@@ -58,7 +58,7 @@
         <div class="row mb-3">
             <div class="col-auto">
                 <a href="{{ route('all.suggested') }}" class="text-decoration-none text-dark">
-                    <span class="fw-bold">Suggested Users for you</span>
+                    <span class="fw-bold">Suggested Users for you</span>{{ count($suggested_users) > 0 ? ' ('.count($suggested_users).')' : '' }}
                 </a>
             </div>
         </div>

@@ -11,14 +11,19 @@
                 <h2 class="h4 text-secondary mb-3">Update Profile</h2>
                 <div class="row mb-3">
                     <div class="col-4">
-                        @if(Auth::user()->avatar)
-                            <img src="{{ Auth::user()->avatar }}" alt="" id="avatar-preview" class="rounded-circle img-lg">
-                        @else
-                            <i class="fa-solid fa-circle-user text-secondary icon-lg d-block text-center" id="user-icon"></i>
-                        @endif
+                        <!-- プレビュー用の img は常に用意する -->
+                        <img src="{{ Auth::user()->avatar ?? '' }}" 
+                            alt="Avatar Preview" 
+                            id="avatar-preview" 
+                            class="rounded-circle img-lg"
+                            style="{{ Auth::user()->avatar ? '' : 'display:none;' }}">
+                        <!-- ユーザーアイコンを代わりに表示 -->
+                        <i class="fa-solid fa-circle-user text-secondary icon-lg d-block text-center" 
+                        id="user-icon" 
+                        style="{{ Auth::user()->avatar ? 'display:none;' : '' }}"></i>
                     </div>
 
-                    <div class="col align-self-end">
+                    <div class="col-auto align-self-end">
                         <div class="row">
                             <div class="col-auto">
                                 <!-- 画像ファイル選択 -->
