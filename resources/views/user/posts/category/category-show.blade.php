@@ -4,8 +4,8 @@
 
 @section('content')
 
-<div class="row justify-content-center mt-5 pt-5" >
-    <div class="d-flex gap-3 align-items-end mb-4 pb-2">
+<div class="row justify-content-center mt-5 pt-5 " >
+    <div class="d-flex gap-1 align-items-end mb-4 pb-2 px-0">
         @foreach($all_categories as $cat)
             @php
                 // カラーをカテゴリごとに切り替える
@@ -20,7 +20,7 @@
             @endphp
 
             <span class="badge {{ $badgeClass }} 
-                {{ $category->id == $cat->id ? 'fs-4 fw-bold ' : 'fs-6 bg-opacity-10 ' }}" >
+                {{ $category->id == $cat->id ? 'fs-6 fw-bold ' : 'fs-6 bg-opacity-10 ' }}" >
                 <a href="{{ route('category.show', $cat->id) }}" class="text-decoration-none text-white">{{ $cat->name }}</a>
             </span>
         @endforeach
