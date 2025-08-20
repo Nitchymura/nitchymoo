@@ -136,5 +136,12 @@ table.text-secondary th {
     }
     .nav-link {
         margin: 0 50px 0 50px;
-}
+    }
+    .description{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
 }
