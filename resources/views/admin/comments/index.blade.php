@@ -11,7 +11,7 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th>bodyy</th>
+                <th>body</th>
                 <th>owner</th>
                 <th>created at</th>
                 <th>status</th>
@@ -24,7 +24,7 @@
                     <td>{{ $comment->id }}</td>
                     <td>
                         @if($comment->post->image)
-                            <a href="{{ route('post.show', $comment->post->id) }}"><img src="{{ $comment->post->image }}" alt="" class="img-md d-block mx-auto"></a>
+                            <a href="{{ route('post.show', $comment->post->id) }}"><img src="{{ $comment->post->image }}" alt="" class="img-sm d-block mx-auto"></a>
                         @endif
                     </td>
                     <td>{{ $comment->body }}</td>

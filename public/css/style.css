@@ -50,6 +50,11 @@ table.text-secondary th {
     font-size:0.7rem
 }
 
+.img-sm{
+    height:2rem;
+    width:3rem;
+    object-fit:cover;
+}
 .img-lg{
     height:9rem;
     width:13rem;
