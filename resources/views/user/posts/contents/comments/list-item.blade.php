@@ -1,6 +1,6 @@
 <div class="mt-2">
-    @if($post->user->avatar)
-        <img src="{{ $post->user->avatar }}" alt="" class="rounded-circle avatar-mini">
+    @if($comment->user->avatar)
+        <img src="{{ $comment->user->avatar }}" alt="" class="rounded-circle avatar-mini">
     @else
         <i class="fa-solid fa-circle-user text-secondary icon-mini"></i>
     @endif
