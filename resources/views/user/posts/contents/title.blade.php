@@ -19,11 +19,6 @@
 
 
         <div class="col-auto">
-            {{-- buttons --}}
-            {{-- <div class="dropdown">
-                <button class="btn btn-sm" data-bs-toggle="dropdown">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </button> --}}
             @auth
                 @if($post->user_id == Auth::user()->id)
                 <div class="dropdown">
@@ -43,23 +38,6 @@
                 </div>    
                     @include('user.posts.contents.modals.delete')  
                 @else
-                    {{-- @if($post->user->isFollowed())
-                        <!-- unfollow -->
-                        <div class="">
-                            <form action="{{ route('follow.delete', $post->user->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-secondary">Unfollow</button>
-                            </form>
-                        </div>
-                    @else
-                          <div class="">
-                            <form action="{{ route('follow.store', $post->user->id) }}" method="post">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-primary">Follow</button>
-                            </form>
-                        </div>
-                    @endif  --}}
 
                     @php
                     $isFollowing = \App\Models\Follow::where('follower_id', Auth::id())

@@ -80,7 +80,7 @@
 
 <!-- owner and description -->
 {{-- <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $post->user->name}}</a> --}}
-<br>
+{{-- <br> --}}
 @auth
     @if($post->likes->count()>0)
         <h3 type="button" class="fs-3" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
