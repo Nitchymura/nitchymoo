@@ -32,9 +32,29 @@
     $bodies = collect($all_bodies ?? []); 
     @endphp 
     
-    <div class="row" style="height: 40px">
+    <div class="row" style="height: 70px">
         </div> 
-    <div class="row border shadow mt-5"> 
+
+<div class="d-flex justify-content-between mb-1">
+    @if($previousPost)
+        <a href="{{ route('post.show', $previousPost->id) }}" class="btn btn-outline-dark btn-sm">
+            <i class="fa-solid fa-angles-left"></i> 
+        </a>
+    @else
+        <span></span>
+    @endif
+
+    @if($nextPost)
+        <a href="{{ route('post.show', $nextPost->id) }}" class="btn btn-outline-dark btn-sm">
+            <i class="fa-solid fa-angles-right"></i>
+        </a>
+    @else
+        <span></span>
+    @endif
+</div>
+
+
+    <div class="row border shadow "> 
         <div class="col-12 col-md-8 p-0 border-end"> 
             @if ($bodies->isNotEmpty()) {{-- 本文画像 + Body画像をスライドで表示 --}} 
             <div id="postCarousel-{{ $post->id }}" class="carousel slide" data-bs-ride="carousel">  

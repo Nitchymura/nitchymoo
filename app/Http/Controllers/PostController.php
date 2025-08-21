@@ -126,9 +126,17 @@ if ($request->hasFile('image')) {
     public function show($id){
         $post_a = $this->post->findOrFail($id);
         $all_bodies = $this->post_body->where('post_id', $id)->get();
-        $tab = request()->query('tab', 'default'); 
+            // term_start順に全Postを取得
+        $posts = Post::orderBy('term_start')->get();
 
-        return view('user.posts.show', compact('all_bodies'))->with('post', $post_a)->with('tab', $tab);
+        // 現在のPostのキーを取得
+        $currentIndex = $posts->search(fn($p) => $p->id === $post_a->id);
+
+        // 前後のPostを取得（存在する場合のみ）
+        $previousPost = $currentIndex > 0 ? $posts[$currentIndex - 1] : null;
+        $nextPost = $currentIndex < $posts->count() - 1 ? $posts[$currentIndex + 1] : null;
+
+        return view('user.posts.show', compact('all_bodies', 'previousPost', 'nextPost'))->with('post', $post_a);
     }
 
     public function edit($id){
