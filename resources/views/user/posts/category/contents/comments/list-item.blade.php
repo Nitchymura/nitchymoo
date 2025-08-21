@@ -4,7 +4,7 @@
     <span class="fw-light">{{ $comment->body }}</span>
 
     <div class="xsmall text-secondary">
-        <span>{{ date('D, M d Y', strtotime($comment->created_at)) }}</span>
+        <span>{{ date('H:m, M d Y', strtotime($comment->created_at)) }}</span>
 
         @if($comment->user_id == Auth::user()->id)
             &middot;

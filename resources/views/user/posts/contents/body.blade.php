@@ -112,9 +112,9 @@
 @endif
 
 @if($post->term_start && $post->term_end && $post->term_start != $post->term_end)
-    <p class="text-muted text-uppercase xsmall">{{ date('M d, Y', strtotime($post->term_start))}} ~ {{ date('M d, Y', strtotime($post->term_end))}}</p>
+    <p class="text-muted xsmall">{{ date('M d, Y', strtotime($post->term_start))}} ~ {{ date('M d, Y', strtotime($post->term_end))}}</p>
 @elseif($post->term_start)
-    <p class="text-muted text-uppercase xsmall">{{ date('M d, Y', strtotime($post->term_start))}}</p>
+    <p class="text-muted xsmall">{{ date('M d, Y', strtotime($post->term_start))}}</p>
 @else 
     <p>---</p>
 @endif
