@@ -39,7 +39,7 @@
 
         <div class="row">
             <div class="col-6">
-                <label for="city" class="form-label fw-bold mt-3">City</label>
+                <label for="city" class="form-label fw-bold mt-3">City / Prefecture</label>
                 <input type="text" name="city" id="city" class="form-control" value="{{ old('city') }}">
             </div>
                 <div class="col-6">
