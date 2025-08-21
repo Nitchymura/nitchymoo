@@ -39,6 +39,8 @@ class PostController extends Controller
         'categories'   => ['required','array','between:1,3'],
         'title'        => ['required','string'],
         'description'  => ['required','string','max:1000'],
+        'city'         => ['nullable','string','max:100'],
+        'country'      => ['nullable','string','max:100'],
         'term_start'   => ['nullable','date'],
         'term_end'     => ['nullable','date','after_or_equal:term_start'],
         'image'        => ['required','image','mimes:jpg,jpeg,png,gif'],
@@ -51,6 +53,8 @@ class PostController extends Controller
         $post = new Post();
         $post->title       = $request->title;
         $post->description = $request->description;
+        $post->city        = $request->city ?: null;
+        $post->country     = $request->country ?: null;
         $post->term_start  = $request->term_start ?: null;
         $post->term_end    = $request->term_end ?: null;
         $post->user_id     = Auth::id();
@@ -150,6 +154,8 @@ if ($request->hasFile('image')) {
         'categories'   => ['required','array','between:1,3'],
         'title'        => ['required','string'],
         'description'  => ['required','string','max:1000'],
+        'city'         => ['nullable','string','max:100'],
+        'country'      => ['nullable','string','max:100'],
         'term_start'   => ['nullable','date'],
         'term_end'     => ['nullable','date','after_or_equal:term_start'],
         'image'        => ['nullable','image','mimes:jpg,jpeg,png,gif'],
@@ -163,6 +169,8 @@ if ($request->hasFile('image')) {
         // ---- メイン情報 ----
         $post->title       = $request->title;
         $post->description = $request->description;
+        $post->city        = $request->city ?: null;
+        $post->country     = $request->country ?: null;
         $post->term_start  = $request->term_start ?: null;
         $post->term_end    = $request->term_end ?: null;
 

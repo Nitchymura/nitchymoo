@@ -99,7 +99,17 @@
     </h3> 
 @endif
 
-
+@if($post->city && $post->country)
+    <div class="d-flex align-items-center text-muted ">
+        <i class="fa-solid fa-location-dot me-1"></i>
+        <span>{{ $post->city }} / {{ $post->country }}</span>
+    </div>
+@else
+    <div class="d-flex align-items-center text-muted">
+        <i class="fa-solid fa-location-dot me-1"></i>
+        <span class="text-uppercase">---</span>
+    </div>
+@endif
 
 @if($post->term_start && $post->term_end && $post->term_start != $post->term_end)
     <p class="text-muted text-uppercase xsmall">{{ date('M d, Y', strtotime($post->term_start))}} ~ {{ date('M d, Y', strtotime($post->term_end))}}</p>

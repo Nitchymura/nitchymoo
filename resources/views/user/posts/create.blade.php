@@ -39,6 +39,17 @@
 
         <div class="row">
             <div class="col-6">
+                <label for="city" class="form-label fw-bold mt-3">City</label>
+                <input type="text" name="city" id="city" class="form-control" value="{{ old('city') }}">
+            </div>
+                <div class="col-6">
+                <label for="country" class="form-label fw-bold mt-3">Country</label>
+                <input type="text" name="country" id="country" class="form-control" value="{{ old('country') }}">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-6">
                 <label for="term-start" class="form-label fw-bold mt-3">Start date</label>
                 <input type="date" name="term_start" id="term-start" class="form-control" value="{{ old('term_start') }}">
             </div>
