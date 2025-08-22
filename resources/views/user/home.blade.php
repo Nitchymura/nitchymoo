@@ -15,6 +15,9 @@
 
         <div class="col">
             <div class="row">
+                <div class="col-3 me-auto">
+                    {{ $all_posts->links() }}
+                </div>
                 <div class="col-3 ms-auto dropdown">
                 {{-- 並び替えフォーム：現在URLにGETで投げ直す --}}
                 <form method="GET" action="{{ route('home') }}">
