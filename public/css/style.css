@@ -150,7 +150,7 @@ table.text-secondary th {
 
 @media screen and (max-width: 1200px) {
     .post-photo{
-    height: 500px;
+    height: 400px;
     object-fit: cover;
     }
 }
