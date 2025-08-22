@@ -35,23 +35,43 @@
     <div class="row" style="height: 70px">
     </div> 
 
-    <div class="d-flex justify-content-between mb-1">
-        @if($nextPost)
-            <a href="{{ route('post.show', $nextPost->id) }}" class="btn btn-outline-secondary ">
-                <i class="fa-solid fa-angles-left"></i>
-            </a>
-        @else
-            <span></span>
-        @endif
+    <div class="d-flex justify-content-between mb-3">
+        {{-- 右側: Next / Last --}}
+        <div class="d-flex gap-1">
+            {{-- 一番最新へ --}}
+            @if($latestPost && $latestPost->id !== $post->id)
+                <a href="{{ route('post.show', $latestPost->id) }}" class="btn btn-outline-primary">
+                    <i class="fa-solid fa-angle-double-left"></i>
+                </a>
+            @endif            
+            {{-- 次のポスト --}}
+            @if($previousPost)
+                <a href="{{ route('post.show', $previousPost->id) }}" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-angle-left"></i>
+                </a>
+            @endif
 
-        @if($previousPost)
-            <a href="{{ route('post.show', $previousPost->id) }}" class="btn btn-outline-secondary ">
-                <i class="fa-solid fa-angles-right"></i> 
-            </a>
-        @else
-            <span></span>
-        @endif
+
+        </div>
+        {{-- 左側: First / Prev --}}
+        <div class="d-flex gap-1">
+            {{-- 前のポスト --}}
+            @if($nextPost)
+                <a href="{{ route('post.show', $nextPost->id) }}" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            @endif{{-- 一番古いへ --}}
+            @if($oldestPost && $oldestPost->id !== $post->id)
+                <a href="{{ route('post.show', $oldestPost->id) }}" class="btn btn-outline-primary">
+                    <i class="fa-solid fa-angle-double-right"></i>
+                </a>
+            @endif
+        </div>
+
+
     </div>
+
+
 
     <div class="row border shadow "> 
         <div class="col-12 col-md-8 p-0 border-end"> 

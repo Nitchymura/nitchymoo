@@ -15,11 +15,11 @@
 
         <div class="col">
             <div class="row">
-                <div class="col-3 me-auto">
+                <div class="col-auto me-auto">
                     {{ $all_posts->links() }}
                 </div>
-                <div class="col-3 ms-auto dropdown">
-                {{-- 並び替えフォーム：現在URLにGETで投げ直す --}}
+                {{-- <div class="col-3 ms-auto dropdown">
+                <!-- 並び替えフォーム：現在URLにGETで投げ直す -->
                 <form method="GET" action="{{ route('home') }}">
                     @if(request('search'))
                         <input type="hidden" name="search" value="{{ request('search') }}">
@@ -31,7 +31,7 @@
                         <option value="oldest" {{ request('sort') === 'oldest' ? 'selected' : '' }}>Oldest first</option>
                     </select>
                 </form>
-                </div>  
+                </div>   --}}
             </div>
             <div class="row">
                 @forelse($all_posts as $post)

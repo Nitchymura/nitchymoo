@@ -59,11 +59,14 @@
             </div>
         </div>
 
-        <label for="description" class="form-label fw-bold mt-3">Description</label>
+        <div>
+            <label for="description" class="form-label fw-bold mt-3">Description</label>
         <textarea name="description" id="description" rows="3" placeholder="What's on your mind" class="form-control">{{ old('description') }}</textarea>
         @error('description')
             <p class="mb-0 text-danger small">{{ $message }}</p>
         @enderror
+        </div>
+        
 
         <div class="row">
             <div class="col">

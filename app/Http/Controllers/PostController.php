@@ -136,7 +136,11 @@ if ($request->hasFile('image')) {
         $previousPost = $currentIndex > 0 ? $posts[$currentIndex - 1] : null;
         $nextPost = $currentIndex < $posts->count() - 1 ? $posts[$currentIndex + 1] : null;
 
-        return view('user.posts.show', compact('all_bodies', 'previousPost', 'nextPost'))->with('post', $post_a);
+        // 最新・最古のポスト
+        $oldestPost = $posts->first();
+        $latestPost = $posts->last();
+
+        return view('user.posts.show', compact('all_bodies', 'previousPost', 'nextPost', 'oldestPost', 'latestPost'))->with('post', $post_a);
     }
 
     public function edit($id){

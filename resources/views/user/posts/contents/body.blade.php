@@ -104,6 +104,16 @@
         <i class="fa-solid fa-location-dot me-1"></i>
         <span>{{ $post->city }} / {{ $post->country }}</span>
     </div>
+@elseif($post->city)
+    <div class="d-flex align-items-center text-muted ">
+        <i class="fa-solid fa-location-dot me-1"></i>
+        <span>{{ $post->city }} / ---</span>
+    </div>
+@elseif($post->country)
+        <div class="d-flex align-items-center text-muted ">
+        <i class="fa-solid fa-location-dot me-1"></i>
+        <span>--- / {{ $post->country }}</span>
+    </div>
 @else
     <div class="d-flex align-items-center text-muted">
         <i class="fa-solid fa-location-dot me-1"></i>
