@@ -150,7 +150,7 @@ table.text-secondary th {
 
 @media screen and (max-width: 1200px) {
     .post-photo{
-    height: 400px;
+    height: 500px;
     object-fit: cover;
     }
 }
@@ -178,7 +178,7 @@ table.text-secondary th {
         box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
     .post-photo-container {
-        height: 350px;          /* 固定の高さ */
+        height: 250px;          /* 固定の高さ */
         overflow-y: auto;       /* 縦スクロールを有効化 */
     }
 
