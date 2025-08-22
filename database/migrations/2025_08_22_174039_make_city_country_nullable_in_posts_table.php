@@ -6,19 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            // imageの後にcity、その後にcountryを追加
-            $table->string('city')->after('image');
-            $table->string('country')->after('city');
+            $table->string('city')->nullable()->change();
+            $table->string('country')->nullable()->change();
         });
     }
 
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn(['city', 'country']);
+            $table->string('city')->nullable(false)->change();
+            $table->string('country')->nullable(false)->change();
         });
     }
 };
