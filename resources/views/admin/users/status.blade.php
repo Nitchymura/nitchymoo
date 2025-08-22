@@ -7,7 +7,7 @@
                 <h3 class="h3 text-danger"><i class="fa-solid fa-user-slash"></i> Deactivate User</h3>
             </div>
             <div class="modal-body">
-                Are you sure you want to deactivate
+                Are you sure you want to deactivate 
                 @if($user->avatar)
                     <img src="{{$user->avatar}}" alt="" class="rounded-circle avatar-sm">
                 @else
@@ -23,6 +23,22 @@
                     <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
                 </form>
             </div>
+            <div class="modal-body">
+                Or, to complately delete 
+                @if($user->avatar)
+                    <img src="{{$user->avatar}}" alt="" class="rounded-circle avatar-sm">
+                @else
+                    <i class="fa-solid fa-circle-user text-secondary icon-sm align-middle"></i>
+                @endif
+                <strong>{{$user->name}}</strong>?
+            </div>
+            <div class="modal-footer border-0">
+                <form action="{{ route('admin.users.delete', $user->id)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -36,7 +52,7 @@
                 <h3 class="h3 text-success"><i class="fa-solid fa-user-check"></i> Activate user</h3>
             </div>
             <div class="modal-body">
-                Are you sure you want to activate
+                Are you sure you want to activate 
                 @if($user->avatar)
                     <img src="{{$user->avatar}}" alt="" class="rounded-circle avatar-sm">
                 @else

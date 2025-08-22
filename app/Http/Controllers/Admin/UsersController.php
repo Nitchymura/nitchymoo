@@ -45,4 +45,10 @@ class UsersController extends Controller
         //  onlyTrashed() -- get only soft-deleted records
         return redirect()->back();
     }
+
+    public function delete($id){
+        // $this->post->destroy($id);
+        $this->user->findOrFail($id)->forceDelete();
+        return redirect()->back();
+    }
 }

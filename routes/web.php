@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth'], function(){
         // Route::get('/users', [UsersController::class, 'index'])->name('users');
         Route::delete('/users/{id}/deactivate', [UsersController::class, 'deactivate'])->name('users.deactivate');
         Route::patch('/users/{id}/activate', [UsersController::class, 'activate'])->name('users.activate');
+        Route::delete('/users/{id}/delete', [UsersController::class, 'delete'])->name('users.delete');
         Route::get('/users', [UsersController::class, 'index'])->name('users');
         Route::patch('/users/{user_id}/roleid', [UsersController::class, 'updateRoleID'])->name('user.roleid');
         Route::get('/posts', [PostsController::class, 'index'])->name('posts');
