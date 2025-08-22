@@ -43,24 +43,25 @@
                 <a href="{{ route('post.show', $latestPost->id) }}" class="btn btn-outline-primary">
                     <i class="fa-solid fa-angle-double-left"></i>
                 </a>
-            @endif            
-            {{-- 次のポスト --}}
-            @if($previousPost)
-                <a href="{{ route('post.show', $previousPost->id) }}" class="btn btn-outline-secondary">
+            @endif             
+            {{-- 前のポスト --}}
+            @if($nextPost)
+                <a href="{{ route('post.show', $nextPost->id) }}" class="btn btn-outline-secondary">
                     <i class="fa-solid fa-angle-left"></i>
                 </a>
-            @endif
+            @endif{{-- 一番古いへ --}}           
+            
 
 
         </div>
         {{-- 左側: First / Prev --}}
         <div class="d-flex gap-1">
-            {{-- 前のポスト --}}
-            @if($nextPost)
-                <a href="{{ route('post.show', $nextPost->id) }}" class="btn btn-outline-secondary">
+            {{-- 次のポスト --}}
+            @if($previousPost)
+                <a href="{{ route('post.show', $previousPost->id) }}" class="btn btn-outline-secondary">
                     <i class="fa-solid fa-angle-right"></i>
                 </a>
-            @endif{{-- 一番古いへ --}}
+            @endif
             @if($oldestPost && $oldestPost->id !== $post->id)
                 <a href="{{ route('post.show', $oldestPost->id) }}" class="btn btn-outline-primary">
                     <i class="fa-solid fa-angle-double-right"></i>

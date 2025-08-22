@@ -1,4 +1,4 @@
-<div class="row align-items-center">
+<div class="row align-items-center mb-2">
     <div class="col-auto ">
         {{-- like/heart button --}}
         @auth

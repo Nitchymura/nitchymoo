@@ -117,7 +117,7 @@ table.text-secondary th {
 }
 
 .post-photo-container {
-  height: 600px;     /* 任意 */
+  height: 650px;     /* 任意 */
   overflow-y: auto;  /* 縦スクロール可 */
 }
 .post-photo {
@@ -156,7 +156,7 @@ table.text-secondary th {
         box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
     .post-photo-container {
-        height: 300px;          /* 固定の高さ */
+        height: 350px;          /* 固定の高さ */
         overflow-y: auto;       /* 縦スクロールを有効化 */
     }
 
@@ -170,7 +170,7 @@ table.text-secondary th {
     .description{
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 10;
+    -webkit-line-clamp: 3;
     overflow: hidden;
     text-overflow: ellipsis;
     }
