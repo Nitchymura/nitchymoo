@@ -44,4 +44,9 @@ class PostsController extends Controller
         //  onlyTrashed() -- get only soft-deleted records
         return redirect()->back();
     }
+    public function delete($id){
+        // $this->post->destroy($id);
+        $this->post->findOrFail($id)->forceDelete();
+        return redirect()->back();
+    }
 }

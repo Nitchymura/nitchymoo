@@ -37,4 +37,9 @@ class CommentsController extends Controller
         //  onlyTrashed() -- get only soft-deleted records
         return redirect()->back();
     }
+    public function delete($id){
+        // $this->post->destroy($id);
+        $this->comment->findOrFail($id)->forceDelete();
+        return redirect()->back();
+    }
 }

@@ -24,13 +24,7 @@
                 </form>
             </div>
             <div class="modal-body">
-                Or, to complately delete 
-                @if($user->avatar)
-                    <img src="{{$user->avatar}}" alt="" class="rounded-circle avatar-sm">
-                @else
-                    <i class="fa-solid fa-circle-user text-secondary icon-sm align-middle"></i>
-                @endif
-                <strong>{{$user->name}}</strong>?
+                Or, want to completely delete? <br><span class="text-danger fw-bold">Please make sure this action cannot be undone!!</span>
             </div>
             <div class="modal-footer border-0">
                 <form action="{{ route('admin.users.delete', $user->id)}}" method="post">

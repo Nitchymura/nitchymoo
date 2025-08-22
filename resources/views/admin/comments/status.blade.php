@@ -12,11 +12,21 @@
                 <p class="text-secondary">{{ $comment->body }}</p>               
             </div>
             <div class="modal-footer border-0">
-                <form action="{{ route('admin.comments.deactivate', $comment->id)}}" method="comment">
+                <form action="{{ route('admin.comments.deactivate', $comment->id)}}" method="post">
                     @csrf
                     @method('DELETE')
                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-danger">Cancel</button>
                     <button type="submit" class="btn btn-sm btn-danger">Hide</button>
+                </form>
+            </div>
+            <div class="modal-body">
+                Or, want to completely delete? <br><span class="text-danger fw-bold">Please make sure this action cannot be undone!!</span>
+            </div>
+            <div class="modal-footer border-0">
+                <form action="{{ route('admin.comments.delete', $comment->id)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                 </form>
             </div>
         </div>
@@ -37,7 +47,7 @@
                 <p class="text-secondary">{{ $comment->body }}</p>
             </div>
             <div class="modal-footer border-0">
-                <form action="{{route('admin.comments.activate', $comment->id)}}" method="comment">
+                <form action="{{route('admin.comments.activate', $comment->id)}}" method="post">
                     @csrf
                     @method('PATCH')
                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary">Cancel</button>

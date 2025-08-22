@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/posts', [PostsController::class, 'index'])->name('posts');
         Route::delete('/posts/{id}/deactivate', [PostsController::class, 'deactivate'])->name('posts.deactivate');
         Route::patch('/posts/{id}/activate', [PostsController::class, 'activate'])->name('posts.activate');
+        Route::delete('/posts/{id}/delete', [PostsController::class, 'delete'])->name('posts.delete');
         Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
         Route::post('/categories/store', [CategoriesController::class, 'store'])->name('categories.store');
         Route::delete('/categories/{id}/delete', [CategoriesController::class, 'delete'])->name('categories.delete');
@@ -91,6 +92,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('comments', [CommentsController::class, 'index'])->name('comments');
         Route::delete('/comments/{id}/deactivate', [CommentsController::class, 'deactivate'])->name('comments.deactivate');
         Route::patch('/comments/{id}/activate', [CommentsController::class, 'activate'])->name('comments.activate');
+        Route::delete('/comments/{id}/delete', [CommentsController::class, 'delete'])->name('comments.delete');
     });
 });
 
