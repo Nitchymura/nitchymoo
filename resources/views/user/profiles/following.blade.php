@@ -7,8 +7,8 @@
 
     @if($user->follows->isNotEmpty())
         <div class="row justify-content-center">
-            <div class="col-md-8 col-sm-8">
-                <h4 class="h5 text-center text-secondary">Following</h4>
+            <div class="col-6">
+                <h4 class="h5 text-center text-secondary mb-3">Following</h4>
 
                 @foreach($user->follows as $follow)
                     <div class="row mb-3 alighn-items-center">
@@ -43,6 +43,7 @@
                             @endif
                         </div>
                     </div>
+                    <hr>
                 @endforeach
             </div>
         </div>
