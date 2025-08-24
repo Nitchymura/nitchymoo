@@ -132,14 +132,16 @@ class ProfileController extends Controller
 
     public function followers($id){
         $user_a = $this->user->findOrFail($id);
+        $suggested_users = $this->getSuggestedUsers();
 
-        return view('user.profiles.followers')->with('user', $user_a);
+        return view('user.profiles.followers', compact('suggested_users'))->with('user', $user_a);
     }
 
     public function following($id){
         $user_a = $this->user->findOrFail($id);
+        $suggested_users = $this->getSuggestedUsers();
 
-        return view('user.profiles.following')->with('user', $user_a);
+        return view('user.profiles.following', compact('suggested_users'))->with('user', $user_a);
     }
 
     public function changePassword(){
@@ -199,33 +201,6 @@ class ProfileController extends Controller
         }
         return $suggested_users;
     }
-
-// 共通のビュー用関数
-protected function renderProfileUsers($type)
-{
-    // type に応じて対象ユーザーを取得
-    switch($type) {
-        case 'suggested':
-            $users = $this->getSuggestedUsers();
-            break;
-        case 'followers':
-            $users = $this->getFollowers();
-            break;
-        case 'following':
-            $users = $this->getFollowing();
-            break;
-        default:
-            $users = collect();
-    }
-
-    // すべてのページで suggested_users も渡す
-    $suggested = $this->getSuggestedUsers();
-
-    return view("user.profiles.$type", [
-        $type.'_users' => $users,
-        'suggested_users' => $suggested,
-    ]);
-}
 
 public function allSuggested()
     {
