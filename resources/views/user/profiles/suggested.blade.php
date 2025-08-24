@@ -7,7 +7,7 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-6 col-sm-8 mt-5">
             <h4 class="h3 text-center text-secondary mb-3">Suggested Users</h4>
-       
+            <hr>
         @forelse($suggested_users as $user)
             <div class="row mb-3">
                 <div class="col-auto my-auto">

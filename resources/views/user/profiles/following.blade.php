@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-6">
                 <h4 class="h5 text-center text-secondary mb-3">Following</h4>
-
+                <hr>
                 @foreach($user->follows as $follow)
                     <div class="row mb-3 alighn-items-center">
                         <div class="col-auto">
