@@ -170,7 +170,7 @@ table.text-secondary th {
     .delete-photo-btn {
     position: absolute;
     bottom: 5px;
-    right: 140px;
+    left: -5px;
     padding: 5px;
     z-index: 10; /* ボタンが他の要素の背後に隠れないように */
     }
