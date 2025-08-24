@@ -27,4 +27,11 @@ class Follow extends Model
     public function follower(){
         return $this->belongsTo(User::class, 'follower_id')->withTrashed();
     }
+
+    // Follow.php
+    public function followedUser()
+    {
+        return $this->belongsTo(User::class, 'followed_id');
+    }
+
 }

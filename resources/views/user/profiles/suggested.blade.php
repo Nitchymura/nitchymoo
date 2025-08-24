@@ -64,7 +64,7 @@
                 </div>
             </div>
         @empty
-
+            <h4 class="h5 text-center text-secondary">No suggested users.</h4>
         @endforelse
         </div>
     </div>

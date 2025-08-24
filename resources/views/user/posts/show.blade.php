@@ -77,7 +77,9 @@
     <div class="row border shadow "> 
         <div class="col-12 col-md-8 p-0 border-end"> 
             @if ($bodies->isNotEmpty()) {{-- 本文画像 + Body画像をスライドで表示 --}} 
-            <div id="postCarousel-{{ $post->id }}" class="carousel slide" data-bs-ride="carousel">  
+            <div id="postCarousel-{{ $post->id }}" class="carousel slide" 
+                {{-- data-bs-ride="carousel" --}}
+                >  
                 <div class="carousel-inner"> {{-- 1枚目はメイン画像を active で表示 --}} 
                     <div class="carousel-item active"> 
                         <div class="post-photo-container"> 

@@ -19,7 +19,7 @@ class UsersController extends Controller
             $all_users = $this->user->latest()->where('name', 'LIKE', '%'.$request->search.'%')->paginate(10);
             //SELECT * FROM posts WHERE description LIKE '%searchword%'
         }else{
-            $all_users = $this->user->orderBy('name')->withTrashed()->paginate(10);
+            $all_users = $this->user->orderBy('id')->withTrashed()->paginate(10);
         }
 
         return view('admin.users.index')->with('all_users', $all_users)->with('search', $request->search);

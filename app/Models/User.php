@@ -81,4 +81,12 @@ class User extends Authenticatable
     public function followingYou(){
         return $this->follows()->where('followed_id', Auth::user()->id)->exists();
     }
+
+    public function followingUsers(){
+    // follows: 自分がフォローしている Follow レコード
+    return $this->follows()->with('followedUser')->get()->map(function($follow){
+        return $follow->followedUser;
+    });
+}
+
 }

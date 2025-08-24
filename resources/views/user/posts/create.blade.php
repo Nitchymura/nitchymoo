@@ -59,6 +59,7 @@
             </div>
         </div>
 
+
         <div>
             <label for="description" class="form-label fw-bold mt-3">Description</label>
         <textarea name="description" id="description" rows="3" placeholder="What's on your mind" class="form-control">{{ old('description') }}</textarea>
