@@ -31,7 +31,7 @@
                     @else
                         <form action="{{ route('follow.store', $user->id) }}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-sm btn-primary fw-bold mb-2">Follow</button>
+                            <button type="submit" class="btn btn-sm btn-info text-white rounded-5 fw-bold mb-2">Follow</button>
                         </form>
                     @endif
                 @endif

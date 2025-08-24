@@ -23,7 +23,7 @@
                             </a>
                         </div>
                         <div class="col ps-0 text-truncate fw-bold">
-                            {{ $follow->followed->name }}
+                            <a href="{{ route('profile.show', $follow->followed->id) }}" class="text-decoration-none text-dark">{{ $follow->followed->name }}</a>
                         </div>
                         <div class="col-auto">
                             {{-- follow --}}
@@ -32,12 +32,12 @@
                                     <form action="{{ route('follow.delete', $follow->followed->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary bg-transparent text-secondary">Following</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary rounded-5 fw-bold">Following</button>
                                     </form>
                                 @else
                                     <form action="{{ route('follow.store', $follow->followed->id) }}" method="post">
                                         @csrf
-                                        <button type="submit" class="btn bg-transparent text-primary">Follow</button>
+                                        <button type="submit" class="btn btn-sm btn-info text-white rounded-5 fw-bold">Follow</button>
                                     </form>
                                 @endif
                             @endif
