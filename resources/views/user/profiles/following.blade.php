@@ -7,7 +7,7 @@
 
     @if($user->follows->isNotEmpty())
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-md-6 col-sm-8">
                 <h4 class="h5 text-center text-secondary mb-3">Following</h4>
                 <hr>
                 @foreach($user->follows as $follow)
