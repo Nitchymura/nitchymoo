@@ -128,9 +128,11 @@
 @else 
     <p>---</p>
 @endif
-<p class="fw-light {{ $noClamp ?? false ? '' : 'description' }}">
-    {{ $post->description }}
-</p>
+<a href="{{ route('post.show', $post->id) }}" class="text-decoration-none text-dark">
+    <p class="fw-light {{ $noClamp ?? false ? '' : 'description' }}">
+        {{ $post->description }}
+    </p>
+</a>
 
 {{-- <button class="btn btn-sm btn-outline-primary mt-2 translate-btn" 
         data-id="{{ $post->id }}">
