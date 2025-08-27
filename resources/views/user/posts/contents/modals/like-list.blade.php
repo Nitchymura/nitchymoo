@@ -5,7 +5,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-5">
-                <div class="w-75 mx-auto">
+                <div class="w-100 mx-auto">
                     @foreach($post->likes as $like)
                     <div class="row align-items-center mb-3">
                         <div class="col-auto">
@@ -24,12 +24,12 @@
                                     <form action="{{ route('follow.delete', $like->user->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary">Following</button>
+                                        <button type="submit" class="btn btn-sm rounded-5 btn-outline-secondary fw-bold">Following</button>
                                     </form>
                                 @else
                                     <form action="{{ route('follow.store', $like->user->id) }}" method="post">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-primary">Follow</button>
+                                        <button type="submit" class="btn btn-sm rounded-5 btn-info text-white fw-bold">Follow</button>
                                     </form>
                                 @endif
                             @endif
