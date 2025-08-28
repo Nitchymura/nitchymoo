@@ -38,7 +38,7 @@
         @csrf       
             <div class="col">
                 <input type="text" name="question" id="question" class="form-control " placeholder="What do you want to know about me?" value="{{old('question')}}">
-                @error('name')
+                @error('question')
                     <p class="mb-0 text-danger small">{{$message}}</p>
                 @enderror
             </div>     

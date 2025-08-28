@@ -7,7 +7,7 @@
         @csrf       
             <div class="col-4 mt-3">
                 <input type="text" name="question" id="question" class="form-control " placeholder="Add a question..." value="{{old('question')}}">
-                @error('name')
+                @error('question')
                     <p class="mb-0 text-danger small">{{$message}}</p>
                 @enderror
             </div>     
