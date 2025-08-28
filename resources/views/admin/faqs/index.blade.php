@@ -22,7 +22,6 @@
                 <th>question</th>
                 <th>answer</th>
                 <th>created at</th>
-                <th>status</th>
                 <th></th>
             </tr>
         </thead>
@@ -59,7 +58,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="text-center" colspan="6">No faqs found.</td>
+                    <td class="text-center" colspan="5">No faqs found.</td>
                 </tr>
             @endforelse
         </tbody>
