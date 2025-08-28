@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\PostTranslateController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\CategoriesController;
@@ -25,7 +26,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => 'auth'], function(){
     // Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/suggested-users', [HomeController::class, 'suggested'])->name('suggested');
-    Route::get('/all-suggested-users', [HomeController::class, 'allSuggested'])->name('all.suggested');
+    // Route::get('/all-suggested-users', [HomeController::class, 'allSuggested'])->name('all.suggested');
 
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::post('/post/store',[PostController::class, 'store'])->name('post.store');
@@ -37,8 +38,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/post/{id}/deactivate', [PostController::class, 'deactivate'])->name('posts.deactivate');
     Route::patch('/post/{id}/activate', [PostController::class, 'activate'])->name('posts.activate');
     Route::post('/post/{id}/toggle-like', [PostController::class, 'toggleLike'])->name('post.toggleLike');
-    Route::get('/posts/{post}/translate', [PostController::class, 'translate'])
-     ->name('posts.translate'); 
+
+    Route::get('/posts/{post}/translate', [PostTranslateController::class, 'translate'])
+    ->name('posts.translate');
 
     Route::post('/comment/{post_id}/store', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('comment/{id}/delete', [CommentController::class, 'delete'])->name('comment.delete');
@@ -98,6 +100,3 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
-Route::get('/dbcheck', fn() => DB::select("SELECT DATABASE() db, @@hostname host, @@port prt, @@version ver"));
-
-Route::get('/dbcheck', fn() => DB::select("SELECT DATABASE() db, @@hostname host, @@port prt, @@version ver"));

@@ -128,36 +128,54 @@
 @else 
     <p>---</p>
 @endif
-<a href="{{ route('post.show', $post->id) }}" class="text-decoration-none text-dark">
-    <p class="fw-light {{ $noClamp ?? false ? '' : 'description' }}">
-        {{ $post->description }}
-    </p>
-</a>
+{{-- <a href="{{ route('post.show', $post->id) }}" class="text-decoration-none text-dark"> --}}
+  <p class="fw-light {{ $noClamp ?? false ? '' : 'description' }}">
+    {{ $post->description }}
+  </p>
+{{-- </a> --}}
 
-{{-- <button class="btn btn-sm btn-outline-primary mt-2 translate-btn" 
-        data-id="{{ $post->id }}">
-   翻訳する
+<button
+  class="btn btn-sm btn-outline-primary mt-2 translate-btn"
+  data-id="{{ $post->id }}"
+  data-url="{{ route('posts.translate', ['post' => $post->id]) }}">
+  翻訳する
 </button>
 
 <div id="translation-result-{{ $post->id }}" class="mt-2 text-muted"></div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.translate-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
-      const id = btn.dataset.id;
+      const id  = btn.dataset.id;
+      const url = btn.dataset.url; // ← ここから取る
+      const box = document.getElementById(`translation-result-${id}`);
+
+      const original = btn.innerHTML;
+      btn.disabled = true; btn.innerHTML = '翻訳中…';
+
       try {
-        const res = await fetch(`/posts/${id}/translate`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        document.getElementById(`translation-result-${id}`).innerText = data.translation;
+        const res = await fetch(url, {
+          headers: { 'Accept': 'application/json' },
+          credentials: 'same-origin',  // ← auth中のセッションを送る
+          cache: 'no-store'
+        });
+
+        const text = await res.text(); // ← まずは生テキスト
+        let data = {};
+        try { data = JSON.parse(text); } catch {}
+
+        if (!res.ok) throw new Error(`HTTP ${res.status} | ${text}`);
+
+        box.innerText = data.translation || '翻訳が空でした。';
       } catch (e) {
         console.error(e);
-        document.getElementById(`translation-result-${id}`).innerText = '翻訳取得に失敗しました。';
+        box.innerText = '翻訳取得に失敗しました。';
+      } finally {
+        btn.disabled = false; btn.innerHTML = original;
       }
     });
   });
 });
-</script> --}}
-
-
+</script>
