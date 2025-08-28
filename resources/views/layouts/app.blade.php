@@ -73,20 +73,25 @@
                             
                         {{-- HOME --}}
                         <li class="nav-item">
-                            <a href="{{ route('home') }}" class="nav-link">
-                                <i class="fa-solid fa-house text-secondary icon-sm"></i>
+                            <a href="{{ route('home') }}" class="nav-link d-flex align-items-center">
+                                <i class="fa-solid fa-house text-secondary icon-sm"></i> &nbsp;HOME
                             </a>
                         </li>
 
                         {{-- CREATE POST --}}
                         @if(Auth::user()->role_id == 1 || Auth::user()->role_id ==  2)
                         <li class="nav-item">
-                            <a href="{{ route('post.create') }}" class="nav-link">
-                                <i class="fa-solid fa-circle-plus text-secondary icon-sm"></i>
+                            <a href="{{ route('post.create') }}" class="nav-link d-flex align-items-center">
+                                <i class="fa-solid fa-circle-plus text-secondary icon-sm"></i> &nbsp;ADD
                             </a>
                         </li>
-
                         @endif
+
+                        <li class="nav-item">
+                            <a href="{{ route('faqs') }}" class="nav-link d-flex align-items-center">
+                                <i class="fa-solid fa-circle-question text-secondary icon-sm"></i> &nbsp;FAQ
+                            </a>
+                        </li>
                         
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link btn" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

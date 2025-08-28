@@ -7,15 +7,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\FAQ;
 
 class ProfileController extends Controller
 {
     private $user;
     private $comment;
+    private $faq;
 
-    public function __construct(User $user, Comment $comment){
+    public function __construct(User $user, Comment $comment, FAQ $faq){
         $this->user = $user;
         $this->comment = $comment;
+        $this->faq = $faq;
     }
 
     public function show($id){
@@ -142,6 +145,11 @@ class ProfileController extends Controller
         $suggested_users = $this->getSuggestedUsers();
 
         return view('user.profiles.following', compact('suggested_users'))->with('user', $user_a);
+    }
+
+    public function index(){
+        $all_faqs = $this->faq->latest()->get();
+        return view('user.faqs.index')->with('all_faqs', $all_faqs);
     }
 
     public function changePassword(){

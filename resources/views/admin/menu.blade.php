@@ -22,6 +22,9 @@
                 <a href="{{ route('admin.categories') }}" class="list-group-item {{ request()->is('admin/categories*') ? 'active' : '' }}">
                     <i class="fa-solid fa-tags"></i> Categories
                 </a>
+                <a href="{{ route('admin.faqs') }}" class="list-group-item {{ request()->is('admin/categories*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-circle-question"></i> FAQ
+                </a>
             </div>
         </div>
         <div class="col-9 my-4">

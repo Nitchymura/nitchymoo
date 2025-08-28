@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CommentsController;
+use App\Http\Controllers\Admin\FaqsController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -55,6 +56,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::patch('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('avatar.delete');
     Route::get('/header-all-suggested-users', [ProfileController::class, 'allSuggested'])->name('all.suggested');
+
+    //FAQs
+    Route::get('/faqs', [ProfileController::class, 'index'])->name('faqs');
     
     //Categories
     Route::get('/show/{id}/category', [CategoryController::class, 'show'])->name('category.show');
@@ -95,6 +99,12 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('/comments/{id}/deactivate', [CommentsController::class, 'deactivate'])->name('comments.deactivate');
         Route::patch('/comments/{id}/activate', [CommentsController::class, 'activate'])->name('comments.activate');
         Route::delete('/comments/{id}/delete', [CommentsController::class, 'delete'])->name('comments.delete');
+        Route::get('/faqs', [FaqsController::class, 'index'])->name('faqs');
+        Route::get('/faqs/create', [FaqsController::class, 'create'])->name('faqs.create');
+        Route::post('/faqs/store', [FaqsController::class, 'store'])->name('faqs.store');
+        Route::get('/faqs/{id}/edit', [FaqsController::class, 'edit'])->name('faqs.edit');
+        Route::patch('/faqs/{id}/update', [FaqsController::class, 'update'])->name('faqs.update');
+        Route::delete('/faqs/{id}/delete', [FaqsController::class, 'delete'])->name('faqs.delete');
     });
 });
 
