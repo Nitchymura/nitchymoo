@@ -3,7 +3,7 @@
 @section('title', 'Admin: FAQs')
 
 @section('sub_content')
-    <form action="{{ route('admin.faqs.store') }}" method="post" class="row gx-2 mb-4">
+    {{-- <form action="{{ route('admin.faqs.store') }}" method="post" class="row gx-2 mb-4">
         @csrf       
             <div class="col-4 mt-3">
                 <input type="text" name="question" id="question" class="form-control " placeholder="Add a question..." value="{{old('question')}}">
@@ -35,25 +35,17 @@
                     <td>
                         {{date('M d, Y H:m:s', strtotime($faq->created_at))}}
                     </td>
-                    {{-- <td>
-                        @if($faq->trashed())
-                            <i class="fa-solid fa-circle-minus text-secondary"></i> Hidden
-                        @else
-                            <i class="fa-solid fa-circle text-primary"></i> Visible
-                        @endif
-                    </td> --}}
                     <td>
-                        {{-- edit --}}
+                        <!-- edit -->
                         <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#edit-faq{{$faq->id}}">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                         &nbsp;
-                        {{-- delete --}}
+                        <!-- delete -->
                         <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-faq{{$faq->id}}">
                             <i class="fa-solid fa-trash "></i>
                         </button>
                         @include('admin.faqs.actions')
-                        {{-- @endif --}}
                     </td>
                 </tr>
             @empty
@@ -62,7 +54,7 @@
                 </tr>
             @endforelse
         </tbody>
-    </table>
+    </table> --}}
     {{-- {{ $all_faqs->links() }} --}}
 
 @endsection

@@ -1,5 +1,3 @@
-{{-- @if(!$post->trashed()) --}}
-{{-- DEACTIVATE --}}
 <div class="modal fade" id="delete-faq{{$faq->id}}">
     <div class="modal-dialog">
         <div class="modal-content border-danger">
