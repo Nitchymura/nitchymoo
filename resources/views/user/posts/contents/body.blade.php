@@ -128,54 +128,74 @@
 @else 
     <p>---</p>
 @endif
-{{-- <a href="{{ route('post.show', $post->id) }}" class="text-decoration-none text-dark"> --}}
-  <p class="fw-light {{ $noClamp ?? false ? '' : 'description' }}">
+@php
+    // いまのルートが post.show なら true
+    $isShow = request()->routeIs('post.show');
+
+    // 明示指定が無ければ、以下をデフォルトにする
+    // showページ： 翻訳ボタン=表示 / 説明リンク=無効
+    // homeページ： 翻訳ボタン=非表示 / 説明リンク=有効
+    $showTranslate   = $showTranslate   ?? $isShow;
+    $linkDescription = $linkDescription ?? !$isShow;
+@endphp
+
+@if($linkDescription)
+  <a href="{{ route('post.show', $post->id) }}" class="text-decoration-none text-dark">
+    <p class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}">
+      {{ $post->description }}
+    </p>
+  </a>
+@else
+  <p class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}">
     {{ $post->description }}
   </p>
-{{-- </a> --}}
+@endif
 
-<button
-  class="btn btn-sm btn-outline-primary mt-2 translate-btn"
-  data-id="{{ $post->id }}"
-  data-url="{{ route('posts.translate', ['post' => $post->id]) }}">
-  翻訳する
-</button>
+@if($showTranslate)
+  <button
+    class="btn btn-sm btn-outline-primary mt-2 translate-btn"
+    data-id="{{ $post->id }}"
+    data-url="{{ route('posts.translate', ['post' => $post->id]) }}">
+    翻訳する
+  </button>
 
-<div id="translation-result-{{ $post->id }}" class="mt-2 text-muted"></div>
+  <div id="translation-result-{{ $post->id }}" class="mt-2 text-muted"></div>
 
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.translate-btn').forEach(btn => {
+      if (btn.dataset.bound) return; // 二重バインド防止
+      btn.dataset.bound = "1";
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.translate-btn').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const id  = btn.dataset.id;
-      const url = btn.dataset.url; // ← ここから取る
-      const box = document.getElementById(`translation-result-${id}`);
+      btn.addEventListener('click', async () => {
+        const id  = btn.dataset.id;
+        const url = btn.dataset.url;
+        const box = document.getElementById(`translation-result-${id}`);
 
-      const original = btn.innerHTML;
-      btn.disabled = true; btn.innerHTML = '翻訳中…';
+        const original = btn.innerHTML;
+        btn.disabled = true; btn.innerHTML = '翻訳中…';
 
-      try {
-        const res = await fetch(url, {
-          headers: { 'Accept': 'application/json' },
-          credentials: 'same-origin',  // ← auth中のセッションを送る
-          cache: 'no-store'
-        });
+        try {
+          const res = await fetch(url, {
+            headers: { 'Accept': 'application/json' },
+            credentials: 'same-origin',
+            cache: 'no-store'
+          });
+          const text = await res.text();
+          let data = {};
+          try { data = JSON.parse(text); } catch {}
 
-        const text = await res.text(); // ← まずは生テキスト
-        let data = {};
-        try { data = JSON.parse(text); } catch {}
+          if (!res.ok) throw new Error(`HTTP ${res.status} | ${text}`);
 
-        if (!res.ok) throw new Error(`HTTP ${res.status} | ${text}`);
-
-        box.innerText = data.translation || '翻訳が空でした。';
-      } catch (e) {
-        console.error(e);
-        box.innerText = '翻訳取得に失敗しました。';
-      } finally {
-        btn.disabled = false; btn.innerHTML = original;
-      }
+          box.innerText = data.translation || '翻訳が空でした。';
+        } catch (e) {
+          console.error(e);
+          box.innerText = '翻訳取得に失敗しました。';
+        } finally {
+          btn.disabled = false; btn.innerHTML = original;
+        }
+      });
     });
   });
-});
-</script>
+  </script>
+@endif
