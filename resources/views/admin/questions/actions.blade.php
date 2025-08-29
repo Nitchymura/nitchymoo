@@ -41,9 +41,9 @@
         @enderror
 
         <label for="answer-{{ $faq->id }}" class="mt-2">Answer</label>
-        <input id="answer-{{ $faq->id }}" type="text" name="answer"
+        <textarea id="answer-{{ $faq->id }}" type="text" name="answer"
                class="form-control"
-               value="{{ old('answer', $faq->answer) }}">
+               value="{{ old('answer', $faq->answer) }}">{{ old('answer', $faq->answer) }}</textarea>
         @error('answer')
             <p class="mb-0 text-danger small">{{ $message }}</p>
         @enderror
