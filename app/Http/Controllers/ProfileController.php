@@ -152,6 +152,20 @@ class ProfileController extends Controller
         return view('user.profiles.faq-index')->with('all_faqs', $all_faqs);
     }
 
+    public function storeQuestion(Request $request){
+        $request->validate([
+            'question' => 'required|max:1000',
+            'answer' => 'nullable|max:3000'
+        ]);
+
+        $new_faq = $this->faq;
+        $new_faq->question = $request->question;
+        $new_faq->answer = $request->answer;
+        $new_faq->save();
+
+        return redirect()->back();
+    }
+
     public function changePassword(){
         return view('user.profiles.change-password');
     }

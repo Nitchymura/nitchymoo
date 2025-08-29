@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     //FAQs
     Route::get('/faqs', [ProfileController::class, 'index'])->name('faqs');
+    Route::post('/guest/faqs/store', [FaqsController::class, 'storeQuestion'])->name('question.store');
     
     //Categories
     Route::get('/show/{id}/category', [CategoryController::class, 'show'])->name('category.show');

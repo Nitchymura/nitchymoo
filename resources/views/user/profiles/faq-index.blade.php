@@ -34,7 +34,7 @@
             </div> --}}
     <div class="row mt-5"> 
         <h3 class="h4 text-primary mb-4">Do you want to ask me a question?</h3>
-        <form action="{{ route('admin.faqs.store') }}" method="post" class="row gx-2 mb-4">
+        <form action="{{ route('question.store') }}" method="post" class="row gx-2 mb-4">
         @csrf       
             <div class="col">
                 <input type="text" name="question" id="question" class="form-control " placeholder="What do you want to know about me?" value="{{old('question')}}">
