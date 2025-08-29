@@ -23,8 +23,8 @@ class CommentsController extends Controller
         }else{
             $all_comments = $this->comment->withTrashed()->latest()->paginate(10);
         }
-        $all_faqs = $this->faq->latest()->get();
-        return view('admin.comments.index')->with('all_comments', $all_comments)->with('search', $request->search)->with('all_faqs', $all_faqs);
+        
+        return view('admin.comments.index')->with('all_comments', $all_comments)->with('search', $request->search);
     }
 
     public function deactivate($id){
