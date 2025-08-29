@@ -17,10 +17,10 @@
                         </div>
                         {{-- body --}}
                         <div class="card-body">
-                            @if($faq->answer === null)
-                                <span class="text-muted">I'll answer!</span>
-                            @else
+                            @if($faq->answer)
                                 {{ $faq->answer}}
+                            @else
+                                <span class="text-muted">I'll answer!</span>
                             @endif
                         </div>
                     </div>
