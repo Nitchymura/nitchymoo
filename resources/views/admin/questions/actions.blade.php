@@ -5,7 +5,8 @@
                 <h3 class="h3 text-dark"><i class="fa-solid fa-trash-can"></i> Delete FAQ</h3>
             </div>
             <div class="modal-body">
-                <p class="text-dark">Are you sure you want to delete faq?</p>              
+                <p class="text-dark">Are you sure you want to delete this FAQ?</p> 
+                <p class="fw-bold">"{{ $faq->question }}"</p>             
             </div>
             <div class="modal-footer border-0">
                 <form action="{{ route('admin.faqs.delete', $faq->id)}}" method="post">

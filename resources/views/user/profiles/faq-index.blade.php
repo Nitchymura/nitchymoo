@@ -13,12 +13,12 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 px-2">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="mb-0">{{ $faq->question }}</h5>
+                            <h5 class="mb-0">Q: {{ $faq->question }}</h5>
                         </div>
                         {{-- body --}}
                         <div class="card-body">
                             @if($faq->answer)
-                                {{ $faq->answer}}
+                                A: {{ $faq->answer}}
                             @else
                                 <span class="text-muted">I'll answer!</span>
                             @endif
