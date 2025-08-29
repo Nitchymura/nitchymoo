@@ -149,7 +149,7 @@ class ProfileController extends Controller
 
     public function index(){
         $all_faqs = $this->faq->latest()->get();
-        return view('user.faqs.index')->with('all_faqs', $all_faqs);
+        return view('user.profiles.faq-index')->with('all_faqs', $all_faqs);
     }
 
     public function changePassword(){

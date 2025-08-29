@@ -16,7 +16,7 @@ class FaqsController extends Controller
 
     public function index(){
         $all_faqs = $this->faq->latest()->get();
-        return view('admin.faqs.index')->with('all_faqs', $all_faqs);
+        return view('admin.questions.index')->with('all_faqs', $all_faqs);
     }
 
     public function store(Request $request){
