@@ -3,7 +3,7 @@
 @section('title', 'Admin: FAQs')
 
 @section('sub_content')
-    <form action="{{ route('admin.faqs.store') }}" method="post" class="row gx-2 mb-4">
+    {{-- <form action="{{ route('admin.faqs.store') }}" method="post" class="row gx-2 mb-4">
         @csrf       
             <div class="col-4 mt-3">
                 <input type="text" name="question" id="question" class="form-control " placeholder="Add a question..." value="{{old('question')}}">
@@ -14,7 +14,7 @@
             <div class="col-auto mt-3">
                 <button type="submit" class="btn  btn-primary "><i class="fa-solid fa-plus"></i> Add</button>
             </div>   
-        </form>
+        </form> --}}
     <table class="table border bg-qhite table-hover align-middle text-secondary">
         <thead class="table-primary text-secondary text-uppercase small">
             <tr>
