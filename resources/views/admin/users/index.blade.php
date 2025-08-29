@@ -41,7 +41,7 @@
                     </td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        {{date('M d, Y H:m:s', strtotime($user->created_at))}}
+                        {{date('M d, Y H:i:s', strtotime($user->created_at))}}
                     </td>
                     <td>
                         {{-- status --}}

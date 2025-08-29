@@ -49,7 +49,7 @@
                     </td> --}}
                     <td><a href="{{ route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a></td>
                     <td>
-                        {{date('M d, Y H:m:s', strtotime($comment->created_at))}}
+                        {{date('M d, Y H:i:s', strtotime($comment->created_at))}}
                     </td>
                     <td>
                         {{-- status --}}

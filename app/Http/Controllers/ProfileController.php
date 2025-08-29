@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Comment;
-use App\Models\FAQ;
+use App\Models\Faq;
 
 class ProfileController extends Controller
 {
@@ -15,7 +15,7 @@ class ProfileController extends Controller
     private $comment;
     private $faq;
 
-    public function __construct(User $user, Comment $comment, FAQ $faq){
+    public function __construct(User $user, Comment $comment, Faq $faq){
         $this->user = $user;
         $this->comment = $comment;
         $this->faq = $faq;
