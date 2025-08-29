@@ -3,7 +3,7 @@
 @section('title', 'Admin: FAQs')
 
 @section('sub_content')
-    {{-- <form action="{{ route('admin.faqs.store') }}" method="post" class="row gx-2 mb-4">
+    <form action="{{ route('admin.faqs.store') }}" method="post" class="row gx-2 mb-4">
         @csrf       
             <div class="col-4 mt-3">
                 <input type="text" name="question" id="question" class="form-control " placeholder="Add a question..." value="{{old('question')}}">
@@ -54,7 +54,7 @@
                 </tr>
             @endforelse
         </tbody>
-    </table> --}}
+    </table>
     {{-- {{ $all_faqs->links() }} --}}
 
 @endsection
