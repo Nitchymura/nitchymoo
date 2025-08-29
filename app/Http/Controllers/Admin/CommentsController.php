@@ -5,16 +5,14 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comment;
-use App\Models\Faq;
 
 class CommentsController extends Controller
 {
     private $comment;
     private $faq;
 
-    public function __construct(Comment $comment, Faq $faq){
+    public function __construct(Comment $comment){
         $this->comment = $comment;
-        $this->faq = $faq;
     }
 
     public function index(Request $request){

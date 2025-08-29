@@ -4,13 +4,13 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\FAQ;
+use App\Models\Faq;
 
 class FaqsController extends Controller
 {
     private $faq;
 
-    public function __construct(FAQ $faq){
+    public function __construct(Faq $faq){
         $this->faq = $faq;
     }
 
