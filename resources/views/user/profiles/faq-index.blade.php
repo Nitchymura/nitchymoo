@@ -7,7 +7,7 @@
     <div class="row" style="height: 50px">
     </div> 
     <div class="row mt-5">        
-        <h3 class="h3 text-success mb-4">Frequently Asked Questions about me</h3>
+        <h3 class="h3 text-success mb-4">FAQ about me</h3>
             <div class="row">
                 @forelse($all_faqs as $faq)
                 <div class="col-lg-4 col-md-6 col-sm-12 px-2">
@@ -18,7 +18,7 @@
                         {{-- body --}}
                         <div class="card-body">
                             @if($faq->answer)
-                                A: {{ $faq->answer}}
+                                <h6 class="text-danger">A: {{ $faq->answer}}</h6>
                             @else
                                 <span class="text-muted">I'll answer!</span>
                             @endif
