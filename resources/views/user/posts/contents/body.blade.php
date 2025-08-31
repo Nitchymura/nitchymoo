@@ -5,12 +5,12 @@
     <form action="{{ route('post.toggleLike', $post->id) }}" method="POST"
           data-post-id="{{ $post->id }}" class="like-post-form m-0">
         @csrf
-        <button
-        type="button"
-        class="btn btn-sm p-0 d-inline-flex align-items-center gap-1 post-like-btn
-                {{ request()->routeIs('post.show') ? 'is-show' : 'is-home' }}">
-        <i class="{{ $post->likes->where('user_id', Auth::id())->isNotEmpty() ? 'fa-solid text-danger' : 'fa-regular' }} fa-heart"></i>
-        <span>{{ $post->likes->count() }}</span>
+
+        <button type="button"
+                class="btn btn-sm p-0 d-inline-flex align-items-center gap-1 post-like-btn {{ request()->routeIs('posts.show','post.show') ? 'is-show' : 'is-home' }}"
+                data-post-id="{{ $post->id }}">
+            <i class="{{ $post->likes->where('user_id', Auth::id())->isNotEmpty() ? 'fa-solid text-danger' : 'fa-regular' }} fa-heart"></i>
+            <span class="post-like-count" data-post-id="{{ $post->id }}">{{ $post->likes->count() }}</span>
         </button>
 
     </form>
