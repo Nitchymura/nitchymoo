@@ -101,7 +101,7 @@
 @endauth
 
 @if($post->subtitle)
-    <p class="text-muted xsmall py-0">~{{ $post->subtitle }}~</p>
+    <p class="text-muted xsmall py-0">～{{ $post->subtitle }}～</p>
 @endif
 
 @if($post->city && $post->country)
