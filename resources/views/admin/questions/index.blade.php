@@ -22,6 +22,8 @@
                 <th>question</th>
                 <th>answer</th>
                 <th>created at</th>
+                <th>Status</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -34,6 +36,38 @@
                     <td>{{ $faq->answer }}</td>
                     <td>
                         {{ date('M d, Y H:i:s', strtotime($faq->created_at)) }}
+                    </td>
+                    <td>
+                        {{-- status --}}
+                        @if($faq->trashed())
+                            <i class="fa-regular fa-circle"></i> Inactive
+                        @else
+                            <i class="fa-solid fa-circle text-success"></i> Active
+                        @endif
+                    </td>
+                    <td>
+                        {{-- @if($post->user->id != Auth::user()->id) --}}
+                        <div class="dropdown">
+                            <button class="btn btn-sm" data-bs-toggle="dropdown" >
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+
+                            @if($faq->trashed())
+                                <div class="dropdown-menu">
+                                    <button class="dropdown-item text-dark" data-bs-toggle="modal" data-bs-target="#activate-faq{{ $faq->id }}">
+                                        <i class="fa-solid fa-eye"></i> Unhide FAQ {{ $faq->id }}
+                                    </button>
+                                </div>
+                            @else
+                                <div class="dropdown-menu">
+                                    <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deactivate-faq{{ $faq->id }}">
+                                        <i class="fa-solid fa-eye-slash"></i> Hide FAQ {{ $faq->id }}
+                                    </button>
+                                </div>
+                            @endif
+                        </div>
+                        @include('admin.questions.status')
+                        {{-- @endif --}}
                     </td>
                     <td>
                         <!-- edit -->

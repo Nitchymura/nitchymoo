@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="delete-faq{{$faq->id}}">
     <div class="modal-dialog">
         <div class="modal-content border-danger">
@@ -6,7 +7,8 @@
             </div>
             <div class="modal-body">
                 <p class="text-dark">Are you sure you want to delete this FAQ?</p> 
-                <p class="fw-bold">"{{ $faq->question }}"</p>             
+                <p class="fw-bold">Q: "{{ $faq->question }}"</p>     
+                <p class="fw-bold">A: "{{ $faq->answer }}"</p>          
             </div>
             <div class="modal-footer border-0">
                 <form action="{{ route('admin.faqs.delete', $faq->id)}}" method="post">
@@ -58,4 +60,6 @@
         </div>
     </div>
 </div>
+
+
 

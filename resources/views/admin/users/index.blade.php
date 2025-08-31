@@ -16,6 +16,7 @@
                 <th>created at</th>
                 <th>status</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -75,6 +76,15 @@
                         @include('admin.users.status')
                         @endif
                     </td>
+                    <td>
+                        @if($user->id != Auth::user()->id)
+                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-user{{$user->id}}">
+                                <i class="fa-solid fa-trash "></i>
+                            </button>
+                            @include('admin.users.modals.delete')
+                        @endif
+                    </td>
+
                 </tr>
             @empty
                 <tr>

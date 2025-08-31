@@ -15,7 +15,7 @@ class FaqsController extends Controller
     }
 
     public function index(){
-        $all_faqs = $this->faq->latest()->get();
+        $all_faqs = $this->faq->withTrashed()->latest()->get();
         return view('admin.questions.index')->with('all_faqs', $all_faqs);
     }
 
@@ -52,10 +52,20 @@ class FaqsController extends Controller
         return redirect()->route('admin.faqs');
     }
 
+    public function deactivate($id){
+        $this->faq->destroy($id);
+        return redirect()->back();
+    }
+
+    public function activate($id){
+        $this->faq->onlyTrashed()->findOrFail($id)->restore();
+        return redirect()->back();
+    }
+
     public function delete($id){
         // $this->post->destroy($id);
         $this->faq->findOrFail($id)->forceDelete();
-        return redirect()->route('admin.faqs');
+        return redirect()->back();
     }
 
 }

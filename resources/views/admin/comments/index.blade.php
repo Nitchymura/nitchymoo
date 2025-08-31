@@ -16,6 +16,7 @@
                 <th>created at</th>
                 <th>status</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -82,6 +83,12 @@
                         </div>
                         @include('admin.comments.status')
                         {{-- @endif --}}
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-comment{{$comment->id}}">
+                            <i class="fa-solid fa-trash "></i>
+                        </button>
+                        @include('admin.comments.delete')
                     </td>
                 </tr>
             @empty

@@ -1,18 +1,19 @@
-@if(!$post->trashed())
+@if(!$faq->trashed())
 {{-- DEACTIVATE --}}
-<div class="modal fade" id="deactivate-post{{ $post->id }}">
+<div class="modal fade" id="deactivate-faq{{ $faq->id }}">
     <div class="modal-dialog">
         <div class="modal-content border-danger">
             <div class="modal-header border-danger">
-                <h3 class="h3 text-danger"><i class="fa-solid fa-eye-slash"></i>Hide post</h3>
+                <h3 class="h3 text-danger"><i class="fa-solid fa-eye-slash"></i>Hide FAQ</h3>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to hide this post ?</p>              
-                <img src="{{$post->image}}" alt="" class="img-lg mb-2">
-                <p class="text-secondary">{{ $post->description }}</p>               
+                <p>Are you sure you want to hide this FAQ ?</p>              
+                {{-- <img src="{{$faq->image}}" alt="" class="img-lg mb-2"> --}}
+                <p class="fw-bold">Q: "{{ $faq->question }}"</p>     
+                <p class="fw-bold">A: "{{ $faq->answer }}"</p>     
             </div>
             <div class="modal-footer border-0">
-                <form action="{{ route('admin.posts.deactivate', $post->id)}}" method="post">
+                <form action="{{ route('admin.faqs.deactivate', $faq->id)}}" method="post">
                     @csrf
                     @method('DELETE')
                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-danger">Cancel</button>
@@ -22,22 +23,21 @@
         </div>
     </div>
 </div>
-
 @else
 {{-- ACTIVATE --}}
-<div class="modal fade" id="activate-post{{$post->id}}">
+<div class="modal fade" id="activate-faq{{$faq->id}}">
     <div class="modal-dialog">
         <div class="modal-content border-primary">
             <div class="modal-header border-primary">
-                <h3 class="h3 text-primary"><i class="fa-solid fa-eye"></i> Unhide post</h3>
+                <h3 class="h3 text-primary"><i class="fa-solid fa-eye"></i> Unhide faq</h3>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to unhide this post?</p>
-                <img src="{{$post->image}}" alt="" class="img-lg mb-2">
-                <p class="text-secondary">{{ $post->description }}</p>
+                <p>Are you sure you want to unhide this faq?</p>
+                <p class="fw-bold">Q: "{{ $faq->question }}"</p>     
+                <p class="fw-bold">A: "{{ $faq->answer }}"</p>  
             </div>
             <div class="modal-footer border-0">
-                <form action="{{route('admin.posts.activate', $post->id)}}" method="post">
+                <form action="{{route('admin.faqs.activate', $faq->id)}}" method="post">
                     @csrf
                     @method('PATCH')
                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary">Cancel</button>

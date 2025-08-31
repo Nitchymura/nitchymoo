@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/faqs', [ProfileController::class, 'index'])->name('faqs');
     Route::post('/guest/faqs/store', [ProfileController::class, 'storeQuestion'])->name('question.store');
     
+    
     //Categories
     Route::get('/show/{id}/category', [CategoryController::class, 'show'])->name('category.show');
 
@@ -106,6 +107,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/faqs/{id}/edit', [FaqsController::class, 'edit'])->name('faqs.edit');
         Route::patch('/faqs/{id}/update', [FaqsController::class, 'update'])->name('faqs.update');
         Route::delete('/faqs/{id}/delete', [FaqsController::class, 'delete'])->name('faqs.delete');
+        Route::delete('/faq/{id}/deactivate', [FaqsController::class, 'deactivate'])->name('faqs.deactivate');
+        Route::patch('/faq/{id}/activate', [FaqsController::class, 'activate'])->name('faqs.activate');
+
     });
 });
 

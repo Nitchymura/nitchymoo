@@ -23,16 +23,6 @@
                     <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
                 </form>
             </div>
-            <div class="modal-body">
-                Or, want to completely delete? <br><span class="text-danger fw-bold">Please make sure this action cannot be undone!!</span>
-            </div>
-            <div class="modal-footer border-0">
-                <form action="{{ route('admin.users.delete', $user->id)}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                </form>
-            </div>
         </div>
     </div>
 </div>
