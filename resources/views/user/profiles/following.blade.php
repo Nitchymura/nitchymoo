@@ -32,12 +32,12 @@
                                     <form action="{{ route('follow.delete', $follow->followed->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary rounded-5 fw-bold">Following</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary rounded-5">Following</button>
                                     </form>
                                 @else
                                     <form action="{{ route('follow.store', $follow->followed->id) }}" method="post">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-info text-white rounded-5 fw-bold">Follow</button>
+                                        <button type="submit" class="btn btn-sm btn-info text-white rounded-5">Follow</button>
                                     </form>
                                 @endif
                             @endif

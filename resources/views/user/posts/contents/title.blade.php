@@ -51,7 +51,7 @@
                             class="follow-form">
                         @csrf
                         <button type="button"
-                                class="btn btn-sm follow-btn {{ $isFollowing ? 'btn-outline-secondary' : 'btn-primary' }}">
+                                class="btn btn-sm follow-btn {{ $isFollowing ? 'btn-outline-secondary rounded-5' : 'btn-info rounded-5' }}">
                             <span class="label">{{ $isFollowing ? 'Following' : 'Follow' }}</span>
                         </button>
                         </form>
