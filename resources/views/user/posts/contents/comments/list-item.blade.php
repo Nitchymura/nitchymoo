@@ -11,7 +11,7 @@
 </div>
 <div class="mt-1">
     <div class="xsmall text-secondary">
-        <span>{{ date('H:i, M d, Y', strtotime($comment->created_at . ' +9 hours')) }}</span>
+        <span>{{ date('H:i, M d, Y', strtotime($comment->created_at )) }}</span>
 
         @if($comment->user_id == Auth::user()->id)
             &middot;
