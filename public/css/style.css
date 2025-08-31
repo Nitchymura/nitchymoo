@@ -11,9 +11,14 @@
 h1, h2, h3, h4, h5, h6{
     font-family: 'Oswald', sans-serif;
 }
-p{
+p, {
     font-family: 'Raleway', sans-serif;
 }
+.comment-content{
+    font-family: 'Raleway', sans-serif;
+    margin-left: 5px;
+}
+
 
 table.text-secondary td,
 table.text-secondary th {

@@ -7,7 +7,7 @@
     @endif
     <a href="{{ route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark fw-bold ms-2">{{ $comment->user->name }}</a>
     &nbsp;
-    <span class="fw-light">{{ $comment->body }}</span>
+    <span class="fw-light comment-content">{{ $comment->body }}</span>
 </div>
 <div class="mt-1">
     <div class="xsmall text-secondary">
