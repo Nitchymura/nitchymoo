@@ -38,7 +38,9 @@ class PostController extends Controller
     $request->validate([
         'categories'   => ['required','array','between:1,3'],
         'title'        => ['required','string'],
+        'subtitle'     => ['nullable','string'],
         'description'  => ['required','string','max:1000'],
+        'translation'  => ['nullable','string','max:1000'],
         'city'         => ['nullable','string','max:100'],
         'country'      => ['nullable','string','max:100'],
         'term_start'   => ['nullable','date'],
@@ -52,7 +54,9 @@ class PostController extends Controller
         // ---- Post 作成 ----
         $post = new Post();
         $post->title       = $request->title;
+        $post->subtitle    = $request->subtitle ?: null;
         $post->description = $request->description;
+        $post->translation = $request->translation ?: null;
         $post->city        = $request->city ?: null;
         $post->country     = $request->country ?: null;
         $post->term_start  = $request->term_start ?: null;
@@ -165,7 +169,9 @@ if ($request->hasFile('image')) {
     $request->validate([
         'categories'   => ['required','array','between:1,3'],
         'title'        => ['required','string'],
+        'subtitle'     => ['nullable','string'],
         'description'  => ['required','string','max:1000'],
+        'translation'  => ['nullable','string','max:1000'],
         'city'         => ['nullable','string','max:100'],
         'country'      => ['nullable','string','max:100'],
         'term_start'   => ['nullable','date'],
@@ -180,7 +186,9 @@ if ($request->hasFile('image')) {
 
         // ---- メイン情報 ----
         $post->title       = $request->title;
+        $post->subtitle    = $request->subtitle ?: null;
         $post->description = $request->description;
+        $post->translation = $request->translation ?: null;
         $post->city        = $request->city ?: null;
         $post->country     = $request->country ?: null;
         $post->term_start  = $request->term_start ?: null;

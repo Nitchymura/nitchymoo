@@ -30,16 +30,23 @@
         </div>
 
         <div class="row">
-            <div class="col">
+            <div class="col-6">
                 <label for="title" class="form-label fw-bold mt-3">Title</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title', $post->title) }}">        
                 @error('title')
                     <p class="mb-0 text-danger small">{{ $message }}</p>
                 @enderror
             </div>
+            <div class="col-6">
+                <label for="subtitle" class="form-label fw-bold mt-3">Subitle(optional)</label>
+                <input type="text" class="form-control" name="subtitle" id="subtitle" value="{{ old('subtitle', $post->subtitle) }}">        
+                @error('subtitle')
+                    <p class="mb-0 text-danger small">{{ $message }}</p>
+                @enderror
+            </div>
         </div>
 
-                <div class="row">
+        <div class="row">
             <div class="col-6">
                 <label for="city" class="form-label fw-bold mt-3">City / Prefecture</label>
                 <input type="text" name="city" id="city" class="form-control" value="{{ old('city', $post->city) }}">
@@ -65,6 +72,14 @@
             <label for="description" class="form-label fw-bold mt-3">Description</label>
         <textarea name="description" id="description" rows="3" placeholder="What's on your mind" class="form-control">{{ old('description', $post->description) }}</textarea>
         @error('description')
+            <p class="mb-0 text-danger small">{{ $message }}</p>
+        @enderror
+        </div>
+
+        <div>
+            <label for="translation" class="form-label fw-bold mt-3">Translation(optional)</label>
+        <textarea name="translation" id="translation" rows="3" placeholder="日本語訳があれば..." class="form-control">{{ old('translation', $post->translation) }}</textarea>
+        @error('translation')
             <p class="mb-0 text-danger small">{{ $message }}</p>
         @enderror
         </div>

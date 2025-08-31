@@ -97,6 +97,10 @@
     <h3 class="fs-3">
         {{ $post->title }}
     </h3> 
+@endauth
+
+@if($post->subtitle)
+    <p class="text-muted xsmall py-0">~{{ $post->subtitle }}~</p>
 @endif
 
 @if($post->city && $post->country)
@@ -129,29 +133,70 @@
     <p>---</p>
 @endif
 @php
-    // いまのルートが post.show なら true
     $isShow = request()->routeIs('post.show');
-
-    // 明示指定が無ければ、以下をデフォルトにする
-    // showページ： 翻訳ボタン=表示 / 説明リンク=無効
-    // homeページ： 翻訳ボタン=非表示 / 説明リンク=有効
-    $showTranslate   = $showTranslate   ?? $isShow;
-    $linkDescription = $linkDescription ?? !$isShow;
+    $hasJa  = filled($post->translation ?? null);
+    $linkDescription = $linkDescription ?? !$isShow;  // 既存の方針を継承
 @endphp
 
+{{-- 本文（初期表示は英語 description） --}}
 @if($linkDescription)
   <a href="{{ route('post.show', $post->id) }}" class="text-decoration-none text-dark">
-    <p class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}">
+    <p id="post-text-{{ $post->id }}" class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}">
       {{ $post->description }}
     </p>
   </a>
 @else
-  <p class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}">
+  <p id="post-text-{{ $post->id }}" class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}">
     {{ $post->description }}
   </p>
 @endif
 
-@if($showTranslate)
+{{-- Japanese/English トグル（showページ かつ translation がある時のみ） --}}
+@if($isShow && $hasJa)
+  <button
+    class="btn btn-sm btn-outline-primary mt-2 lang-toggle-btn"
+    data-id="{{ $post->id }}"
+    data-state="en"  {{-- 現在表示中の言語 --}}
+    data-en="{{ e($post->description) }}"
+    data-ja="{{ e($post->translation) }}"
+    aria-pressed="false"
+    aria-controls="post-text-{{ $post->id }}">
+    Japanese
+  </button>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 同一ページで複数ボタンがあってもOK
+    document.querySelectorAll('.lang-toggle-btn').forEach(btn => {
+      if (btn.dataset.bound) return;  // 二重バインド防止
+      btn.dataset.bound = "1";
+
+      btn.addEventListener('click', () => {
+        const id   = btn.dataset.id;
+        const node = document.getElementById(`post-text-${id}`);
+        if (!node) return;
+
+        const state = btn.dataset.state; // 'en' or 'ja'
+        if (state === 'en') {
+          // 英語 -> 日本語へ
+          node.textContent = btn.dataset.ja || '';
+          btn.dataset.state = 'ja';
+          btn.textContent = 'English';
+          btn.setAttribute('aria-pressed', 'true');
+        } else {
+          // 日本語 -> 英語へ
+          node.textContent = btn.dataset.en || '';
+          btn.dataset.state = 'en';
+          btn.textContent = 'Japanese';
+          btn.setAttribute('aria-pressed', 'false');
+        }
+      });
+    });
+  });
+  </script>
+@endif
+
+{{-- @if($showTranslate)
   <button
     class="btn btn-sm btn-outline-primary mt-2 translate-btn"
     data-id="{{ $post->id }}"
@@ -198,4 +243,4 @@
     });
   });
   </script>
-@endif
+@endif --}}
