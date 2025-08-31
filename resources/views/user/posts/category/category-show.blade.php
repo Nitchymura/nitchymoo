@@ -4,28 +4,57 @@
 
 @section('content')
 
-<div class="row mt-5 pt-5 ms-1" >
-    <div class="d-flex gap-1 align-items-end mb-4 pb-2">
-        @foreach($all_categories as $cat)
-            @php
-                // カラーをカテゴリごとに切り替える
-                $badgeClass = match($cat->id) {
-                    1 => 'bg-success',
-                    2 => 'bg-primary',
-                    3 => 'bg-warning',
-                    4 => 'bg-danger',
-                    5 => 'bg-info',
-                    default => 'bg-secondary',
-                };
-            @endphp
+<div class="row mt-5 pt-5 ms-0">
+  <div class="col-auto d-flex p-0 align-items-end mb-4 pb-2">
+    @php
+      // 今表示中のカテゴリを $category と仮定
+      $badgeClass = match($category->id) {
+          1 => 'bg-success',
+          2 => 'bg-primary',
+          3 => 'bg-warning',
+          4 => 'bg-danger',
+          5 => 'bg-info',
+          6 => 'bg-secondary',
+          default => 'bg-white text-dark border border-dark',
+      };
+    @endphp
+    <span class="top-badge badge fs-5 {{ $badgeClass }} {{ $category->id }}">
+      {{ $category->name }}
+    </span>
+  </div>
 
-            <span class="top-badge badge {{ $badgeClass }} 
-                {{ $category->id == $cat->id ? '' : 'bg-opacity-10 ' }}" >
-                <a href="{{ route('category.show', $cat->id) }}" class="text-decoration-none text-white">{{ $cat->name }}</a>
-            </span>
-        @endforeach
-    </div>      
+  <div class="col">
+    {{-- <label for="jump-category" class="form-label mb-1 small text-muted"></label> --}}
+    <select id="jump-category" class="form-select form-select-sm">
+    <option value="" hidden>-- Select other category --</option>
+    @foreach($all_categories as $cat)
+        <option value="{{ route('category.show', $cat->id) }}"
+                {{ $category->id === $cat->id ? 'hidden' : '' }}>
+        {{ $cat->name }}
+        </option>
+    @endforeach
+    </select>
+    <noscript>
+      {{-- JS無効時のフォールバック（選択後に押すボタン）--}}
+      <button type="button" class="btn btn-sm btn-outline-secondary mt-2"
+              onclick="var s=document.getElementById('jump-category'); if(s.value) location.href=s.value;">
+        移動
+      </button>
+    </noscript>
+  </div>
 </div>
+
+@push('scripts')
+<script>
+  // 選択したら即ジャンプ
+  document.addEventListener('change', function (e) {
+    const sel = e.target.closest('#jump-category');
+    if (!sel) return;
+    if (sel.value) window.location.href = sel.value;
+  });
+</script>
+@endpush
+
 
 
     <div class="row gx-5">
