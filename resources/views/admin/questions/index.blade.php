@@ -19,7 +19,7 @@
         <thead class="table-primary text-secondary text-uppercase small">
             <tr>
                 <th></th>
-                <th>question</th>
+                <th style="width: 200px">question</th>
                 <th style="width: 300px">answer</th>
                 <th>created at</th>
                 <th>Status</th>
