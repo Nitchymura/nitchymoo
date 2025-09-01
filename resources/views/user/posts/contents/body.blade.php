@@ -57,20 +57,20 @@
     <div class="col text-end">
         {{-- categories --}}
         @forelse($post->categoryPosts as $category_post)
-            @if($category_post->category_id == 1)
-                <div class="badge bg-success bg-opacity-30">
-            @elseif($category_post->category_id == 2)
-                <div class="badge bg-primary bg-opacity-30">
-            @elseif($category_post->category_id == 3)
-                <div class="badge bg-warning bg-opacity-30">                
-            @elseif($category_post->category_id == 4)
-                <div class="badge bg-danger bg-opacity-30">
-            @elseif($category_post->category_id == 5)
-                <div class="badge bg-info bg-opacity-30">
-            @else
-                <div class="badge bg-secondary bg-opacity-30">
-            @endif    
-                    <a href="{{ route('category.show', $category_post->category_id) }}" class="text-decoration-none text-white " >{{ $category_post->category->name }}</a>                
+            @php
+            // 今表示中のカテゴリを $category と仮定
+            $badgeClass = match($category_post->category_id) {
+                1 => 'bg-success',
+                2 => 'bg-primary',
+                3 => 'bg-warning',
+                4 => 'bg-danger',
+                5 => 'bg-info',
+                6 => 'bg-secondary',
+                default => 'bg-white text-dark border border-dark',
+            };
+            @endphp  
+                <div class="d-inline-block me-1"> 
+                    <a href="{{ route('category.show', $category_post->category_id) }}" class="text-decoration-none badge badge-sm fs-6 {{ $badgeClass }} {{ $category_post->category_id }}" >{{ $category_post->category->name }}</a>                
                 </div>
             
         @empty
