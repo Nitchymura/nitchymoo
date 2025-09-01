@@ -20,10 +20,10 @@
             <tr>
                 <th></th>
                 <th>question</th>
-                <th>answer</th>
+                <th style="width: 300px">answer</th>
                 <th>created at</th>
                 <th>Status</th>
-                <th></th>
+                <th class="text-center"><i class="fa-solid fa-eye"></i> / <i class="fa-solid fa-eye-slash"></th>
                 <th></th>
             </tr>
         </thead>
@@ -35,7 +35,7 @@
                     
                     <td>{{ $faq->answer }}</td>
                     <td>
-                        {{ date('M d, Y H:i:s', strtotime($faq->created_at)) }}
+                        {{ date('M d, Y', strtotime($faq->created_at)) }}
                     </td>
                     <td>
                         {{-- status --}}
@@ -45,7 +45,7 @@
                             <i class="fa-solid fa-circle text-success"></i> Active
                         @endif
                     </td>
-                    <td>
+                    <td class="text-center">
                         {{-- @if($post->user->id != Auth::user()->id) --}}
                         <div class="dropdown">
                             <button class="btn btn-sm" data-bs-toggle="dropdown" >

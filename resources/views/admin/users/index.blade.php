@@ -15,7 +15,7 @@
                 <th>e mail</th>
                 <th>created at</th>
                 <th>status</th>
-                <th></th>
+                <th class="text-center"><i class="fa-solid fa-eye"></i> / <i class="fa-solid fa-eye-slash"></th>
                 <th></th>
             </tr>
         </thead>
@@ -42,7 +42,7 @@
                     </td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        {{date('M d, Y H:i:s', strtotime($user->created_at))}}
+                        {{date('M d, Y', strtotime($user->created_at))}}
                     </td>
                     <td>
                         {{-- status --}}
@@ -52,7 +52,7 @@
                             <i class="fa-solid fa-circle text-success"></i> Active
                         @endif
                     </td>
-                    <td>
+                    <td class="text-center">
                         @if($user->id != Auth::user()->id)
                         <div class="dropdown">
                             <button class="btn btn-sm" data-bs-toggle="dropdown" >

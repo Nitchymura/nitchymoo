@@ -15,7 +15,7 @@
                 <th>owner</th>
                 <th>created at</th>
                 <th>status</th>
-                <th></th>
+                <th class="text-center"><i class="fa-solid fa-eye"></i> / <i class="fa-solid fa-eye-slash"></th>
                 <th></th>
             </tr>
         </thead>
@@ -54,7 +54,7 @@
                     </td>
                     <td><a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $post->user->name }}</a></td>
                     <td>
-                        {{date('M d, Y H:m:s', strtotime($post->created_at))}}
+                        {{date('M d, Y', strtotime($post->created_at))}}
                     </td>
                     <td>
                         {{-- status --}}
@@ -64,7 +64,7 @@
                             <i class="fa-solid fa-circle text-primary"></i> Visible
                         @endif
                     </td>
-                    <td>
+                    <td class="text-center">
                         {{-- @if($post->user->id != Auth::user()->id) --}}
                         <div class="dropdown">
                             <button class="btn btn-sm" data-bs-toggle="dropdown" >
