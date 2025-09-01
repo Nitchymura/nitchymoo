@@ -45,7 +45,7 @@
                                 };
                                 @endphp
                                 <div>
-                                    <a href="{{ route('admin.posts', ['category' => $category_post->category_id]) }}" class=" top-badge badge mb-1 fs-6 text-decoration-none {{ $badgeClass }} {{ $category_post->category_id }}">
+                                    <a href="{{ route('admin.posts', ['category' => $category_post->category_id]) }}" class="top-badge badge badge-sm mb-1 text-decoration-none {{ $badgeClass }} {{ $category_post->category_id }}">
                                         {{ $category_post->category->name }}
                                     </a>             
                                 </div>    

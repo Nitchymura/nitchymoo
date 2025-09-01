@@ -79,6 +79,11 @@ table.text-secondary th {
     font-size:0.7rem
 }
 
+.badge.badge-sm {
+  font-size: 0.7rem;     /* ← 小さめ */
+  padding: 0.25em 0.4em; /* ← デフォルトより少し狭く */
+}
+
 .img-sm{
     height:2rem;
     width:3rem;
