@@ -70,7 +70,7 @@
             };
             @endphp  
                 <div class="d-inline-block me-1"> 
-                    <a href="{{ route('category.show', $category_post->category_id) }}" class="text-decoration-none badge badge-sm fs-6 {{ $badgeClass }} {{ $category_post->category_id }}" >{{ $category_post->category->name }}</a>                
+                    <a href="{{ route('category.show', $category_post->category_id) }}" class="text-decoration-none badge badge-sm {{ $badgeClass }} {{ $category_post->category_id }}" >{{ $category_post->category->name }}</a>                
                 </div>
             
         @empty
