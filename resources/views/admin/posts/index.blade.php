@@ -29,24 +29,26 @@
                         @endif
                     </td>
                     <td>
-
+                        
                         @if($post->categoryPosts)
                             @foreach($post->categoryPosts as $category_post)
-                                @if($category_post->category_id == 1)
-                                    <div class="badge bg-success bg-opacity-30">
-                                @elseif($category_post->category_id == 2)
-                                    <div class="badge bg-primary bg-opacity-30">
-                                @elseif($category_post->category_id == 3)
-                                    <div class="badge bg-warning bg-opacity-30">                
-                                @elseif($category_post->category_id == 4)
-                                    <div class="badge bg-danger bg-opacity-30">
-                                @elseif($category_post->category_id == 5)
-                                    <div class="badge bg-info bg-opacity-30">
-                                @endif    
-                                    <a href="{{ route('admin.posts', ['category' => $category_post->category_id]) }}" class="text-decoration-none text-white">
+                                @php
+                                // 今表示中のカテゴリを $category と仮定
+                                $badgeClass = match($category_post->category_id) {
+                                    1 => 'bg-success',
+                                    2 => 'bg-primary',
+                                    3 => 'bg-warning',
+                                    4 => 'bg-danger',
+                                    5 => 'bg-info',
+                                    6 => 'bg-secondary',
+                                    default => 'bg-white text-dark border border-dark',
+                                };
+                                @endphp
+                                <div>
+                                    <a href="{{ route('admin.posts', ['category' => $category_post->category_id]) }}" class=" top-badge badge mb-1 fs-6 text-decoration-none {{ $badgeClass }} {{ $category_post->category_id }}">
                                         {{ $category_post->category->name }}
                                     </a>             
-                                    </div>
+                                </div>    
                             @endforeach
                         @else
                             <div class="badge bg-dark">Uncategorized</div>
