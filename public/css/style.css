@@ -182,6 +182,10 @@ table.text-secondary th {
   object-fit: cover;     /* はみ出す部分はトリミング */
 }
 
+.js-slick { visibility: hidden; }
+.js-slick.slick-initialized { visibility: visible; }
+
+
 #scrollTopBtn {
     display: none; /* 初期は非表示 */
     position: fixed;
