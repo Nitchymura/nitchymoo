@@ -7,10 +7,9 @@
         @csrf
 
     <button
-      class="btn btn-sm js-like-btn"
+      class="btn btn-sm js-like-btn post-like-btn {{ request()->routeIs('posts.show','post.show') ? 'is-show' : 'is-home' }}"
       data-url="{{ route('posts.toggleLike', $post->id) }}"
-      data-counter="#like-count-{{ $post->id }}"
-    >
+      data-counter="#like-count-{{ $post->id }}">
       @if($post->likes()->count() > 0)
         <i class="fa-solid fa-heart text-danger"></i>
       @else

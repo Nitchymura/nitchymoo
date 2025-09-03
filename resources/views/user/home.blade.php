@@ -15,7 +15,7 @@
 
         <div class="col">
             <div class="row">
-                <div class="col-auto me-auto">
+                <div class="col-auto me-auto text-secondary">
                     {{ $all_posts->links() }}
                 </div>              
             </div>

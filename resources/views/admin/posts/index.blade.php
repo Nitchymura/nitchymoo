@@ -63,7 +63,7 @@
                         @if($post->trashed())
                             <i class="fa-solid fa-circle-minus text-secondary"></i> Hidden
                         @else
-                            <i class="fa-solid fa-circle text-primary"></i> Visible
+                            <i class="fa-solid fa-circle text-info"></i> Visible
                         @endif
                     </td>
                     <td class="text-center">

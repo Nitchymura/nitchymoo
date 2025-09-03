@@ -44,19 +44,19 @@
                                     ->where('followed_id', $post->user->id)
                                     ->exists();
                     @endphp
-<div>
-  <form action="{{ route('follow.toggle', $post->user->id) }}"
-        method="POST"
-        class="d-inline">
-    @csrf
-    <button type="button"
-            class="btn btn-sm js-follow-btn {{ $isFollowing ? 'btn-primary rounded-5' : 'btn-outline-primary rounded-5' }}"
-            data-url="{{ route('follow.toggle', $post->user->id) }}"
-            data-counter="#followers-count-{{ $post->user->id }}">
-      <span class="js-follow-label">{{ $isFollowing ? 'Following' : 'Follow' }}</span>
-    </button>
-  </form>
-</div>
+                    <div>
+                    <form action="{{ route('follow.toggle', $post->user->id) }}"
+                            method="POST"
+                            class="d-inline">
+                        @csrf
+                        <button type="button"
+                                class="btn btn-sm js-follow-btn {{ $isFollowing ? 'btn-primary rounded-5' : 'btn-outline-primary rounded-5' }}"
+                                data-url="{{ route('follow.toggle', $post->user->id) }}"
+                                data-counter="#followers-count-{{ $post->user->id }}">
+                        <span class="js-follow-label">{{ $isFollowing ? 'Following' : 'Follow' }}</span>
+                        </button>
+                    </form>
+                    </div>
                 @endif
             @endauth
             {{-- </div> --}}

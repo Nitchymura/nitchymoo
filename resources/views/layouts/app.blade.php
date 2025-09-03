@@ -73,14 +73,14 @@
               @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
               <li class="nav-item">
                 <a href="{{ route('post.create') }}" class="nav-link d-flex align-items-center">
-                  <i class="fa-solid fa-circle-plus text-secondary icon-sm"></i>&nbsp;ADD
+                  <i class="fa-solid fa-circle-plus text-primary icon-sm"></i>&nbsp;ADD
                 </a>
               </li>
               @endif
 
               <li class="nav-item">
                 <a href="{{ route('faqs') }}" class="nav-link d-flex align-items-center">
-                  <i class="fa-solid fa-circle-question text-secondary icon-sm"></i>&nbsp;FAQ
+                  <i class="fa-solid fa-circle-question text-primary icon-sm"></i>&nbsp;FAQ
                 </a>
               </li>
 
