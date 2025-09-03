@@ -123,7 +123,7 @@
         @include('user.posts.contents.photos.photos')
         
 
-        <button type="submit" class="btn btn-warning ms-3 mt-4 px-4 w-25">Save</button>
+        <button type="submit" class="btn btn-post ms-3 mt-4 px-4 w-25">Save</button>
     </div>
 
     </form>

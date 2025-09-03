@@ -3,6 +3,9 @@
 @section('title', 'Show Posts')
 
 <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
+  <!-- slick -->
+  <link rel="stylesheet" href="{{ asset('slick/slick.css') }}">
+  <link rel="stylesheet" href="{{ asset('slick/slick-theme.css') }}">
 @section('content')
 
     <style>
@@ -75,78 +78,22 @@
 
 
     <div class="row border shadow "> 
-        <div class="col-12 col-md-8 p-0 border-end"> 
-            @if ($bodies->isNotEmpty()) {{-- 本文画像 + Body画像をスライドで表示 --}} 
-            <div id="postCarousel-{{ $post->id }}" class="carousel slide" 
-                {{-- data-bs-ride="carousel" --}}
-                >  
-                <div class="carousel-inner"> {{-- 1枚目はメイン画像を active で表示 --}} 
-                    <div class="carousel-item active"> 
-                        <div class="post-photo-container"> 
-                            <img src="{{ $post->image }}" alt="" class="post-photo"> 
-                        </div> 
-                    </div> 
-                    @foreach ($bodies as $body) 
-                        @if (!empty($body->photo)) 
-                            <div class="carousel-item"> 
-                                <div class="post-photo-container"> 
-                                    <img src="{{ $body->photo }}" alt="" class="post-photo"> 
-                                </div> 
-                            </div> 
-                        @endif 
-                    @endforeach 
-                </div> 
-            <script>
-            (function () {
-            const carousel = document.getElementById('postCarousel-{{ $post->id }}');
-            if (!carousel) return;
-
-            const center = (container) => {
-                if (!container) return;
-                container.scrollTop = (container.scrollHeight - container.clientHeight) / 2;
-            };
-
-            // 1) 画像が読み込まれたら、そのスライドを中央に
-            carousel.querySelectorAll('.post-photo').forEach(img => {
-                const container = img.closest('.post-photo-container');
-                if (img.complete) {
-                center(container);
-                } else {
-                img.addEventListener('load', () => center(container));
-                }
-            });
-
-            // 2) 初期表示の active スライドも一応再センタリング（描画後）
-            const activeContainer = carousel.querySelector('.carousel-item.active .post-photo-container');
-            setTimeout(() => center(activeContainer), 0);
-
-            // 3) スライド切替後にも中央へ
-            carousel.addEventListener('slid.bs.carousel', (e) => {
-                const shownItem = e.relatedTarget; // 今表示された .carousel-item
-                const container = shownItem.querySelector('.post-photo-container');
-                // 画像の高さが確定していない可能性があるので少し後で
-                setTimeout(() => center(container), 0);
-            });
-            })();
-            </script>
-
-
-
-                    {{-- 前後ボタン --}}
-                    <button class="carousel-control-prev" type="button" data-bs-target="#postCarousel-{{ $post->id }}" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#postCarousel-{{ $post->id }}" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+        <div class="col-12 col-md-8 p-0 border-end">
+            <div class="post-slider" id="postSlider-{{ $post->id }}">
+                <div class="post-photo-container">
+                    <img src="{{ $post->image }}" class="post-photo" alt="">
                 </div>
-            @else
-                {{-- $all_bodies が空なら従来どおり1枚表示 --}}
-                <img src="{{ $post->image }}" alt="" class="w-100">
-            @endif
-        </div>
+
+            @foreach ($bodies as $body)
+                @if (!empty($body->photo))
+                <div class="post-photo-container">
+                    <img src="{{ $body->photo }}" class="post-photo" alt="">
+                </div>
+                @endif
+            @endforeach
+            </div>
+        </div>    
+            
 
         <div class="col-12 col-md-4 px-0 bg-white side">
             <div class="card border-0">
@@ -165,5 +112,14 @@
             </div>
         </div>
     </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="{{ asset('slick/slick.min.js') }}"></script>
+<script>
+    $('.post-slider').slick({
+    dots: true,
+    arrows: true,      // 前後矢印も出すなら
+    autoplay: false
+    });
+</script>
 
 @endsection

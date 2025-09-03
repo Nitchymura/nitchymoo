@@ -172,13 +172,14 @@ table.text-secondary th {
 }
 
 .post-photo-container {
-  height: 650px;     /* 任意 */
-  overflow-y: auto;  /* 縦スクロール可 */
+  height: 650px;         /* 表示したい高さを固定 */
+  overflow: hidden;      /* はみ出した部分は隠す */
 }
+
 .post-photo {
-  display: block;
-  width: 100%;
-  height: auto;      /* 画像の縦長をそのまま */
+  width: 100%;           /* 横幅を基準に合わせる */
+  height: 100%;          /* コンテナの高さにフィット */
+  object-fit: cover;     /* はみ出す部分はトリミング */
 }
 
 #scrollTopBtn {
@@ -232,15 +233,16 @@ table.text-secondary th {
     .post-body{
         box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
-    .post-photo-container {
-        height: 295px;          /* 固定の高さ */
-        overflow-y: auto;       /* 縦スクロールを有効化 */
-    }
+  .post-photo-container {
+    height: 295px;   /* スマホ用に小さく */
+    overflow: hidden;
+  }
 
-    .post-photo {
-        width: 100%;
-        height: auto;           /* 高さは自動にして縦長画像を収める */
-    }
+  .post-photo {
+    width: 100%;      /* 横幅優先 */
+    height: 100%;
+    object-fit: cover;
+  }
     .nav-link {
         margin: 0 10px 0 10px;
     }

@@ -1,4 +1,4 @@
-<div class="mt-3">
+<div class="mt-3 bg-white">
     <form action="{{ route('comment.store', $post->id) }}" method="post">
         @csrf
         <div class="input-group">
