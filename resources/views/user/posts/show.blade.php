@@ -114,12 +114,23 @@
     </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{ asset('slick/slick.min.js') }}"></script>
+@push('scripts')
 <script>
-    $('.post-slider').slick({
+$(function(){
+  $('#postSlider-{{ $post->id }}').on('init', function(){
+    // 必要ならここで何か
+  }).slick({
     dots: true,
-    arrows: true,      // 前後矢印も出すなら
-    autoplay: false
-    });
+    arrows: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: false,
+    adaptiveHeight: false,
+    lazyLoad: 'ondemand'
+  });
+});
 </script>
+@endpush
+
 
 @endsection
