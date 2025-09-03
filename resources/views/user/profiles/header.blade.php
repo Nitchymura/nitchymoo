@@ -13,7 +13,7 @@
     <div class="col mb-3">
         <div class="row mb-3 align-items-end">
             <div class="col-auto">
-                <h2 class="display-6 mb-0">{{ $user->name }}</h2>
+                <h2 class="fw-bold display-6 mb-0">{{ $user->name }}</h2>
             </div>
             <div class="col-md col-sm-12">
                 @if($user->id == Auth::user()->id)
