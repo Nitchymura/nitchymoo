@@ -38,7 +38,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/image/{id}/delete/', [PostController::class, 'deleteImage'])->name('image.delete');
     Route::delete('/post/{id}/deactivate', [PostController::class, 'deactivate'])->name('posts.deactivate');
     Route::patch('/post/{id}/activate', [PostController::class, 'activate'])->name('posts.activate');
-    Route::post('/post/{id}/toggle-like', [PostController::class, 'toggleLike'])->name('post.toggleLike');
+    Route::post('/posts/{post}/toggle-like', [PostController::class, 'toggleLike'])
+    ->name('posts.toggleLike');
 
     Route::get('/posts/{post}/translate', [PostTranslateController::class, 'translate'])
     ->name('posts.translate');

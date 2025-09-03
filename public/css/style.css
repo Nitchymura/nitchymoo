@@ -69,7 +69,7 @@ table.text-secondary th {
 }
 
 /* トップ( / )の見え方 */
-.post-like-btn.is-home i.fa-heart { top: 0; line-height: 1; position: relative; }
+.post-like-btn.is-home i.fa-heart { top: -1px; line-height: 1; position: relative; }
 
 /* 個別show( /post/{id}/show )だけ少し持ち上げたい例 */
 .post-like-btn.is-show i.fa-heart { top: -5px; line-height: 1; position: relative; }

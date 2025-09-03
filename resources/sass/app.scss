@@ -5,4 +5,54 @@
 @import 'variables';
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+// @import 'bootstrap/scss/bootstrap';
+
+// ===============================
+// ブランドカラー変数の上書き
+// ===============================
+// resources/sass/app.scss
+
+// Bootstrap 変数の上書き（任意）
+$primary: #ff6600;
+// $secondary: #333;
+$body-bg: #f9f9f9;
+$font-family-base: 'Noto Sans JP', sans-serif;
+
+
+// Bootstrap 読み込み（パスを短くする）
+@import "bootstrap/scss/bootstrap";
+
+
+// ===============================
+// カスタムスタイル
+// ===============================
+
+// ナビバー
+.navbar-custom {
+  background-color: $secondary !important;
+
+  .navbar-brand,
+  .nav-link {
+    color: #fff !important;
+    font-weight: bold;
+
+    &:hover {
+      color: lighten($primary, 20%) !important;
+    }
+  }
+}
+
+// 投稿ボタン（ブランドカラー適用）
+.btn-post {
+  @extend .btn;       // Bootstrapの基本ボタン継承
+  @extend .btn-primary; // ブランドカラー（$primary）
+
+  font-weight: bold;
+  border-radius: 50px; // 丸みを強調
+  padding: 0.6rem 1.4rem;
+
+  &:hover {
+    background-color: darken($primary, 5%);
+    border-color: darken($primary, 10%);
+  }
+}

@@ -2,16 +2,25 @@
 <div class="col-auto d-flex align-items-center gap-3 post-actions">
     {{-- like/heart button --}}
     @auth
-    <form action="{{ route('post.toggleLike', $post->id) }}" method="POST"
+    <form action="{{ route('posts.toggleLike', $post->id) }}" method="POST"
           data-post-id="{{ $post->id }}" class="like-post-form m-0">
         @csrf
 
-        <button type="button"
-                class="btn btn-sm p-0 d-inline-flex align-items-center gap-1 post-like-btn {{ request()->routeIs('posts.show','post.show') ? 'is-show' : 'is-home' }}"
-                data-post-id="{{ $post->id }}">
-            <i class="{{ $post->likes->where('user_id', Auth::id())->isNotEmpty() ? 'fa-solid text-danger' : 'fa-regular' }} fa-heart"></i>
-            <span class="post-like-count" data-post-id="{{ $post->id }}">{{ $post->likes->count() }}</span>
-        </button>
+    <button
+      class="btn btn-sm js-like-btn"
+      data-url="{{ route('posts.toggleLike', $post->id) }}"
+      data-counter="#like-count-{{ $post->id }}"
+    >
+      @if($post->likes()->count() > 0)
+        <i class="fa-solid fa-heart text-danger"></i>
+      @else
+        <i class="fa-regular fa-heart text-dark"></i>
+      @endif
+      <span id="like-count-{{ $post->id }}">{{ $post->likes()->count() }}</span>
+    </button>
+
+
+
 
     </form>
     @else
@@ -79,9 +88,7 @@
     </div>
 </div>
 
-<!-- owner and description -->
-{{-- <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $post->user->name}}</a> --}}
-{{-- <br> --}}
+
 @auth
     @if($post->likes->count()>0)
         <h3 type="button" class="fs-3" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
