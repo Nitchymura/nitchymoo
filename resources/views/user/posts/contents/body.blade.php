@@ -8,22 +8,25 @@
             data-post-id="{{ $post->id }}">
         @csrf
 
-        <button type="button"
-                class="btn btn-sm like-button"
-                data-id="{{ $post->id }}"
-                data-liked="{{ Auth::check() && $post->isLiked() ? '1' : '0' }}"
-                data-url="{{ route('posts.toggleLike', $post->id) }}">
-          <span class="like-icon">
-            @if(Auth::check() && $post->isLiked())
-              <i class="fa-solid fa-heart text-danger"></i>
-            @else
-              <i class="fa-regular fa-heart text-dark"></i>
-            @endif
-          </span>
-          <span class="like-count" data-id="{{ $post->id }}">
-            {{ $post->likes()->count() }}
-          </span>
-        </button>
+<button type="button"
+        class="btn btn-sm like-button {{ request()->routeIs('posts.show','post.show') ? 'is-show' : 'is-home' }}"
+        data-id="{{ $post->id }}"
+        data-liked="{{ Auth::check() && $post->isLiked() ? '1' : '0' }}"
+        data-url="{{ route('posts.toggleLike', $post->id) }}">
+
+  <span class="like-icon icon-box">
+    @if(Auth::check() && $post->isLiked())
+      <i class="fa-solid fa-heart text-danger"></i>
+    @else
+      <i class="fa-regular fa-heart text-dark"></i>
+    @endif
+  </span>
+
+  <span class="like-count count-box" data-id="{{ $post->id }}">
+    {{ $post->likes()->count() }}
+  </span>
+</button>
+
       </form>
 
     @else

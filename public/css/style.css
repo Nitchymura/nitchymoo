@@ -68,26 +68,35 @@ table.text-secondary th {
     font-size:1.2rem
 }
 
-/* トップ( / )の見え方 */
-.post-like-btn.is-home i.fa-heart { top: 1px; line-height: 1; position: relative; }
-
-/* 個別show( /post/{id}/show )だけ少し持ち上げたい例 */
-.post-like-btn.is-show i.fa-heart { top: -5px; line-height: 1; position: relative; }
-
-/* ハート＋カウントを縦中央に */
-.js-like-btn{
-  display: inline-flex;        /* ← これが効く */
-  align-items: center;         /* 縦中央 */
-  gap: .25rem;                 /* &nbsp;の代わり */
+/* 並び＆縦中央をボタンで保証 */
+.like-button{
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;     /* アイコンと数字の間隔 */
 }
 
-/* ベースライン差を殺す */
-.js-like-btn i.fa-heart,
-.js-like-btn [id^="like-count-"]{
+/* アイコンと数字を同じ高さの箱で揃える */
+.like-button .like-icon,
+.like-button .like-count{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1em;     /* これで縦位置が安定 */
   line-height: 1;
-  display: inline-block;
-  vertical-align: middle;
 }
+
+/* Font Awesome が <i>→<svg> でも効くよう、タグに依存しない */
+.like-button .fa-heart{ line-height: 1; }
+
+/* ページ別の微調整が必要なら（最初は0で様子見して、必要なら-1pxなど） */
+.like-button.is-home .like-icon,
+.like-button.is-home .like-count { transform: translateY(0); }
+
+.like-button.is-show .like-icon,
+.like-button.is-show .like-count { transform: translateY(0); }
+/* もし show だけ1px上げたいなら ↓ を有効化 */
+.like-button.is-show .like-icon { transform: translateY(-5px); }
+
 
 
 
