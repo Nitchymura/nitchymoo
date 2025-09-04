@@ -96,7 +96,7 @@
 
 
 @auth
-    @if($post->likes->count()>0)
+    @if($post->likes->count()>0 && Auth::user()->id == 1)
         <h3 type="button" class="fs-3" data-bs-toggle="modal" data-bs-target="#like-list{{ $post->id }}">
             {{ $post->title }}
         </h3> 
