@@ -1,125 +1,84 @@
 // public/js/post-like.js
-// 両方のマークアップで動く版：
-// ① <form class="like-post-form" action="..."><button .post-like-btn ...></button></form>
-// ② <button .post-like-btn data-post-id=".." data-toggle-url="..."></button>
+document.addEventListener('click', async function (event) {
+  const button = event.target.closest('.like-button');
+  if (!button) return;
 
-document.addEventListener("DOMContentLoaded", () => {
-  // 「同じ投稿」に対する連打防止（フォーム単位でなく postId 単位でロック）
-  const busyByPostId = new Map();
+  // デバッグ：ここが出なければJSが読まれていません
+  // console.log('like-button clicked');
 
-  // ページ内の同一投稿のカウント表示を一括更新
-  const updateAllCounts = (postId, likeCount) => {
-    document.querySelectorAll(`.post-like-count[data-post-id="${postId}"]`)
-      .forEach(el => { el.textContent = likeCount; });
+  const postId    = button.getAttribute('data-id');
+  const toggleUrl = button.getAttribute('data-url') || `/posts/${postId}/toggle-like`;
+  const csrfMeta  = document.querySelector('meta[name="csrf-token"]');
+  const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
+
+  const wasLiked = button.getAttribute('data-liked') === '1';
+
+  const iconHtml = (liked) =>
+    liked
+      ? '<i class="fa-solid fa-heart text-danger"></i>'
+      : '<i class="fa-regular fa-heart text-dark"></i>';
+
+  const updateAllIcons = (liked) => {
+    document.querySelectorAll(`.like-button[data-id="${postId}"] .like-icon`)
+      .forEach(c => { c.innerHTML = iconHtml(liked); });
+  };
+  const updateAllCounts = (count) => {
+    document.querySelectorAll(`.like-count[data-id="${postId}"]`)
+      .forEach(el => { el.textContent = count; });
   };
 
-  // 同一投稿の全アイコンを liked / unliked に同期
-  const updateAllIcons = (postId, liked) => {
-    document.querySelectorAll(`.post-like-btn[data-post-id="${postId}"] i.fa-heart`)
-      .forEach(icon => {
-        icon.classList.remove("fa-regular", "fa-solid", "text-danger");
-        if (liked) {
-          icon.classList.add("fa-solid", "text-danger");
-        } else {
-          icon.classList.add("fa-regular");
-        }
-      });
-  };
+  const currentCountEl = document.querySelector(`.like-count[data-id="${postId}"]`);
+  const countNow = currentCountEl ? (parseInt(currentCountEl.textContent, 10) || 0) : 0;
+  const optimistic = wasLiked ? Math.max(0, countNow - 1) : countNow + 1;
 
-  // CSRF トークン取得（form 内 hidden or <meta>）
-  const getCsrfToken = (form) => {
-    if (form) {
-      const hidden = form.querySelector('input[name="_token"]');
-      if (hidden?.value) return hidden.value;
-    }
-    const meta = document.querySelector('meta[name="csrf-token"]');
-    return meta?.getAttribute("content") || "";
-  };
+  if (button.dataset.busy === '1') return;
+  button.dataset.busy = '1';
 
-  // トグル URL を決定（form.action 優先。なければ data-toggle-url、最後に /posts/{id}/toggle-like を試す）
-  const resolveToggleUrl = (form, btn, postId) => {
-    if (form?.action) return form.action;
-    const dataUrl = btn?.dataset.toggleUrl;
-    if (dataUrl) return dataUrl;
-    // ルートが /posts/{id}/toggle-like でない場合は、btnに data-toggle-url を付与してください
-    return `/posts/${postId}/toggle-like`;
-  };
+  // 楽観的UI
+  updateAllIcons(!wasLiked);
+  updateAllCounts(optimistic);
+  document.querySelectorAll(`.like-button[data-id="${postId}"]`)
+    .forEach(btn => btn.setAttribute('data-liked', !wasLiked ? '1' : '0'));
 
-  document.body.addEventListener("click", async (e) => {
-    const likeBtn = e.target.closest(".post-like-btn");
-    if (!likeBtn) return;
+  try {
+    const res = await fetch(toggleUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken,
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({}),
+      credentials: 'same-origin',
+    });
 
-    e.preventDefault();
-
-    // どのマークアップでも必須：data-post-id
-    const postId = likeBtn.dataset.postId || likeBtn.closest("[data-post-id]")?.dataset.postId;
-    if (!postId) {
-      console.warn("post-like-btn に data-post-id がありません。");
+    if (!res.ok) {
+      // ロールバック
+      updateAllIcons(wasLiked);
+      updateAllCounts(countNow);
+      document.querySelectorAll(`.like-button[data-id="${postId}"]`)
+        .forEach(btn => btn.setAttribute('data-liked', wasLiked ? '1' : '0'));
+      console.error('Like toggle failed:', await res.text());
       return;
     }
 
-    if (busyByPostId.get(postId)) return; // 連打防止
-    busyByPostId.set(postId, true);
-
-    const form = likeBtn.closest(".like-post-form");
-    const token = getCsrfToken(form);
-    const url   = resolveToggleUrl(form, likeBtn, postId);
-
-    // 楽観的 UI（サクッと切り替え）：失敗時はロールバック
-    const anyIcon = likeBtn.querySelector("i.fa-heart") ||
-                    document.querySelector(`.post-like-btn[data-post-id="${postId}"] i.fa-heart`);
-    const wasLiked = anyIcon?.classList.contains("fa-solid");
-    const countNow = (() => {
-      // 最初に見つかったカウントを基準にする
-      const first = document.querySelector(`.post-like-count[data-post-id="${postId}"]`);
-      return first ? parseInt(first.textContent, 10) || 0 : null;
-    })();
-
-    // 楽観的反映
-    if (countNow !== null) {
-      const optimistic = wasLiked ? Math.max(0, countNow - 1) : countNow + 1;
-      updateAllCounts(postId, optimistic);
+    const data = await res.json(); // { liked, like_count } を想定
+    if (typeof data.liked !== 'undefined') {
+      updateAllIcons(!!data.liked);
+      document.querySelectorAll(`.like-button[data-id="${postId}"]`)
+        .forEach(btn => btn.setAttribute('data-liked', data.liked ? '1' : '0'));
     }
-    updateAllIcons(postId, !wasLiked);
-    likeBtn.setAttribute("aria-pressed", String(!wasLiked));
-    likeBtn.disabled = true;
-
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-TOKEN": token,
-          "Accept": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        body: JSON.stringify({}),
-        credentials: "same-origin",
-      });
-
-      if (!res.ok) {
-        // 419 などで失敗したらロールバック
-        if (countNow !== null) updateAllCounts(postId, countNow);
-        updateAllIcons(postId, wasLiked);
-        console.error("toggle-like失敗:", await res.text());
-        return;
-      }
-
-      const { liked, like_count } = await res.json();
-
-      // 確定値で同期
-      updateAllIcons(postId, liked);
-      if (!Number.isNaN(parseInt(like_count, 10))) {
-        updateAllCounts(postId, like_count);
-      }
-    } catch (err) {
-      // 通信エラー → ロールバック
-      if (countNow !== null) updateAllCounts(postId, countNow);
-      updateAllIcons(postId, wasLiked);
-      console.error("JSエラー:", err);
-    } finally {
-      likeBtn.disabled = false;
-      busyByPostId.delete(postId);
+    if (typeof data.like_count !== 'undefined') {
+      updateAllCounts(parseInt(data.like_count, 10));
     }
-  });
+  } catch (err) {
+    updateAllIcons(wasLiked);
+    updateAllCounts(countNow);
+    document.querySelectorAll(`.like-button[data-id="${postId}"]`)
+      .forEach(btn => btn.setAttribute('data-liked', wasLiked ? '1' : '0'));
+    console.error('AJAX Error:', err);
+  } finally {
+    delete button.dataset.busy;
+  }
 });

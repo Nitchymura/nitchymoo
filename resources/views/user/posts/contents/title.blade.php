@@ -46,15 +46,16 @@
                     @endphp
                     <div>
                     <form action="{{ route('follow.toggle', $post->user->id) }}"
-                            method="POST"
-                            class="d-inline">
-                        @csrf
-                        <button type="button"
-                                class="btn btn-sm js-follow-btn {{ $isFollowing ? 'btn-primary rounded-5' : 'btn-outline-primary rounded-5' }}"
-                                data-url="{{ route('follow.toggle', $post->user->id) }}"
-                                data-counter="#followers-count-{{ $post->user->id }}">
-                        <span class="js-follow-label">{{ $isFollowing ? 'Following' : 'Follow' }}</span>
-                        </button>
+                        method="POST"
+                        class="follow-form d-inline"            {{-- ← JSが拾うクラス --}}
+                        data-user-id="{{ $post->user->id }}">   {{-- ← 同一ユーザーのボタン一括更新用 --}}
+                    @csrf
+                    <button type="button"
+                            class="btn btn-sm follow-btn rounded-5   {{-- ← JSが拾うクラス --}}
+                                    {{ $isFollowing ? 'btn-outline-secondary' : 'btn-info text-white' }}"
+                            data-url="{{ route('follow.toggle', $post->user->id) }}">
+                        <span class="label">{{ $isFollowing ? 'Following' : 'Follow' }}</span>  {{-- ← JSが拾うクラス --}}
+                    </button>
                     </form>
                     </div>
                 @endif

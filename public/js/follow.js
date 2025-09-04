@@ -1,8 +1,6 @@
-//follow.js
-
 // public/js/follow.js
 document.addEventListener("DOMContentLoaded", () => {
-  const busyForms = new WeakSet();
+  const busyByUser = new Set();
 
   document.body.addEventListener("click", async (e) => {
     const followBtn = e.target.closest(".follow-btn");
@@ -10,23 +8,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
     e.preventDefault();
 
-    const form = followBtn.closest(".follow-form");
+    const form   = followBtn.closest(".follow-form");
     if (!form) return;
 
-    if (busyForms.has(form)) return;
-    busyForms.add(form);
+    const userId = form.dataset.userId;
+    const url    = followBtn.dataset.url || form.action;
+
+    if (busyByUser.has(userId)) return; // 同一ユーザー連打防止
+    busyByUser.add(userId);
     followBtn.disabled = true;
 
-    const url    = form.action;
-    const token  = form.querySelector('input[name="_token"]').value;
-    const userId = form.dataset.userId;
+    // CSRF
+    const tokenInput = form.querySelector('input[name="_token"]');
+    const tokenMeta  = document.querySelector('meta[name="csrf-token"]');
+    const csrfToken  = tokenInput?.value || tokenMeta?.getAttribute('content') || '';
+
+    // 楽観的UIのために、現在の状態を取得
+    const isFollowingNow =
+      followBtn.classList.contains('btn-outline-secondary'); // ← フォロー中の見た目
+
+    // 楽観的に画面上の同一ユーザーのボタンを全部更新する関数
+    const paintAll = (following) => {
+      document.querySelectorAll(`form.follow-form[data-user-id="${userId}"] .follow-btn`)
+        .forEach(btn => {
+          btn.classList.remove('btn-outline-secondary','btn-info','text-white');
+          const label = btn.querySelector('.label');
+          if (following) {
+            btn.classList.add('btn-outline-secondary');
+            if (label) label.textContent = 'Following';
+          } else {
+            btn.classList.add('btn-info','text-white');
+            if (label) label.textContent = 'Follow';
+          }
+          btn.setAttribute('aria-pressed', String(following));
+        });
+    };
+
+    // ① 楽観的UI：まず見た目だけ先に切り替え
+    paintAll(!isFollowingNow);
 
     try {
       const res = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRF-TOKEN": token,
+          "X-CSRF-TOKEN": csrfToken,
           "Accept": "application/json",
           "X-Requested-With": "XMLHttpRequest",
         },
@@ -35,39 +61,35 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (!res.ok) {
+        // ロールバック
+        paintAll(isFollowingNow);
         console.error("toggle-follow失敗:", res.status, await res.text());
         return;
       }
 
-      const data = await res.json(); // 期待: { following: true|false }
-      const following = data?.following;
-
-      // following が boolean で返ってこないと、ここで止まる
-      if (typeof following !== "boolean") {
-        console.error("不正なレスポンス:", data);
-        return;
+      // 期待レスポンス: { following: true|false, followers_count?: number }
+      const data = await res.json();
+      if (typeof data.following === 'boolean') {
+        paintAll(data.following);
+      } else {
+        // 形式が違う場合はサーバー値不明なのでいったんロールバック
+        paintAll(isFollowingNow);
+        console.error("不正なレスポンス形式:", data);
       }
 
-      // 同じユーザーIDのボタンを全部更新
-      document
-        .querySelectorAll(`form.follow-form[data-user-id="${userId}"] .follow-btn`)
-        .forEach((btn) => {
-          btn.classList.remove("btn-primary", "btn-outline-secondary");
-          const label = btn.querySelector(".label") || btn;
-          if (following) {
-            btn.classList.add("btn-outline-secondary");
-            label.textContent = "Following";
-          } else {
-            btn.classList.add("btn-primary");
-            label.textContent = "Follow";
-          }
-        });
+      // フォロワー数を表示している要素があれば同期（任意）
+      if (typeof data.followers_count !== 'undefined') {
+        document.querySelectorAll(`[data-followers-count-user-id="${userId}"]`)
+          .forEach(el => { el.textContent = String(data.followers_count); });
+      }
+
     } catch (err) {
+      // 通信失敗 → ロールバック
+      paintAll(isFollowingNow);
       console.error("FOLLOW JS error:", err);
     } finally {
-      busyForms.delete(form);
+      busyByUser.delete(userId);
       followBtn.disabled = false;
     }
   });
 });
-//# sourceMappingURL=follow.js.map
