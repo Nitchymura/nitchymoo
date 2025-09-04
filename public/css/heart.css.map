@@ -1,0 +1,1 @@
+{"version":3,"sources":["heart.scss","heart.css"],"names":[],"mappings":"AAEA;EACI,gBAAA;ACDJ","file":"heart.css","sourcesContent":["//heart.css\r\n\r\n.fa-heart{\r\n    margin-top: 12px;\r\n}",".fa-heart {\n  margin-top: 12px;\n}"]}

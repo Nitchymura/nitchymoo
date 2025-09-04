@@ -132,4 +132,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
-//# sourceMappingURL=edit-photo.js.map

@@ -45,4 +45,3 @@ document.addEventListener("DOMContentLoaded", () => {
         reader.readAsDataURL(file);
     });
 });
-//# sourceMappingURL=main-image-preview.js.map

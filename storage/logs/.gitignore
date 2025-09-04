@@ -1,2 +1,7 @@
 *
 !.gitignore
+/public/css/
+/public/js/
+/public/images/
+/build/
+

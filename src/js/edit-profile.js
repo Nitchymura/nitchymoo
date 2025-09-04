@@ -74,4 +74,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-//# sourceMappingURL=edit-profile.js.map

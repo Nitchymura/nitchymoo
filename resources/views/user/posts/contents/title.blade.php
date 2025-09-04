@@ -50,7 +50,7 @@
                             class="d-inline">
                         @csrf
                         <button type="button"
-                                class="btn btn-sm js-follow-btn {{ $isFollowing ? 'btn-primary rounded-5' : 'btn-outline-primary rounded-5' }}"
+                                class="btn btn-sm js-follow-btn {{ $isFollowing ? 'btn-outline-secondary rounded-5' : 'btn-info text-white rounded-5' }}"
                                 data-url="{{ route('follow.toggle', $post->user->id) }}"
                                 data-counter="#followers-count-{{ $post->user->id }}">
                         <span class="js-follow-label">{{ $isFollowing ? 'Following' : 'Follow' }}</span>

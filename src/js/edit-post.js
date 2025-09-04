@@ -56,4 +56,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-//# sourceMappingURL=edit-post.js.map

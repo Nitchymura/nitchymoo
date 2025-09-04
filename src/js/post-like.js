@@ -82,5 +82,3 @@ document.addEventListener('click', async function (event) {
     delete button.dataset.busy;
   }
 });
-
-//# sourceMappingURL=post-like.js.map

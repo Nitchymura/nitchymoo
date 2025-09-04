@@ -139,5 +139,9 @@
   {{-- <script src="{{ asset('js/post-like.js') }}" defer></script>
   <script src="{{ asset('js/follow.js') }}" defer></script> --}}
   @stack('scripts')
+  <script src="{{ asset('js/main.js') }}"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="{{ asset('js/post-like.js') }}?v=14"></script>
+
 </body>
 </html>
