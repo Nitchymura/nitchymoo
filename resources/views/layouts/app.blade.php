@@ -28,6 +28,12 @@
   <!-- 既存のカスタムCSS（Sassへ移行中なら残してOK） -->
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+  @stack('head')
+<style>
+  /* 初期は非表示 → slick が .slick-initialized を付けたら表示 */
+  .js-slick { visibility: hidden; }
+  .js-slick.slick-initialized { visibility: visible; }
+</style>
 
 </head>
 <body>

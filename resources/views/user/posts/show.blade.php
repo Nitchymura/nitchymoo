@@ -79,11 +79,10 @@
 
     <div class="row border shadow "> 
         <div class="col-12 col-md-8 p-0 border-end">
-            <div class="post-slider" id="postSlider-{{ $post->id }}">
-                <div class="post-photo-container">
-                    <img src="{{ $post->image }}" class="post-photo" alt="">
-                </div>
-
+            <div class="post-slider js-slick" id="postSlider-{{ $post->id }}">
+            <div class="post-photo-container">
+                <img src="{{ $post->image }}" class="post-photo" alt="">
+            </div>
             @foreach ($bodies as $body)
                 @if (!empty($body->photo))
                 <div class="post-photo-container">
@@ -92,6 +91,7 @@
                 @endif
             @endforeach
             </div>
+
         </div>    
             
 
@@ -117,20 +117,24 @@
 @push('scripts')
 <script>
 $(function(){
-  $('#postSlider-{{ $post->id }}').on('init', function(){
-    // 必要ならここで何か
+  var $slider = $('#postSlider-{{ $post->id }}');
+
+  $slider.on('init', function(){
+    // 念のため：環境によっては visibility が残ることがあるので明示的に表示
+    $slider.css('visibility','visible');
   }).slick({
     dots: true,
     arrows: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: false,
-    adaptiveHeight: false,
-    lazyLoad: 'ondemand'
+    adaptiveHeight: false,   // 固定高さで使うので false
+    lazyLoad: 'ondemand'     // 初期ロードを軽くしてチラつき減
   });
 });
 </script>
 @endpush
+
 
 
 @endsection
