@@ -1,3 +1,5 @@
+//follow.js
+
 // public/js/follow.js
 document.addEventListener("DOMContentLoaded", () => {
   const busyForms = new WeakSet();
@@ -68,3 +70,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+//# sourceMappingURL=follow.js.map

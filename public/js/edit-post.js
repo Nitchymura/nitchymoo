@@ -1,3 +1,5 @@
+//edit-post.js
+
 document.addEventListener("DOMContentLoaded", function () {
     const imageInput = document.getElementById('image');
     const preview = document.getElementById('image-preview');
@@ -54,3 +56,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+//# sourceMappingURL=edit-post.js.map

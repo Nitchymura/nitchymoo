@@ -1,3 +1,5 @@
+//edit-profile.js
+
 document.addEventListener("DOMContentLoaded", function () {
     const avatarInput = document.getElementById('avatar');
     const preview = document.getElementById('avatar-preview');
@@ -72,3 +74,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+//# sourceMappingURL=edit-profile.js.map
