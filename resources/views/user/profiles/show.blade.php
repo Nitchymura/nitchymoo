@@ -11,6 +11,7 @@
                 {{-- <a href="{{ route('post.show', $post->id) }}" > --}}
                     {{-- <img src="{{ $post->image }}" alt="" class="grid-img"> --}}
                 {{-- </a> --}}
+                {{ $post->title }}
             </div>
         @empty
             <h4 class="h5 text-center text-secondary">No posts yet.</h4>
