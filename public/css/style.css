@@ -162,11 +162,6 @@ table.text-secondary th {
     width: 200px;
 }
 
-.menu-title{
-    color: #6c757d;
-    font-weight: bold;
-}
-
 .description{
     display: -webkit-box;
     -webkit-box-orient: vertical;
