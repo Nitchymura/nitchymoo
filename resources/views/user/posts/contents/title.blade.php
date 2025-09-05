@@ -1,3 +1,5 @@
+@if(Auth::user()->role_id == 1)
+
 <div class="card-header bg-white py-3">
     <div class="row align-items-center">
         <div class="col-auto">
@@ -65,3 +67,4 @@
         
     </div>
 </div>
+@endif

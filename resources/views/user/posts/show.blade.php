@@ -20,14 +20,10 @@
             position: absolute;
             top:65px;
         }
-        .fa-heart{
-            margin-top: 12px;
-        }
+
         .description{
-
-    overflow: hidden;
-
-}
+            overflow: hidden;
+        }
 
     </style>
 

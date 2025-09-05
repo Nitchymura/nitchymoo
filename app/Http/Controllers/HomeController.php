@@ -40,7 +40,11 @@ public function index(Request $request)
     $sort   = $request->get('sort', 'latest'); // latest | oldest
     $search = $request->get('search');    
 
-    $query = Post::query();
+    $query = Post::query()
+        ->with(['postBodies' => function($q){
+            $q->select('id','post_id','photo','priority')->whereNotNull('photo');
+        }]);
+
 
     // 検索（任意）
     if (filled($search)) {

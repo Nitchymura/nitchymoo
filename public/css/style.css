@@ -95,7 +95,7 @@ table.text-secondary th {
 .like-button.is-show .like-icon,
 .like-button.is-show .like-count { transform: translateY(0); }
 /* もし show だけ1px上げたいなら ↓ を有効化 */
-.like-button.is-show .like-icon { transform: translateY(-5px); }
+.like-button.is-show .like-icon { transform: translateY(0px); }
 
 
 

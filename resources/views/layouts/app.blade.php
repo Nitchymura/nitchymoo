@@ -22,6 +22,8 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <!-- jQuery を最優先で先に読む -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <!-- Vite -->
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
@@ -29,11 +31,11 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
   @stack('head')
-<style>
-  /* 初期は非表示 → slick が .slick-initialized を付けたら表示 */
-  .js-slick { visibility: hidden; }
-  .js-slick.slick-initialized { visibility: visible; }
-</style>
+  <style>
+    /* 初期は非表示 → slick が .slick-initialized を付けたら表示 */
+    .js-slick { visibility: hidden; }
+    .js-slick.slick-initialized { visibility: visible; }
+  </style>
 
 </head>
 <body>
