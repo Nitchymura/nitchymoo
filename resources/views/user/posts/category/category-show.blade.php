@@ -58,6 +58,11 @@
 
 
     <div class="row gx-5">
+      <div class="row">
+          <div class="col-auto me-auto text-secondary mb-3">
+              {{ $all_posts->links('vendor.pagination.compact') }}
+          </div>              
+      </div>
     @forelse($all_posts as $post)
         <div class="col-lg-4 col-md-6 col-sm-12 px-2">
             <div class="card mb-4">
@@ -96,9 +101,9 @@
         <h4 class="h5 text-start text-secondary">No posts in this category.</h4>
     @endforelse
     </div>
-                <div class="d-flex justify-content-end">
-                {{ $all_posts->links() }}
-            </div>
+    <div class="d-flex justify-content-end">
+        {{ $all_posts->links('vendor.pagination.compact') }}
+    </div>
 
 
 @endsection

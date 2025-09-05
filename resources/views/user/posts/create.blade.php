@@ -7,7 +7,7 @@
     <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row mt-5">
-            <h2 class="mt-5 mb-3 text-primary">Create Post</h2>
+            <h2 class="mt-4 mb-3 text-primary">Create Post</h2>
             <div class="col">
                 <p class="mb-2 fw-bold">Category <span class="fw-light">(up to 3)</span></p>
                 <div>
