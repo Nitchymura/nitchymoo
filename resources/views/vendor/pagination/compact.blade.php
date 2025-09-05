@@ -5,7 +5,7 @@
         $current = $paginator->currentPage();
 
         // 数字ボタンの最大表示数（例：8）
-        $maxNumbers = 7;
+        $maxNumbers = 8;
 
         // ウィンドウの開始・終了を決める
         $start = max(1, $current - intdiv($maxNumbers - 1, 2));
