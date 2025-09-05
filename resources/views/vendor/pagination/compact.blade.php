@@ -5,7 +5,7 @@
         $current = $paginator->currentPage();
 
         // 数字ボタンの最大表示数（例：8）
-        $maxNumbers = 8;
+        $maxNumbers = 7;
 
         // ウィンドウの開始・終了を決める
         $start = max(1, $current - intdiv($maxNumbers - 1, 2));
@@ -15,7 +15,7 @@
     @endphp
 
     <nav>
-        <ul class="pagination pagination-sm flex-wrap gap-0 mb-0">
+        <ul class="pagination pagination flex-wrap gap-0 mb-0">
 
             {{-- 最初へ（≪） --}}
             <li class="page-item {{ $current === 1 ? 'disabled' : '' }}">
