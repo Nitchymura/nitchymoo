@@ -1,4 +1,4 @@
-@if(Auth::user()->role_id == 1 || request()->is('post/*'))
+@if(request()->is('post/*'))
 
 <div class="card-header bg-white py-3">
     <div class="row align-items-center">
