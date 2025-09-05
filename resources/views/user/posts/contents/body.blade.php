@@ -60,10 +60,10 @@
     @include('user.posts.contents.modals.comment')
 
     {{-- bodies --}}
-    <div class="d-inline-flex align-items-center gap-1">
+    {{-- <div class="d-inline-flex align-items-center gap-1">
         <i class="fa-solid fa-photo-film text-secondary align-middle"></i>
         <span class="align-middle">{{ $post->postBodies->count() + 1}}</span>
-    </div>
+    </div> --}}
 </div>
 
     
