@@ -55,29 +55,29 @@
         </div>
 
             
-    <button id="scrollTopBtn" title="Go to top" class="col-auto">
+    <button id="scrollTopBtn" title="Go to top" class="col-auto btn btn-primary">
         <i class="fa-solid fa-angles-up"></i>
     </button>
     <script>
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-    // スクロール量を監視
-    window.onscroll = function() { toggleScrollButton() };
+        // スクロール量を監視
+        window.onscroll = function() { toggleScrollButton() };
 
-    function toggleScrollButton() {
-        // 200px 以上スクロールしたら表示
-        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            scrollTopBtn.style.display = "block";
-        } else {
-            scrollTopBtn.style.display = "none";
+        function toggleScrollButton() {
+            // 200px 以上スクロールしたら表示
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
         }
-    }
 
-    // ボタンクリックでトップにスクロール
-    scrollTopBtn.addEventListener("click", function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-</script>
+        // ボタンクリックでトップにスクロール
+        scrollTopBtn.addEventListener("click", function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 
     </div>
 
