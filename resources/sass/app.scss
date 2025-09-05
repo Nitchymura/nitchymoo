@@ -37,11 +37,12 @@ $danger: #fc5656;
 
   .navbar-brand,
   .nav-link {
-    color: #353535 !important;
+    color: #777777 !important;
     font-weight: bold;
 
     &:hover {
-      color: lighten($primary, 20%) !important;
+      // color: lighten($primary, 20%) !important;
+      color: $primary !important;
     }
   }
 }
