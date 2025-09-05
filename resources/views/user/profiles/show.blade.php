@@ -9,7 +9,7 @@
         @forelse($user->posts->sortByDesc('term_start') as $post)
             <div class="col-lg-4 col-md-6 mb-4">
                 {{-- <a href="{{ route('post.show', $post->id) }}" > --}}
-                    <img src="{{ $post->image }}" alt="" class="grid-img">
+                    <img src="{{ $post->image }}" alt="" class="image-xl">
                 {{-- </a> --}}
                 {{-- {{ $post->title }} --}}
             </div>
