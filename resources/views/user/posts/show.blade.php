@@ -71,18 +71,16 @@
                 </a>
             @endif
         </div>
-
-
     </div>
 
 
-
+<!-- Photo -->
     <div class="row border shadow "> 
         <div class="col-12 col-md-8 p-0 border-end">
             <div class="post-slider js-slick" id="postSlider-{{ $post->id }}">
-            <div class="post-photo-container">
-                <img src="{{ $post->image }}" class="post-photo" alt="">
-            </div>
+                <div class="post-photo-container">
+                    <img src="{{ $post->image }}" class="post-photo" alt="">
+                </div>
             @foreach ($bodies as $body)
                 @if (!empty($body->photo))
                 <div class="post-photo-container">
@@ -91,10 +89,9 @@
                 @endif
             @endforeach
             </div>
-
         </div>    
             
-
+        <!-- side -->
         <div class="col-12 col-md-4 px-0 bg-white side">
             <div class="card border-0">
                 @include('user.posts.contents.title')
