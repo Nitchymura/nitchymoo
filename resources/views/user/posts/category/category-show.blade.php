@@ -59,7 +59,7 @@
 
     <div class="row gx-5">
       <div class="row">
-          <div class="col-auto me-auto text-secondary mb-3">
+          <div class="col-auto ms-auto text-secondary mb-3">
               {{ $all_posts->links('vendor.pagination.compact') }}
           </div>              
       </div>
