@@ -38,20 +38,21 @@
 </head>
 <body>
   <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
+    <nav class="navbar navbar-custom navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
       <div class="container">
+        <!-- Left Logo -->
         <a class="navbar-brand" href="{{ route('home') }}">
           <img src="{{ asset('images/NITCHYMOO.png') }}" alt="" class="nishimoo">
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- Left -->
+          <!-- Center search box -->
           <ul class="navbar-nav ms-auto d-flex align-items-center h-100">
             @auth
               @if(!request()->is('admin/*'))
@@ -74,21 +75,21 @@
             @else
               <li class="nav-item">
                 <a href="{{ route('home') }}" class="nav-link d-flex align-items-center">
-                  <i class="fa-solid fa-house text-primary icon-sm"></i>&nbsp;HOME
+                  <i class="fa-solid fa-house text-primary icon-sm"></i><span class="menu-title">&nbsp;HOME</span>
                 </a>
               </li>
 
               @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
               <li class="nav-item">
                 <a href="{{ route('post.create') }}" class="nav-link d-flex align-items-center">
-                  <i class="fa-solid fa-circle-plus text-primary icon-sm"></i>&nbsp;ADD
+                  <i class="fa-solid fa-circle-plus text-primary icon-sm"></i><span class="menu-title">&nbsp;ADD</span>
                 </a>
               </li>
               @endif
 
               <li class="nav-item">
                 <a href="{{ route('faqs') }}" class="nav-link d-flex align-items-center">
-                  <i class="fa-solid fa-circle-question text-primary icon-sm"></i>&nbsp;FAQ
+                  <i class="fa-solid fa-circle-question text-primary icon-sm"></i><span class="menu-title">&nbsp;FAQ</span>
                 </a>
               </li>
 

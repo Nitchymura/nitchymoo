@@ -32,7 +32,8 @@ $danger: #fc5656;
 
 // ナビバー
 .navbar-custom {
-  background-color: $secondary !important;
+  background-color: #f8f3dd !important;
+  position: fixed-top;
 
   .navbar-brand,
   .nav-link {

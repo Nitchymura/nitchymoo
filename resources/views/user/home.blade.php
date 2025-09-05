@@ -3,6 +3,8 @@
 @section('title', 'Home')
 
 @section('content')
+    <div class="row" style="height: 5px">
+    </div> 
     <div class="row mt-5">        
             @if($search)
                 <h3 class="h4 text-muted mb-4">Search results for '<span class="fw-bold">{{ $search }}</span>'</h3>
