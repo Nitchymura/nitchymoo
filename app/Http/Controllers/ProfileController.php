@@ -8,24 +8,28 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Comment;
 use App\Models\Faq;
+use App\Models\Post;
 
 class ProfileController extends Controller
 {
     private $user;
     private $comment;
     private $faq;
+    private $post;
 
-    public function __construct(User $user, Comment $comment, Faq $faq){
+    public function __construct(User $user, Comment $comment, Faq $faq, Post $post){
         $this->user = $user;
         $this->comment = $comment;
         $this->faq = $faq;
+        $this->post = $post;
     }
 
     public function show($id){
         $user_a = $this->user->findOrFail($id);
         $all_comments = $this->comment->where('user_id', $user_a->id)->latest()->take(5)->get();
+        $all_posts = $this->post->where('user_id', $user_a->id)->latest()->get();
         $suggested_users = $this->getSuggestedUsers();
-        return view('user.profiles.show')->with('user', $user_a)->with('all_comments',$all_comments)->with('suggested_users', $suggested_users);
+        return view('user.profiles.show')->with('user', $user_a)->with('all_comments',$all_comments)->with('suggested_users', $suggested_users)->with('all_posts', $all_posts);
     }
 
     public function edit(){
