@@ -13,7 +13,10 @@
 // resources/sass/app.scss
 
 // Bootstrap 変数の上書き（任意）
-$primary: #ff6600;
+$primary: #f38338;
+$info: #6ea9da;
+$success: #3bb16c;
+$danger: #fc5656;
 // $secondary: #333;
 // $body-bg: #FDF5E9;
 // $font-family-base: 'Noto Sans JP', sans-serif;
@@ -48,7 +51,8 @@ $primary: #ff6600;
   @extend .btn-primary; // ブランドカラー（$primary）
 
   font-weight: bold;
-  border-radius: 50px; // 丸みを強調
+  color: white;
+  border-radius: 10px; // 丸みを強調
   padding: 0.6rem 1.4rem;
 
   &:hover {

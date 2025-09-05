@@ -10,10 +10,10 @@
       // 今表示中のカテゴリを $category と仮定
       $badgeClass = match($category->id) {
           1 => 'bg-success',
-          2 => 'bg-primary',
+          2 => 'bg-info',
           3 => 'bg-warning',
           4 => 'bg-danger',
-          5 => 'bg-info',
+          5 => 'bg-primary',
           6 => 'bg-secondary',
           default => 'bg-white text-dark border border-dark',
       };

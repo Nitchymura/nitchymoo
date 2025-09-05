@@ -7,7 +7,7 @@
         @csrf
         @method('PATCH')
     <div class="row mt-5">
-        <h3 class="mt-5 text-primary">Edit Post</h3>
+        <h2 class="mt-5 mb-3 text-primary">Edit Post</h2>
         <div class="col">
             <p class="mb-2 fw-bold mt-">Category <span class="fw-light">(up to 3)</span></p>
             <div>
