@@ -25,7 +25,7 @@ class CategoryController extends Controller
         $all_posts = $category_a->posts()
         ->latest('posts.term_start')   // 並び順（任意）
         ->with(['user','postBodies'])      // 必要ならEager Load
-        ->paginate(9);
+        ->paginate(6);
 
         return view('user.posts.category.category-show')->with('all_categories', $all_categories)->with('all_posts', $all_posts)->with('category', $category_a);                                   
     }

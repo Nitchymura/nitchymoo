@@ -63,7 +63,7 @@ public function index(Request $request)
     }
 
     // ページネーション（クエリ保持）
-    $home_posts = $query->paginate(9)->appends($request->query());
+    $home_posts = $query->paginate(6)->appends($request->query());
     $user_intro = $this->user->where('id', 1)->value('introduction');
 
     return view('user.home', [
