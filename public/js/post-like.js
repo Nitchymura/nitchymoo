@@ -40,6 +40,14 @@ document.addEventListener('click', async function (event) {
   document.querySelectorAll(`.like-button[data-id="${postId}"]`)
     .forEach(btn => btn.setAttribute('data-liked', !wasLiked ? '1' : '0'));
 
+    // ★ ここでクリック直後にアニメーション付与
+  const icon = button.querySelector('.fa-heart');
+  if (icon) {
+    icon.classList.remove('heart-animate'); // 連続クリック対策で一度外す
+    void icon.offsetWidth;                  // 再描画トリガー
+    icon.classList.add('heart-animate');    // アニメーション発火
+  }
+
   try {
     const res = await fetch(toggleUrl, {
       method: 'POST',

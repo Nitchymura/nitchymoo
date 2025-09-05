@@ -97,6 +97,17 @@ table.text-secondary th {
 /* もし show だけ1px上げたいなら ↓ を有効化 */
 .like-button.is-show .like-icon { transform: translateY(0px); }
 
+/* 拡大アニメーション */
+@keyframes heart-bounce {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.4); }  /* 一瞬大きく */
+  100% { transform: scale(1); }
+}
+
+/* アニメーション用クラス */
+.heart-animate {
+  animation: heart-bounce 0.3s ease;
+}
 
 
 
