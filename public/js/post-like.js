@@ -3,9 +3,6 @@ document.addEventListener('click', async function (event) {
   const button = event.target.closest('.like-button');
   if (!button) return;
 
-  // デバッグ：ここが出なければJSが読まれていません
-  // console.log('like-button clicked');
-
   const postId    = button.getAttribute('data-id');
   const toggleUrl = button.getAttribute('data-url') || `/posts/${postId}/toggle-like`;
   const csrfMeta  = document.querySelector('meta[name="csrf-token"]');
@@ -22,9 +19,22 @@ document.addEventListener('click', async function (event) {
     document.querySelectorAll(`.like-button[data-id="${postId}"] .like-icon`)
       .forEach(c => { c.innerHTML = iconHtml(liked); });
   };
+
   const updateAllCounts = (count) => {
     document.querySelectorAll(`.like-count[data-id="${postId}"]`)
       .forEach(el => { el.textContent = count; });
+  };
+
+  // ★ 追加：ドクンドクンを発火
+  const pulse = (btn) => {
+    const box = btn.querySelector('.like-icon');
+    if (!box) return;
+    box.classList.remove('heart-animate'); // 連続クリック対策
+    void box.offsetWidth;                  // 再描画トリガ
+    box.classList.add('heart-animate');
+    box.addEventListener('animationend', () => {
+      box.classList.remove('heart-animate');
+    }, { once: true });
   };
 
   const currentCountEl = document.querySelector(`.like-count[data-id="${postId}"]`);
@@ -35,18 +45,14 @@ document.addEventListener('click', async function (event) {
   button.dataset.busy = '1';
 
   // 楽観的UI
-  updateAllIcons(!wasLiked);
+  const willBeLiked = !wasLiked;
+  updateAllIcons(willBeLiked);
   updateAllCounts(optimistic);
   document.querySelectorAll(`.like-button[data-id="${postId}"]`)
-    .forEach(btn => btn.setAttribute('data-liked', !wasLiked ? '1' : '0'));
+    .forEach(btn => btn.setAttribute('data-liked', willBeLiked ? '1' : '0'));
 
-    // ★ ここでクリック直後にアニメーション付与
-  const icon = button.querySelector('.fa-heart');
-  if (icon) {
-    icon.classList.remove('heart-animate'); // 連続クリック対策で一度外す
-    void icon.offsetWidth;                  // 再描画トリガー
-    icon.classList.add('heart-animate');    // アニメーション発火
-  }
+  // ★ ここで「Like になったときだけ」鼓動アニメを発火
+  if (willBeLiked) pulse(button);
 
   try {
     const res = await fetch(toggleUrl, {
@@ -71,11 +77,14 @@ document.addEventListener('click', async function (event) {
       return;
     }
 
-    const data = await res.json(); // { liked, like_count } を想定
+    const data = await res.json(); // { liked, like_count }
     if (typeof data.liked !== 'undefined') {
       updateAllIcons(!!data.liked);
       document.querySelectorAll(`.like-button[data-id="${postId}"]`)
         .forEach(btn => btn.setAttribute('data-liked', data.liked ? '1' : '0'));
+
+      // サーバー確定でも、Like になっているなら念のため1回だけ鼓動（任意）
+      // if (data.liked) pulse(button);
     }
     if (typeof data.like_count !== 'undefined') {
       updateAllCounts(parseInt(data.like_count, 10));

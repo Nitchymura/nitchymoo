@@ -97,17 +97,34 @@ table.text-secondary th {
 /* もし show だけ1px上げたいなら ↓ を有効化 */
 .like-button.is-show .like-icon { transform: translateY(0px); }
 
-/* 拡大アニメーション */
-@keyframes heart-bounce {
+/* ドクンドクン（2回鼓動） */
+@keyframes heart-beat {
   0%   { transform: scale(1); }
-  50%  { transform: scale(1.4); }  /* 一瞬大きく */
+  25%  { transform: scale(1.4); } /* 1回目 大きく */
+  40%  { transform: scale(1); }
+  60%  { transform: scale(1.25); }/* 2回目 少し大きく */
   100% { transform: scale(1); }
 }
 
-/* アニメーション用クラス */
-.heart-animate {
-  animation: heart-bounce 0.3s ease;
+/* アニメを当てるのは like-icon ラッパーに */
+.like-button .like-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+  will-change: transform;
+  line-height: 1;
 }
+
+.heart-animate {
+  animation: heart-beat 0.6s ease; /* お好みで 0.5〜0.8s */
+}
+
+/* アクセシビリティ：動きを減らす設定の人には無効化 */
+@media (prefers-reduced-motion: reduce) {
+  .heart-animate { animation: none !important; }
+}
+
 
 
 
