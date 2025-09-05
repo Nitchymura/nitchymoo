@@ -102,7 +102,7 @@ table.text-secondary th {
   0%   { transform: scale(1); }
   25%  { transform: scale(1.4); } /* 1回目 大きく */
   40%  { transform: scale(1); }
-  60%  { transform: scale(1.25); }/* 2回目 少し大きく */
+  60%  { transform: scale(1.8); }/* 2回目 少し大きく */
   100% { transform: scale(1); }
 }
 
