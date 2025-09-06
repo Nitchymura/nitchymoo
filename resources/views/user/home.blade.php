@@ -27,7 +27,7 @@
 /* ドット = 画像の中の下端に“重ねる”（高さを食わせない） */
 .post-slider .slick-dots{
   position:absolute !important;
-  left:0; right:0; bottom:-18px !important;
+  left:0; right:0; bottom:-20px !important;
   margin:0 !important; padding:0;
 }
 .post-slider .slick-dots li{ margin:0 4px; }
