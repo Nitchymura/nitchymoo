@@ -59,7 +59,7 @@
                 <p class="mt-3 mb-5 h5">{{ $user_intro }}</p>
             @endif
 
-        <hr>
+        <hr class="px-5">
             <div class="col">
             <div class="row">
                 <div class="col-auto mx-auto text-secondary mb-3">
