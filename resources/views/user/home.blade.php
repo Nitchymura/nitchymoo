@@ -32,7 +32,11 @@
 }
 .post-slider .slick-dots li{ margin:0 4px; }
 .post-slider .slick-dots li button:before{ font-size:5px; opacity:.4; }
-.post-slider .slick-dots li.slick-active button:before{ opacity:.9; }
+.post-slider .slick-dots li.slick-active button:before{
+  color: var(--bs-primary) !important;  /* または var(--q-primary) */
+  opacity:.9;
+  font-size: 6px;
+}
 
 /* モバイル高さ */
 /* @media (max-width: 768px){

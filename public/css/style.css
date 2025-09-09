@@ -1,10 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Oswald', sans-serif;
+}
+p, {
+    font-family: 'Raleway', sans-serif;
+}
+.comment-content{
+    font-family: 'Raleway', sans-serif;
+    margin-left: 5px;
+}
+
+
 table.text-secondary td,
 table.text-secondary th {
     color:inherit;
 }
 
-.icon-sm{
-    font-size:2rem;
+.avatar-mini{
+    height:1.5rem;
+    width:1.5rem;
+    object-fit:cover;
 }
 
 .avatar-sm{
@@ -13,15 +37,30 @@ table.text-secondary th {
     object-fit:cover;
 }
 
-.icon-md{
-    font-size:3.5rem;
-}
-
 .avatar-md{
     height:3.5rem;
     width:3.5rem;
     object-fit:cover;
+}
+.avatar-lg{
+    height:9rem;
+    width:9rem;
+    object-fit:cover;
+}
 
+.icon-mini{
+    font-size:1.5rem;
+}
+
+.icon-sm{
+    font-size:2rem;
+}
+
+.icon-md{
+    font-size:3.5rem;
+}
+.icon-lg{
+    font-size:9rem;
 }
 
 .fa-heart,
@@ -29,23 +68,68 @@ table.text-secondary th {
     font-size:1.2rem
 }
 
+/* 並び＆縦中央をボタンで保証 */
+.like-button{
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;     /* アイコンと数字の間隔 */
+}
+
+/* アイコンと数字を同じ高さの箱で揃える */
+.like-button .like-icon,
+.like-button .like-count{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1em;     /* これで縦位置が安定 */
+  line-height: 1;
+}
+
+/* Font Awesome が <i>→<svg> でも効くよう、タグに依存しない */
+.like-button .fa-heart{ line-height: 1; }
+
+/* ページ別の微調整が必要なら（最初は0で様子見して、必要なら-1pxなど） */
+.like-button.is-home .like-icon,
+.like-button.is-home .like-count { transform: translateY(0); }
+
+.like-button.is-show .like-icon,
+.like-button.is-show .like-count { transform: translateY(0); }
+/* もし show だけ1px上げたいなら ↓ を有効化 */
+.like-button.is-show .like-icon { transform: translateY(0px); }
+
+
+
+
+.text-skate{
+    background-color: #0d6efd;
+    color: white;   
+}
+
 .xsmall{
     font-size:0.7rem
 }
 
+.badge.badge-sm {
+  font-size: 0.7rem;     /* ← 小さめ */
+  padding: 0.25em 0.4em; /* ← デフォルトより少し狭く */
+}
+
+.img-sm{
+    height:2rem;
+    width:3rem;
+    object-fit:cover;
+}
 .img-lg{
     height:9rem;
-    width:9rem;
+    width:13rem;
     object-fit:cover;
 }
 .img-md{
-    width: 5rem;
+    height: 5rem;
     width:5rem;
     object-fit:cover;
 }
-.icon-lg{
-    font-size:9rem;
-}
+
 
 .image-lg{
     position: relative;
@@ -96,10 +180,42 @@ table.text-secondary th {
     margin-left: 1rem;
 }
 
-.post-photo{
-    height: 600px;
-    object-fit: cover;
+.post-photo-container {
+  height: 650px;         /* 表示したい高さを固定 */
+  overflow: hidden;      /* はみ出した部分は隠す */
 }
+
+.post-photo {
+  width: 100%;           /* 横幅を基準に合わせる */
+  height: 100%;          /* コンテナの高さにフィット */
+  object-fit: cover;     /* はみ出す部分はトリミング */
+}
+
+.js-slick { visibility: hidden; }
+.js-slick.slick-initialized { visibility: visible; }
+
+
+#scrollTopBtn {
+    display: none; /* 初期は非表示 */
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    /* background-color: #0d6efd;  */
+    color: white;
+    cursor: pointer;
+    padding: 12px 16px;
+    border-radius: 50%;
+    font-size: 20px;
+    transition: opacity 0.3s;
+}
+
+#scrollTopBtn:hover {
+    background-color: #0b5ed7;
+}
+
 
 @media screen and (max-width: 1200px) {
     .post-photo{
@@ -123,18 +239,46 @@ table.text-secondary th {
     .delete-photo-btn {
     position: absolute;
     bottom: 5px;
-    right: 140px;
+    left: -5px;
     padding: 5px;
     z-index: 10; /* ボタンが他の要素の背後に隠れないように */
     }
     .post-body{
         box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
-    .post-photo{
-        height: 260px;
-        object-fit: cover;
-    }
+  .post-photo-container {
+    height: 295px;   /* スマホ用に小さく */
+    overflow: hidden;
+  }
+
+  .post-photo {
+    width: 100%;      /* 横幅優先 */
+    height: 100%;
+    object-fit: cover;
+  }
     .nav-link {
-        margin: 0 50px 0 50px;
+        margin: 0 10px 0 10px;
+    }
+    .description{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
 }
+.top-badge {
+    font-size: 10px; /* デフォルトの小さい画面用 */
+}
+
+@media (min-width: 768px) {
+    .top-badge {
+        font-size: 16px; /* md以上の画面で大きく */
+    }
+}
+
+@media (min-width: 1200px) {
+    .top-badge {
+        font-size: 18px; /* lg以上の画面でさらに大きく */
+    }
 }
