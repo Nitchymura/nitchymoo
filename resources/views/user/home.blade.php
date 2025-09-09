@@ -5,7 +5,47 @@
 @push('head')
 <link rel="stylesheet" href="{{ asset('slick/slick.css') }}">
 <link rel="stylesheet" href="{{ asset('slick/slick-theme.css') }}">
+<style>
+/* 画像ブロック周り：上下マージンを完全ゼロに */
+.post-media{ margin:0; padding:0; }
+.post-card-link{ display:block; margin:0; padding:0; line-height:0; font-size:0; } /* ベースライン隙間を殺す */
+
+/* スライダー本体：常に余白ゼロ、ドット重ね用の土台 */
+.post-slider{ position:relative; margin:0 !important; padding:0 !important; }
+.post-slider.slick-slider,
+.post-slider.slick-dotted.slick-slider{ margin-top:0 !important; margin-bottom:0 !important; }
+
+/* 画像エリア（カード用固定高さ） */
+.post-photo-container.--card{ height:250px; overflow:hidden; position:relative; margin:0 !important; }
+.post-photo{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+
+/* Slick 内部もゼロに寄せる */
+.post-slider .slick-list,
+.post-slider .slick-track,
+.post-slider .slick-slide{ margin:0 !important; padding:0 !important; }
+
+/* ドット = 画像の中の下端に“重ねる”（高さを食わせない） */
+.post-slider .slick-dots{
+  position:absolute !important;
+  left:0; right:0; bottom:-18px !important;
+  margin:0 !important; padding:0;
+}
+.post-slider .slick-dots li{ margin:0 4px; }
+.post-slider .slick-dots li button:before{ font-size:5px; opacity:.4; }
+.post-slider .slick-dots li.slick-active button:before{ opacity:.9; }
+
+/* モバイル高さ */
+/* @media (max-width: 768px){
+  .post-photo-container.--card{ height:200px; }
+} */
+
+/* FOUC対策 */
+.js-slick{ visibility:hidden; }
+.js-slick.slick-initialized{ visibility:visible; }
+</style>
 @endpush
+
+
 
 @section('content')
     <div class="row" style="height: 5px">
@@ -22,8 +62,8 @@
 
         <div class="col">
             <div class="row">
-                <div class="col-auto ms-auto text-secondary mb-3">
-                    {{ $all_posts->links('vendor.pagination.compact') }}
+                <div class="col-auto me-auto text-secondary">
+                    {{ $all_posts->links() }}
                 </div>              
             </div>
             <div class="row">
@@ -70,9 +110,9 @@
                     @endif
                 @endforelse
             </div>
-            <div class="d-flex justify-content-end">
-                {{ $all_posts->links('vendor.pagination.compact') }}
-            </div>         
+            <div class="d-flex me-auto">
+                {{ $all_posts->links() }}
+            </div>
         </div>
 
             
