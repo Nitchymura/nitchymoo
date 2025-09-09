@@ -27,17 +27,16 @@
 /* ドット = 画像の中の下端に“重ねる”（高さを食わせない） */
 .post-slider .slick-dots{
   position:absolute !important;
-  left:0; right:0; bottom:-18px !important;
+  left:0; right:0; bottom:-22px !important;
   margin:0 !important; padding:0;
 }
 .post-slider .slick-dots li{ margin:0 4px; }
 .post-slider .slick-dots li button:before{ font-size:5px; opacity:.4; }
-.post-slider .slick-dots li.slick-active button:before{ opacity:.9; }
-
-/* モバイル高さ */
-/* @media (max-width: 768px){
-  .post-photo-container.--card{ height:200px; }
-} */
+.post-slider .slick-dots li.slick-active button:before{
+  color: var(--bs-primary) !important;  /* または var(--q-primary) */
+  opacity:.9;
+  font-size: 6px;
+}
 
 /* FOUC対策 */
 .js-slick{ visibility:hidden; }
@@ -62,8 +61,8 @@
 
         <div class="col">
             <div class="row">
-                <div class="col-auto me-auto text-secondary">
-                    {{ $all_posts->links() }}
+                <div class="col-auto ms-auto text-secondary mb-3">
+                    {{ $all_posts->links('vendor.pagination.compact') }}
                 </div>              
             </div>
             <div class="row">
@@ -110,8 +109,8 @@
                     @endif
                 @endforelse
             </div>
-            <div class="d-flex me-auto">
-                {{ $all_posts->links() }}
+            <div class="d-flex justify-content-end">
+                {{ $all_posts->links('vendor.pagination.compact') }}
             </div>
         </div>
 
