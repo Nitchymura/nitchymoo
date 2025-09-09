@@ -50,17 +50,22 @@
    
     <div class="row" style="height: 5px">
     </div>  
-    <div class="row mt-5">        
+    <div class="row mt-5">  
+        <div class="col-12">
             @if($search)
                 <h3 class="h4 text-muted mb-4">Search results for '<span class="fw-bold">{{ $search }}</span>'</h3>
             @else
                 <video autoplay muted loop playsinline class="header_video px-0 w-100">
                     <source src="{{ asset('videos/intro.mp4') }}" type="video/mp4">
                 </video>
-                <p class="mt-3 mb-5 h5">{{ $user_intro }}</p>
+                <p class="mt-3 mb-3 h5">{{ $user_intro }}</p>
             @endif
-
-        <hr class="w-75 mx-auto">
+        </div>      
+          
+        <div class="col">
+            <hr class="mx-2 mb-4">
+        </div>
+        
         <div class="col">
             <div class="row">
                 <div class="col-auto mx-auto text-secondary mb-3">
