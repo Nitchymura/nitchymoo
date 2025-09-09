@@ -58,13 +58,13 @@
                 <video autoplay muted loop playsinline class="header_video px-0 w-100">
                     <source src="{{ asset('videos/intro.mp4') }}" type="video/mp4">
                 </video>
-                <p class="mt-3 mb-5 h5">{{ $user_intro }}</p>
+                <p class="mt-3 mb-3 h5">{{ $user_intro }}</p>
             @endif
         </div>      
           
-        <div class="col justify-content-center text-center mb-4">
-            @for($i=1; $i<=6; $i++)
-                <i class="fa-solid fa-plane text-primary mx-2 icon-plane"></i>
+        <div class="col justify-content-center text-center mb-3">
+            @for($i=1; $i<=7; $i++)
+                <i class="fa-solid fa-star-of-life text-primary mx-2 icon-plane"></i>
             @endfor
             {{-- <img src="{{ asset('images/beer.png') }}" alt="" class="icons">
             <img src="{{ asset('images/skate.png') }}" alt="" class="icons-sm">
