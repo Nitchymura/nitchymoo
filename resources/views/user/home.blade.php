@@ -64,7 +64,7 @@
           
         <div class="col justify-content-center text-center mb-3">
             @for($i=1; $i<=7; $i++)
-                <i class="fa-solid fa-star-of-life text-primary mx-2 icon-plane"></i>
+                <i class="fa-solid fa-car-side text-primary mx-2 icon-plane"></i>
             @endfor
             {{-- <img src="{{ asset('images/beer.png') }}" alt="" class="icons">
             <img src="{{ asset('images/skate.png') }}" alt="" class="icons-sm">
