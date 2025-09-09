@@ -256,9 +256,9 @@ table.text-secondary th {
   z-index:1;
 }
 
-.description-wrapper.has-readmore .read-more{
-  display:inline-block !important;
-}
+.read-more { display: none; }
+.description-wrapper.has-readmore .read-more { display: inline-block !important; }
+
 
 /* さらに保険：極小幅では読みやすいようフェード最小化 */
 @media (max-width: 420px){

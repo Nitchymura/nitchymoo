@@ -142,26 +142,14 @@
 @else 
     <p>---</p>
 @endif
-@php
-    $isShow = request()->routeIs('post.show');
-    $hasJa  = filled($post->translation ?? null);
-    $linkDescription = $linkDescription ?? !$isShow;  // 既存の方針を継承
-@endphp
 
-{{-- 本文（初期表示は英語 description） --}}
-@if($linkDescription)
-  <div class="description-wrapper" data-bg="#fff">
-    <p id="post-text-{{ $post->id }}" class="fw-light description m-0">
-      {{ $post->description }}
-    </p>
-    <a href="{{ route('post.show', $post->id) }}"
-       class="read-more d-none"
-       aria-label="Read full post">read more</a>
-  </div>
-@else
-  <p id="post-text-{{ $post->id }}" class="fw-light description m-0">
-    {{ $post->description }}
-  </p>
+@php $isShow = request()->routeIs('post.show'); 
+  $hasJa = filled($post->translation ?? null); 
+  $linkDescription = $linkDescription ?? !$isShow; // 既存の方針を継承 
+@endphp 
+{{-- 本文（初期表示は英語 description） --}} 
+@if($linkDescription) 
+  <a href="{{ route('post.show', $post->id) }}" class="text-decoration-none text-dark"> <p id="post-text-{{ $post->id }}" class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}"> {{ $post->description }} </p> </a> @else <p id="post-text-{{ $post->id }}" class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}"> {{ $post->description }} </p> 
 @endif
 
 
