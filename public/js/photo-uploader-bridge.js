@@ -1,5 +1,3 @@
-//photo-uploader-bridge.js
-
 // public/js/photos-uploader-bridge.js
 document.addEventListener("DOMContentLoaded", () => {
   const bulk = document.getElementById("photos-uploader");
@@ -61,4 +59,5 @@ document.addEventListener("DOMContentLoaded", () => {
     input.files = dt.files;
   }
 });
+
 //# sourceMappingURL=photo-uploader-bridge.js.map
