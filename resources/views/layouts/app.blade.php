@@ -151,5 +151,6 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="{{ asset('js/post-like.js') }}?v=14"></script>
 <script src="{{ asset('js/follow.js') }}?v=2"></script>
+<script src="{{ asset('js/read-more.js') }}?v=3"></script>
 </body>
 </html>

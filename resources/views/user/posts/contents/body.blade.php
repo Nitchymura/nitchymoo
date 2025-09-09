@@ -150,16 +150,20 @@
 
 {{-- 本文（初期表示は英語 description） --}}
 @if($linkDescription)
-  <a href="{{ route('post.show', $post->id) }}" class="text-decoration-none text-dark">
-    <p id="post-text-{{ $post->id }}" class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}">
+  <div class="description-wrapper" data-bg="#fff">
+    <p id="post-text-{{ $post->id }}" class="fw-light description m-0">
       {{ $post->description }}
     </p>
-  </a>
+    <a href="{{ route('post.show', $post->id) }}"
+       class="read-more d-none"
+       aria-label="Read full post">read more</a>
+  </div>
 @else
-  <p id="post-text-{{ $post->id }}" class="fw-light {{ ($noClamp ?? false) ? '' : 'description' }}">
+  <p id="post-text-{{ $post->id }}" class="fw-light description m-0">
     {{ $post->description }}
   </p>
 @endif
+
 
 {{-- Japanese/English トグル（showページ かつ translation がある時のみ） --}}
 @if($isShow && $hasJa)
@@ -203,7 +207,10 @@
       });
     });
   });
-  </script>
+
+
+</script>
+
 @endif
 
 {{-- @if($showTranslate)

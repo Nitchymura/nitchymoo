@@ -189,13 +189,64 @@ table.text-secondary th {
     width: 200px;
 }
 
-.description{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
+/* ベース: 3行でクランプ */
+.description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.6;           /* 行高（JSもこれに合わせます） */
 }
+
+/* ラッパーとCSS変数の初期値 */
+.description-wrapper {
+  position: relative;
+  --desc-bg: #fff;            /* 背景色（JSで上書き可） */
+  --line-h: 1.6em;            /* 行高（上の line-height と一致させる） */
+  --readmore-gap: 0.4rem;     /* テキストとボタンの間 */
+  --fade-width: 7ch;          /* フェードを始める“幅”＝3行目の右端からこのぶん左へ */
+  --readmore-width: 5.5ch;    /* 仮のボタン幅（JSで実測値に置換） */
+}
+
+/* 3行超のとき付与されるクラス */
+.description-wrapper.has-readmore {
+  /* 下に1行ぶんの余白（ボタンとフェード用） */
+  padding-bottom: var(--line-h);
+  /* 右側にボタン幅＋隙間ぶんの余白（テキストとボタンの重なり回避） */
+  padding-right: calc(var(--readmore-width) + var(--readmore-gap));
+}
+
+/* 3行目の“右端手前”からフェード開始（＝右側にかけて白く） */
+.description-wrapper.has-readmore::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  /* フェードはボタンの左端から開始する */
+  right: calc(var(--readmore-width) + var(--readmore-gap));
+  width: var(--fade-width);
+  height: var(--line-h);
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0), var(--desc-bg));
+}
+
+/* read more ボタン（右下固定） */
+.read-more {
+  position: absolute;
+  right: 0;
+  bottom: 0.1em;
+  font-size: .85rem;
+  text-decoration: none;
+  white-space: nowrap;
+  background: var(--desc-bg);    /* 背景色で下を隠す */
+  padding-left: .25rem;
+}
+
+/* “3行超え”のときだけ表示（JSで .has-readmore を付ける） */
+.description-wrapper.has-readmore .read-more {
+  display: inline-block !important;
+}
+
 
 .body-container .description{
 
