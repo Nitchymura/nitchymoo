@@ -102,7 +102,7 @@ table.text-secondary th {
   0%   { transform: scale(1); }
   25%  { transform: scale(1.4); } /* 1回目 大きく */
   40%  { transform: scale(1); }
-  60%  { transform: scale(1.25); }/* 2回目 少し大きく */
+  60%  { transform: scale(1.6); }/* 2回目 少し大きく */
   100% { transform: scale(1); }
 }
 
@@ -121,9 +121,9 @@ table.text-secondary th {
 }
 
 /* アクセシビリティ：動きを減らす設定の人には無効化 */
-@media (prefers-reduced-motion: reduce) {
+/* @media (prefers-reduced-motion: reduce) {
   .heart-animate { animation: none !important; }
-}
+} */
 
 
 
