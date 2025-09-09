@@ -66,7 +66,7 @@
 
         <div class="col">
             <div class="row">
-                <div class="col-auto ms-auto text-secondary">
+                <div class="col-auto ms-auto text-secondary mb-3">
                     {{ $all_posts->links('vendor.pagination.compact') }}
                 </div>              
             </div>
