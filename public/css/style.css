@@ -189,7 +189,7 @@ table.text-secondary th {
     width: 200px;
 }
 
-/* 変更なし：3行クランプ */
+/* 3行クランプ */
 .description {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -199,57 +199,58 @@ table.text-secondary th {
   line-height: 1.6; /* JSの --line-h と一致 */
 }
 
-/* ラッパーに“基準レイヤー”を作る */
-.description-wrapper {
+.description-wrapper{
   position: relative;
-  z-index: 0;                 /* ★ 追加：基準レイヤー */
+  z-index: 0;
   --desc-bg: #fff;
-  --line-h: 1.6em;
-  --readmore-gap: 0.4rem;
-  --fade-width: 7ch;
-  --readmore-width: 5.5ch;    /* JSで実測に置換 */
+  --line-h: 1.6em;        /* .description の line-height と一致 */
+  --readmore-gap: 0.35rem;
+  --readmore-width: 48px; /* JSで実測上書き */
+  --fade-width: 48px;     /* ★ 初期は小さめ。JSで上書き */
+  overflow: hidden;       /* 横スクロール抑止 */
+  box-sizing: border-box;
 }
 
-/* 3行超えた時だけ余白＆フェード */
-.description-wrapper.has-readmore {
+.description-wrapper.has-readmore{
   padding-right: calc(var(--readmore-width) + var(--readmore-gap));
 }
 
-/* フェードは“下のレイヤー”へ */
-.description-wrapper.has-readmore::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
+.description-wrapper.has-readmore::after{
+  content:"";
+  position:absolute;
+  bottom:0;
   right: calc(var(--readmore-width) + var(--readmore-gap));
-  width: var(--fade-width);
+  width: var(--fade-width);            /* ★ 可変 */
   height: var(--line-h);
-  pointer-events: none;
+  pointer-events:none;
   background: linear-gradient(90deg, rgba(255,255,255,0), var(--desc-bg));
-  z-index: 0;                 /* ★ 追加：最背面（リンクより下） */
+  z-index:0;
 }
 
-/* read more は“最前面”へ */
-.read-more {
-  position: absolute;
-  right: 0;
-  bottom: 0.1em;
-  font-size: .85rem;
-  text-decoration: none;
-  white-space: nowrap;
-  background: var(--desc-bg); /* 下の文字を隠す */
-  padding-left: .55rem;
-  z-index: 1;                 /* ★ 追加：前面 */
+.read-more{
+  position:absolute;
+  right:0;
+  bottom:.1em;
+  font-size:.85rem;
+  white-space:nowrap;
+  background: var(--desc-bg);
+  padding-left:.25rem;
+  z-index:1;
 }
+
+.description-wrapper.has-readmore .read-more{
+  display:inline-block !important;
+}
+
+/* さらに保険：極小幅では読みやすいようフェード最小化 */
+@media (max-width: 420px){
+  .description-wrapper{ --readmore-gap: .25rem; }
+}
+
 
 .read-more:hover {
   text-decoration: underline;
 }
-
-/* 3行超え時のみ表示（JSが .has-readmore を付ける） */
-.description-wrapper.has-readmore .read-more {
-  display: inline-block !important;
-}
-
 
 
 .body-container .description{
