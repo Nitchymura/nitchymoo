@@ -47,8 +47,9 @@
 
 
 @section('content')
+   
     <div class="row" style="height: 5px">
-    </div> 
+    </div>  
     <div class="row mt-5">        
             @if($search)
                 <h3 class="h4 text-muted mb-4">Search results for '<span class="fw-bold">{{ $search }}</span>'</h3>
@@ -59,8 +60,8 @@
                 <p class="mt-3 mb-5 h5">{{ $user_intro }}</p>
             @endif
 
-        <hr class="px-5">
-            <div class="col">
+        <hr class="w-75 mx-auto">
+        <div class="col">
             <div class="row">
                 <div class="col-auto mx-auto text-secondary mb-3">
                     {{ $all_posts->links('vendor.pagination.compact') }}
