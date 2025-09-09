@@ -27,7 +27,7 @@
 /* ドット = 画像の中の下端に“重ねる”（高さを食わせない） */
 .post-slider .slick-dots{
   position:absolute !important;
-  left:0; right:0; bottom:-18px !important;
+  left:0; right:0; bottom:-22px !important;
   margin:0 !important; padding:0;
 }
 .post-slider .slick-dots li{ margin:0 4px; }
@@ -37,11 +37,6 @@
   opacity:.9;
   font-size: 6px;
 }
-
-/* モバイル高さ */
-/* @media (max-width: 768px){
-  .post-photo-container.--card{ height:200px; }
-} */
 
 /* FOUC対策 */
 .js-slick{ visibility:hidden; }
