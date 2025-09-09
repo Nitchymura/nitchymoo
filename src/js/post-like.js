@@ -1,59 +1,84 @@
-// src/js/post-like.js
-document.addEventListener("DOMContentLoaded", () => {
-  // フォーム単位でロック
-  const busyForms = new WeakSet();
+// public/js/post-like.js
+document.addEventListener('click', async function (event) {
+  const button = event.target.closest('.like-button');
+  if (!button) return;
 
-  document.body.addEventListener("click", async (e) => {
-    const likeBtn = e.target.closest(".post-like-btn");
-    if (!likeBtn) return;
+  // デバッグ：ここが出なければJSが読まれていません
+  // console.log('like-button clicked');
 
-    e.preventDefault();
+  const postId    = button.getAttribute('data-id');
+  const toggleUrl = button.getAttribute('data-url') || `/posts/${postId}/toggle-like`;
+  const csrfMeta  = document.querySelector('meta[name="csrf-token"]');
+  const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
 
-    const form = likeBtn.closest(".like-post-form");
-    if (!form) return;
+  const wasLiked = button.getAttribute('data-liked') === '1';
 
-    // すでに処理中なら無視
-    if (busyForms.has(form)) return;
-    busyForms.add(form);
-    likeBtn.disabled = true;
+  const iconHtml = (liked) =>
+    liked
+      ? '<i class="fa-solid fa-heart text-danger"></i>'
+      : '<i class="fa-regular fa-heart text-dark"></i>';
 
-    const postId    = form.dataset.postId;
-    const url       = form.action;
-    const token     = form.querySelector('input[name="_token"]').value;
-    const icon      = likeBtn.querySelector("i");
-    const countSpan = form.querySelector(".post-like-count"); // ← form内を対象に
+  const updateAllIcons = (liked) => {
+    document.querySelectorAll(`.like-button[data-id="${postId}"] .like-icon`)
+      .forEach(c => { c.innerHTML = iconHtml(liked); });
+  };
+  const updateAllCounts = (count) => {
+    document.querySelectorAll(`.like-count[data-id="${postId}"]`)
+      .forEach(el => { el.textContent = count; });
+  };
 
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-TOKEN": token,
-          "Accept": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        body: JSON.stringify({}),
-        credentials: "same-origin",
-      });
+  const currentCountEl = document.querySelector(`.like-count[data-id="${postId}"]`);
+  const countNow = currentCountEl ? (parseInt(currentCountEl.textContent, 10) || 0) : 0;
+  const optimistic = wasLiked ? Math.max(0, countNow - 1) : countNow + 1;
 
-      if (!res.ok) {
-        console.error("toggle-like失敗:", await res.text());
-        return;
-      }
+  if (button.dataset.busy === '1') return;
+  button.dataset.busy = '1';
 
-      const { liked, like_count } = await res.json();
+  // 楽観的UI
+  updateAllIcons(!wasLiked);
+  updateAllCounts(optimistic);
+  document.querySelectorAll(`.like-button[data-id="${postId}"]`)
+    .forEach(btn => btn.setAttribute('data-liked', !wasLiked ? '1' : '0'));
 
-      icon.classList.remove("fa-regular", "fa-solid", "text-danger");
-      liked ? icon.classList.add("fa-solid", "text-danger")
-            : icon.classList.add("fa-regular");
+  try {
+    const res = await fetch(toggleUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken,
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({}),
+      credentials: 'same-origin',
+    });
 
-      if (countSpan) countSpan.textContent = like_count;
-    } catch (err) {
-      console.error("JSエラー:", err);
-    } finally {
-      // ロック解除
-      busyForms.delete(form);
-      likeBtn.disabled = false;
+    if (!res.ok) {
+      // ロールバック
+      updateAllIcons(wasLiked);
+      updateAllCounts(countNow);
+      document.querySelectorAll(`.like-button[data-id="${postId}"]`)
+        .forEach(btn => btn.setAttribute('data-liked', wasLiked ? '1' : '0'));
+      console.error('Like toggle failed:', await res.text());
+      return;
     }
-  });
+
+    const data = await res.json(); // { liked, like_count } を想定
+    if (typeof data.liked !== 'undefined') {
+      updateAllIcons(!!data.liked);
+      document.querySelectorAll(`.like-button[data-id="${postId}"]`)
+        .forEach(btn => btn.setAttribute('data-liked', data.liked ? '1' : '0'));
+    }
+    if (typeof data.like_count !== 'undefined') {
+      updateAllCounts(parseInt(data.like_count, 10));
+    }
+  } catch (err) {
+    updateAllIcons(wasLiked);
+    updateAllCounts(countNow);
+    document.querySelectorAll(`.like-button[data-id="${postId}"]`)
+      .forEach(btn => btn.setAttribute('data-liked', wasLiked ? '1' : '0'));
+    console.error('AJAX Error:', err);
+  } finally {
+    delete button.dataset.busy;
+  }
 });
