@@ -15,7 +15,7 @@
     @endphp
 
     <nav>
-        <ul class="pagination pagination-sm flex-wrap gap-2 mb-0">
+        <ul class="pagination pagination-sm flex-wrap gap-1 mb-0">
 
             {{-- 最初へ（≪） --}}
             <li class="page-item {{ $current === 1 ? 'disabled' : '' }}">
