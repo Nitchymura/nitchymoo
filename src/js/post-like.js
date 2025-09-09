@@ -1,4 +1,4 @@
-// public/js/post-like.js
+// src/js/post-like.js
 document.addEventListener('click', async function (event) {
   const button = event.target.closest('.like-button');
   if (!button) return;
