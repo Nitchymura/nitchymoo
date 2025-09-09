@@ -1,4 +1,4 @@
-// public/js/photos-uploader-bridge.js
+// src/js/photos-uploader-bridge.js
 document.addEventListener("DOMContentLoaded", () => {
   const bulk = document.getElementById("photos-uploader");
   if (!bulk) return;
