@@ -1,4 +1,4 @@
-// public/js/post-like.js
+// src/js/post-like.js
 document.addEventListener("DOMContentLoaded", () => {
   // フォーム単位でロック
   const busyForms = new WeakSet();
