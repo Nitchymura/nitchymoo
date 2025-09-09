@@ -9,12 +9,9 @@
 @section('content')
 
     <style>
-        /* .col-4.side{
+        .post-body{
             overflow-y: scroll;
-        } */
-        .side{
-            overflow-y: scroll;
-            height: 500px
+            height: 650px
         }
         .card-body{
             position: absolute;
