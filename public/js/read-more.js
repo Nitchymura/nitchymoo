@@ -6,43 +6,57 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = wrapper.querySelector('.read-more');
     if (!p || !btn) return;
 
-    // 背景色（必要なら data-bg で渡す）
+    // 背景色をCSS変数へ
     const bg = wrapper.dataset.bg || getComputedStyle(wrapper).backgroundColor || '#fff';
     wrapper.style.setProperty('--desc-bg', bg);
 
-    // 一旦表示して幅を測る
+    // 行高もCSSから取得して同期（数値のズレ防止）
+    const lh = getComputedStyle(p).lineHeight;
+    if (lh && lh !== 'normal') wrapper.style.setProperty('--line-h', lh);
+
+    // ボタン幅を実測してCSS変数へ（重なり回避）
     const prev = btn.style.display;
     btn.style.display = 'inline-block';
-    const btnWidth = btn.offsetWidth; // px
+    const btnWidth = btn.offsetWidth;
     btn.style.display = prev;
+    wrapper.style.setProperty('--readmore-width', btnWidth + 'px');
 
-    // “3行超え”判定
+    // 折り畳み判定（誤差吸収）
     const clamped = p.scrollHeight - 1 > p.clientHeight;
+
     wrapper.classList.toggle('has-readmore', clamped);
 
     if (clamped) {
-      // ボタン幅+少しの余裕を右側確保
-      wrapper.style.setProperty('--readmore-width', btnWidth + 'px');
-
-      // フェード幅を動的に決定：
-      // - 最小 32px
-      // - ボタン幅と同等以上
-      // - コンテナ幅の 30% を上限
+      // フェード幅を動的に（スマホで広くなりすぎない）
       const containerW = wrapper.clientWidth || 320;
-      const min = 32;
-      const max = Math.max(80, containerW * 0.30);
+      const min = 28;                                   // 最小
+      const max = Math.max(72, Math.floor(containerW * 0.28)); // 上限: 幅の28%
       const fadePx = Math.min(Math.max(btnWidth + 8, min), max);
-      wrapper.style.setProperty('--fade-width', Math.round(fadePx) + 'px');
+      wrapper.style.setProperty('--fade-width', fadePx + 'px');
+    } else {
+      // 不要な余白/フェードを抑制するため初期値に戻す（任意）
+      wrapper.style.removeProperty('--fade-width');
+      wrapper.style.removeProperty('--readmore-width');
     }
   };
 
-  wrappers.forEach(measureAndToggle);
+  const recheckAll = () => wrappers.forEach(measureAndToggle);
 
-  // リサイズ時も再計測
-  let t;
-  window.addEventListener('resize', () => {
-    clearTimeout(t);
-    t = setTimeout(() => wrappers.forEach(measureAndToggle), 150);
-  });
+  // 初回
+  recheckAll();
+
+  // 1) ページ完全読み込み後（画像・スタイル確定後）
+  window.addEventListener('load', recheckAll);
+
+  // 2) Webフォント読み込み後（行折返しが変わる）
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(recheckAll).catch(()=>{});
+  }
+
+  // 3) サイズ変化監視（レスポンシブ・タブ切替等）
+  const ro = new ResizeObserver(() => recheckAll());
+  wrappers.forEach(w => ro.observe(w));
+
+  // 4) 初期安定化のため数回追いリトライ（SPAや遅延要素対策）
+  [250, 800, 1500].forEach(ms => setTimeout(recheckAll, ms));
 });
-
