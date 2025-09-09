@@ -59,9 +59,10 @@
                 <p class="mt-3 mb-5 h5">{{ $user_intro }}</p>
             @endif
 
-        <div class="col">
+        <hr>
+            <div class="col">
             <div class="row">
-                <div class="col-auto ms-auto text-secondary mb-3">
+                <div class="col-auto mx-auto text-secondary mb-3">
                     {{ $all_posts->links('vendor.pagination.compact') }}
                 </div>              
             </div>
@@ -109,7 +110,7 @@
                     @endif
                 @endforelse
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-center">
                 {{ $all_posts->links('vendor.pagination.compact') }}
             </div>
         </div>

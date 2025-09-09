@@ -59,7 +59,7 @@
 
     <div class="row gx-5">
       <div class="row">
-          <div class="col-auto ms-auto text-secondary mb-3">
+          <div class="col-auto mx-auto text-secondary mb-3">
               {{ $all_posts->links('vendor.pagination.compact') }}
           </div>              
       </div>
@@ -101,7 +101,7 @@
         <h4 class="h5 text-start text-secondary">No posts in this category.</h4>
     @endforelse
     </div>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-center">
         {{ $all_posts->links('vendor.pagination.compact') }}
     </div>
 
