@@ -344,9 +344,9 @@ table.text-secondary th {
     padding: 5px;
     z-index: 10; /* ボタンが他の要素の背後に隠れないように */
     }
-    .post-body{
+    /* .post-body{
         box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    }
+    } */
   .post-photo-container {
     height: 295px;   /* スマホ用に小さく */
     overflow: hidden;

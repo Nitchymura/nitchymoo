@@ -1,68 +1,68 @@
 <div class="row align-items-center mb-2">
-<div class="col-auto d-flex align-items-center gap-3 post-actions">
-    {{-- like/heart button --}}
-    @auth
-      <form action="{{ route('posts.toggleLike', $post->id) }}"
-      method="POST"
-      class="like-post-form m-0"
-      data-post-id="{{ $post->id }}">
-  @csrf
+  <div class="col-auto d-flex align-items-center gap-3 post-actions">
+      {{-- like/heart button --}}
+      @auth
+        <form action="{{ route('posts.toggleLike', $post->id) }}"
+              method="POST"
+              class="like-post-form m-0"
+              data-post-id="{{ $post->id }}">
+          @csrf
 
-  <button type="button"
-          class="btn btn-sm like-button"
-          data-id="{{ $post->id }}"
-          data-liked="{{ Auth::check() && $post->isLiked() ? '1' : '0' }}"
-          data-url="{{ route('posts.toggleLike', $post->id) }}">
-    <span class="like-icon">
-      @if(Auth::check() && $post->isLiked())
-        <i class="fa-solid fa-heart text-danger"></i>
+          <button type="button"
+                  class="btn btn-sm like-button"
+                  data-id="{{ $post->id }}"
+                  data-liked="{{ Auth::check() && $post->isLiked() ? '1' : '0' }}"
+                  data-url="{{ route('posts.toggleLike', $post->id) }}">
+            <span class="like-icon">
+              @if(Auth::check() && $post->isLiked())
+                <i class="fa-solid fa-heart text-danger"></i>
+              @else
+                <i class="fa-regular fa-heart text-dark"></i>
+              @endif
+            </span>
+            <span class="like-count" data-id="{{ $post->id }}">
+              {{ $post->likes()->count() }}
+            </span>
+          </button>
+        </form>
+
+
       @else
-        <i class="fa-regular fa-heart text-dark"></i>
-      @endif
-    </span>
-    <span class="like-count" data-id="{{ $post->id }}">
-      {{ $post->likes()->count() }}
-    </span>
-  </button>
-</form>
+      <button type="button" class="btn btn-sm p-0 d-inline-flex align-items-center gap-1"
+              data-bs-toggle="modal" data-bs-target="#heart-icon">
+          <i class="fa-regular fa-heart align-middle"></i>
+          <span class="align-middle">{{ $post->likes->count() }}</span>
+      </button>
+      @include('user.posts.contents.modals.heart-icon')
+      @endauth
 
+      {{-- comments --}}
+      @auth
+      <button type="button" class="btn btn-sm p-0 d-inline-flex align-items-center gap-1"
+              data-bs-toggle="modal" data-bs-target="#commentModal{{ $post->id }}">
+          @if($post->comments->count() >= 1)
+              <i class="fa-solid fa-comment text-info align-middle"></i>
+          @else
+              <i class="fa-regular fa-comment text-dark align-middle"></i>
+          @endif
+          <span class="align-middle">{{ $post->comments->count() }}</span>
+      </button>
+      @else
+      <button class="btn btn-sm p-0 d-inline-flex align-items-center gap-1"
+              data-bs-toggle="modal" data-bs-target="#comment-icon">
+          <i class="fa-regular fa-comment text-dark align-middle"></i>
+          <span class="align-middle">{{ $post->comments->count() }}</span>
+      </button>
+      @include('user.posts.contents.modals.comment-icon')
+      @endauth
+      @include('user.posts.contents.modals.comment')
 
-    @else
-    <button type="button" class="btn btn-sm p-0 d-inline-flex align-items-center gap-1"
-            data-bs-toggle="modal" data-bs-target="#heart-icon">
-        <i class="fa-regular fa-heart align-middle"></i>
-        <span class="align-middle">{{ $post->likes->count() }}</span>
-    </button>
-    @include('user.posts.contents.modals.heart-icon')
-    @endauth
-
-    {{-- comments --}}
-    @auth
-    <button type="button" class="btn btn-sm p-0 d-inline-flex align-items-center gap-1"
-            data-bs-toggle="modal" data-bs-target="#commentModal{{ $post->id }}">
-        @if($post->comments->count() >= 1)
-            <i class="fa-solid fa-comment text-info align-middle"></i>
-        @else
-            <i class="fa-regular fa-comment text-dark align-middle"></i>
-        @endif
-        <span class="align-middle">{{ $post->comments->count() }}</span>
-    </button>
-    @else
-    <button class="btn btn-sm p-0 d-inline-flex align-items-center gap-1"
-            data-bs-toggle="modal" data-bs-target="#comment-icon">
-        <i class="fa-regular fa-comment text-dark align-middle"></i>
-        <span class="align-middle">{{ $post->comments->count() }}</span>
-    </button>
-    @include('user.posts.contents.modals.comment-icon')
-    @endauth
-    @include('user.posts.contents.modals.comment')
-
-    {{-- bodies --}}
-    {{-- <div class="d-inline-flex align-items-center gap-1">
-        <i class="fa-solid fa-photo-film text-secondary align-middle"></i>
-        <span class="align-middle">{{ $post->postBodies->count() + 1}}</span>
-    </div> --}}
-</div>
+      {{-- bodies --}}
+      {{-- <div class="d-inline-flex align-items-center gap-1">
+          <i class="fa-solid fa-photo-film text-secondary align-middle"></i>
+          <span class="align-middle">{{ $post->postBodies->count() + 1}}</span>
+      </div> --}}
+  </div>
 
     
     <div class="col text-end">

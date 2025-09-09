@@ -14,7 +14,7 @@
         } */
         .side{
             overflow-y: scroll;
-            height: 600px
+            height: 500px
         }
         .card-body{
             position: absolute;
