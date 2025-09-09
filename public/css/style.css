@@ -237,7 +237,7 @@ table.text-secondary th {
   text-decoration: none;
   white-space: nowrap;
   background: var(--desc-bg); /* 下の文字を隠す */
-  padding-left: .25rem;
+  padding-left: .55rem;
   z-index: 1;                 /* ★ 追加：前面 */
 }
 
