@@ -66,8 +66,8 @@
 
         <div class="col">
             <div class="row">
-                <div class="col-auto me-auto text-secondary">
-                    {{ $all_posts->links() }}
+                <div class="col-auto ms-auto text-secondary">
+                    {{ $all_posts->links('vendor.pagination.compact') }}
                 </div>              
             </div>
             <div class="row">
@@ -114,8 +114,8 @@
                     @endif
                 @endforelse
             </div>
-            <div class="d-flex me-auto">
-                {{ $all_posts->links() }}
+            <div class="d-flex justify-content-end">
+                {{ $all_posts->links('vendor.pagination.compact') }}
             </div>
         </div>
 
