@@ -58,11 +58,11 @@
 
 
     <div class="row gx-5">
-      <div class="row">
+      {{-- <div class="row">
           <div class="col-auto mx-auto text-secondary mb-3">
               {{ $all_posts->links('vendor.pagination.compact') }}
           </div>              
-      </div>
+      </div> --}}
     @forelse($all_posts as $post)
         <div class="col-lg-4 col-md-6 col-sm-12 px-2">
             <div class="card mb-4">

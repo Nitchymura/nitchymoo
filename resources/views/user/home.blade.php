@@ -62,22 +62,22 @@
             @endif
         </div>      
           
-        <div class="col justify-content-center text-center mb-3">
+        {{-- <div class="col justify-content-center text-center mb-3">
             @for($i=1; $i<=7; $i++)
                 <i class="fa-solid fa-car-side text-primary mx-2 icon-plane"></i>
             @endfor
-            {{-- <img src="{{ asset('images/beer.png') }}" alt="" class="icons">
+            <img src="{{ asset('images/beer.png') }}" alt="" class="icons">
             <img src="{{ asset('images/skate.png') }}" alt="" class="icons-sm">
             <img src="{{ asset('images/plane.png') }}" alt="" class="icons-sm">
-            <img src="{{ asset('images/all.png') }}" alt="" class="icons"> --}}
-        </div>
+            <img src="{{ asset('images/all.png') }}" alt="" class="icons">
+        </div> --}}
         
-        <div class="col">
-            <div class="row">
+        <div class="col mt-5">
+            {{-- <div class="row">
                 <div class="col-auto mx-auto text-secondary mb-3">
                     {{ $all_posts->links('vendor.pagination.compact') }}
                 </div>              
-            </div>
+            </div> --}}
             <div class="row">
                 @forelse($all_posts as $post)
                 <div class="col-lg-4 col-md-6 col-sm-12 px-2">
